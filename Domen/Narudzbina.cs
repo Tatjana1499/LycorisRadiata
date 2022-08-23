@@ -22,6 +22,15 @@ namespace Domen
         public VrstaNarudzbine VrstaNarudzbine { get; set; }
         public string Adresa { get; set; }
         public StatusIsporuke StatusIsporuke { get; set; }
+        public ProdajnoMesto ProdajnoMesto { get; set; }
+        public int ProdajnoMestoId { get; set; }
+        public Kupac Kupac { get; set; }
+        public int KupacId { get; set; }
+        public List<Stavka> Stavke { get; set; }
 
+        public override string ToString()
+        {
+            return $"{VrstaNarudzbine.ToString()} + {Adresa}";
+        }
     }
 }

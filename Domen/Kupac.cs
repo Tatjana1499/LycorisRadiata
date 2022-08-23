@@ -15,5 +15,10 @@ namespace Domen
         public string Email { get; set; }
         public string Lozinka { get; set; }
         public string KorisnickoIme { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Ime} {Prezime}";
+        }
     }
 }

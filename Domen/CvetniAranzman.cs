@@ -27,6 +27,8 @@ namespace Domen
         public Boolean Masna { get; set; }
         public Namena Namena { get; set; }
         public string Napomena { get; set; }
+        public Pakovanje Pakovanje { get; set; }
+        public int PakovanjeId { get; set; }
         public override string ToString()
         {
             return $"{Naziv} {Cena}";
