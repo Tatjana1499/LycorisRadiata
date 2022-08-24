@@ -21,6 +21,8 @@ namespace Domen
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB; Database=LycorisRadiata; Trusted_Connection=True;");
+            optionsBuilder.LogTo(Console.WriteLine);
+            optionsBuilder.EnableSensitiveDataLogging(true);
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

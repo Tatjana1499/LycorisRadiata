@@ -63,3 +63,5 @@ C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\ConsoleApp2\bin\Debug\net5
 C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\ConsoleApp2\bin\Debug\net5.0\Domen.dll
 C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\ConsoleApp2\bin\Debug\net5.0\Domen.pdb
 C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\ConsoleApp2\obj\Debug\net5.0\ConsoleApp2.csproj.CopyComplete
+C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\ConsoleApp2\bin\Debug\net5.0\SlojPristupaPodacima.dll
+C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\ConsoleApp2\bin\Debug\net5.0\SlojPristupaPodacima.pdb

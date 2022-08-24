@@ -8,8 +8,4 @@
     <ProjectReference Include="..\Domen\Domen.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Implementacije\" />
-  </ItemGroup>
-
 </Project>

@@ -1,0 +1,15 @@
+C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\SlojPristupaPodacima\bin\Debug\net5.0\SlojPristupaPodacima.deps.json
+C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\SlojPristupaPodacima\bin\Debug\net5.0\SlojPristupaPodacima.dll
+C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\SlojPristupaPodacima\bin\Debug\net5.0\ref\SlojPristupaPodacima.dll
+C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\SlojPristupaPodacima\bin\Debug\net5.0\SlojPristupaPodacima.pdb
+C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\SlojPristupaPodacima\bin\Debug\net5.0\Domen.dll
+C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\SlojPristupaPodacima\bin\Debug\net5.0\Domen.pdb
+C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\SlojPristupaPodacima\obj\Debug\net5.0\SlojPristupaPodacima.csproj.AssemblyReference.cache
+C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\SlojPristupaPodacima\obj\Debug\net5.0\SlojPristupaPodacima.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\SlojPristupaPodacima\obj\Debug\net5.0\SlojPristupaPodacima.AssemblyInfoInputs.cache
+C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\SlojPristupaPodacima\obj\Debug\net5.0\SlojPristupaPodacima.AssemblyInfo.cs
+C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\SlojPristupaPodacima\obj\Debug\net5.0\SlojPristupaPodacima.csproj.CoreCompileInputs.cache
+C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\SlojPristupaPodacima\obj\Debug\net5.0\SlojPristupaPodacima.csproj.CopyComplete
+C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\SlojPristupaPodacima\obj\Debug\net5.0\SlojPristupaPodacima.dll
+C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\SlojPristupaPodacima\obj\Debug\net5.0\ref\SlojPristupaPodacima.dll
+C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\SlojPristupaPodacima\obj\Debug\net5.0\SlojPristupaPodacima.pdb

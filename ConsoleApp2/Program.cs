@@ -1,4 +1,6 @@
 ﻿using Domen;
+using SlojPristupaPodacima;
+using SlojPristupaPodacima.Implementacije;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -159,21 +161,26 @@ namespace ConsoleApp2
             //context.Dekoracija.Add(d2);
             //context.SaveChanges();
 
-           // CvetniAranzman cvAr =  context.CvetniAranzman.Single(cs => cs.ProizvodId == 6);
-           // List<Dekoracija> parovi = context.Dekoracija.Where(d => d.CvetniAranzmanProizvodId == 6).ToList();
-           // List<Cvet> cvece = new List<Cvet>();
-           // foreach (Dekoracija dek in parovi)
-           // {
-           //     Cvet cvet = context.Cvet.Single(c => c.ProizvodId == dek.CvetProizvodId);
-           //     cvece.Add(cvet);
-           // }
-           //// cvece.ForEach(Console.WriteLine);
-           // int i = 0;
-           // foreach(Cvet c in cvece)
-           // {
-           //     Console.WriteLine(c + $"   kolicina: {parovi[i].BrojCvetova}");
-           //     i++;
-           // }
+            // CvetniAranzman cvAr =  context.CvetniAranzman.Single(cs => cs.ProizvodId == 6);
+            // List<Dekoracija> parovi = context.Dekoracija.Where(d => d.CvetniAranzmanProizvodId == 6).ToList();
+            // List<Cvet> cvece = new List<Cvet>();
+            // foreach (Dekoracija dek in parovi)
+            // {
+            //     Cvet cvet = context.Cvet.Single(c => c.ProizvodId == dek.CvetProizvodId);
+            //     cvece.Add(cvet);
+            // }
+            //// cvece.ForEach(Console.WriteLine);
+            // int i = 0;
+            // foreach(Cvet c in cvece)
+            // {
+            //     Console.WriteLine(c + $"   kolicina: {parovi[i].BrojCvetova}");
+            //     i++;
+            // }
+
+            ICvetRepozitorijum repozitorijum = new CvetRepozitorijum(context);
+            List<Cvet> cvece = repozitorijum.Pretraga(c => c.ProizvodId == 4);
+            cvece.ForEach(Console.WriteLine);
+
 
         }
     }

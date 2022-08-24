@@ -6,13 +6,12 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v5.0": {
-      "ConsoleApp2/1.0.0": {
+      "SlojPristupaPodacima/1.0.0": {
         "dependencies": {
-          "Domen": "1.0.0",
-          "SlojPristupaPodacima": "1.0.0"
+          "Domen": "1.0.0"
         },
         "runtime": {
-          "ConsoleApp2.dll": {}
+          "SlojPristupaPodacima.dll": {}
         }
       },
       "Microsoft.CSharp/4.5.0": {},
@@ -1047,19 +1046,11 @@
         "runtime": {
           "Domen.dll": {}
         }
-      },
-      "SlojPristupaPodacima/1.0.0": {
-        "dependencies": {
-          "Domen": "1.0.0"
-        },
-        "runtime": {
-          "SlojPristupaPodacima.dll": {}
-        }
       }
     }
   },
   "libraries": {
-    "ConsoleApp2/1.0.0": {
+    "SlojPristupaPodacima/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
@@ -1723,11 +1714,6 @@
       "hashPath": "system.xml.xmlserializer.4.3.0.nupkg.sha512"
     },
     "Domen/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "SlojPristupaPodacima/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

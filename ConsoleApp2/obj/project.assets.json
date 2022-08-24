@@ -1494,6 +1494,19 @@
         "runtime": {
           "bin/placeholder/Domen.dll": {}
         }
+      },
+      "SlojPristupaPodacima/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "Domen": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/SlojPristupaPodacima.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/SlojPristupaPodacima.dll": {}
+        }
       }
     }
   },
@@ -5662,11 +5675,17 @@
       "type": "project",
       "path": "../Domen/Domen.csproj",
       "msbuildProject": "../Domen/Domen.csproj"
+    },
+    "SlojPristupaPodacima/1.0.0": {
+      "type": "project",
+      "path": "../SlojPristupaPodacima/SlojPristupaPodacima.csproj",
+      "msbuildProject": "../SlojPristupaPodacima/SlojPristupaPodacima.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net5.0": [
-      "Domen >= 1.0.0"
+      "Domen >= 1.0.0",
+      "SlojPristupaPodacima >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -5706,6 +5725,9 @@
           "projectReferences": {
             "C:\\Users\\Tatjana Bailovic\\source\\repos\\LycorisRadiata\\Domen\\Domen.csproj": {
               "projectPath": "C:\\Users\\Tatjana Bailovic\\source\\repos\\LycorisRadiata\\Domen\\Domen.csproj"
+            },
+            "C:\\Users\\Tatjana Bailovic\\source\\repos\\LycorisRadiata\\SlojPristupaPodacima\\SlojPristupaPodacima.csproj": {
+              "projectPath": "C:\\Users\\Tatjana Bailovic\\source\\repos\\LycorisRadiata\\SlojPristupaPodacima\\SlojPristupaPodacima.csproj"
             }
           }
         }
