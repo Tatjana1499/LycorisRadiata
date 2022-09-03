@@ -14,8 +14,6 @@ namespace KupacWebApp.Controllers
     {
         public IActionResult Index()
         {
-            //int? user = HttpContext.Session.GetInt32("userid");
-            // var user = JsonSerializer.Deserialize<Dictionary<string,string>>(HttpContext.Session.Get("Identity"));
             var user = HttpContext.User;
             
             if (user is null)

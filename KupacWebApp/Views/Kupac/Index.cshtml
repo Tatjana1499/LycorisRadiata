@@ -1,23 +1,26 @@
-﻿@model KreirajKupcaViewModel
+﻿@model IzmeniKupcaViewModel
 
-<form>
-    <div>
-        <label>Ime: </label>
-    </div>
-    <div>
-        <label>Prezime: </label>
-    </div>
-    <div>
-        <label>Broj telefona: </label>
-    </div>
-    <div>
-        <label>Email: </label>
-    </div>
-    <div>
-        <label>Korisnicko ime: </label>
-    </div>
-    <div style="display:inline-flex" class="btn-group">
-        <button style="margin:10px" class="btn-light" asp-action="Edit">Izmeni</button>
-        <button style="margin:10px" class="btn-light" asp-action="">Obrisi</button>
-    </div>
-</form>
+<div style="margin-left: 25%; margin-right: 25%; width: 50%; position: center; text-align: center; margin-top: 30px; border-style: double; border-color: #761515; background-image: url('https://img.freepik.com/free-vector/hand-drawn-style-floral-background_79603-1541.jpg?w=1060&t=st=1662127576~exp=1662128176~hmac=38405bf29f3f7e19984e40832957f95e990ce74de7ae6ce40ca1e569a43fb4c7')">
+    <form>
+
+        <div class="form-group" style="border-style:double; border-color:#761515; margin-top:10px; background-color:white">
+            <label class="font-weight-bolder">Ime: @Model.Ime</label>
+        </div>
+        <div class="form-group" style="border-style: double; border-color: #761515; margin-top: 5px; background-color: white ">
+            <label class="font-weight-bolder">Prezime: @Model.Prezime</label>
+        </div>
+        <div class="form-group" style="border-style: double; border-color: #761515; margin-top: 5px; background-color: white ">
+            <label class="font-weight-bolder">Korisnicko ime: @Model.KorisnickoIme</label>
+        </div>
+        <div class="form-group" style="border-style: double; border-color: #761515; margin-top: 5px; background-color: white ">
+            <label class="font-weight-bolder">Email: @Model.Email</label>
+        </div>
+        <div class="form-group" style="border-style: double; border-color: #761515; margin-top: 5px; background-color: white ">
+            <label class="font-weight-bolder">Broj telefona: @Model.BrojTelefona</label>
+        </div>
+        <div style="display:inline-flex" class="btn-group">
+            <button style="margin:10px" class="btn-light" asp-controller="Kupac" asp-action="Edit">Izmeni</button>
+            <button style="margin:10px" class="btn-light" asp-action="">Obrisi</button>
+        </div>
+    </form>
+</div>

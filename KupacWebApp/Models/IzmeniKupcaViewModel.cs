@@ -8,20 +8,20 @@ namespace KupacWebApp.Models
 {
     public class IzmeniKupcaViewModel
     {
-        public int KupacId { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Obavezno polje.")]
         public string Ime { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Obavezno polje.")]
         public string Prezime { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Obavezno polje.")]
         public string BrojTelefona { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Obavezno polje.")]
         [EmailAddress]
         public string Email { get; set; }
-        [Required]
-        [MinLength(7)]
-        public string Lozinka { get; set; }
-        [Required]
+        [MinLength(7,ErrorMessage = "Minimum 7 karaktera")]
+        public string StaraLozinka { get; set; }
+        [MinLength(7, ErrorMessage = "Minimum 7 karaktera")]
+        public string NovaLozinka { get; set; }
+        [Required(ErrorMessage = "Obavezno polje.")]
         public string KorisnickoIme { get; set; }
     }
 }

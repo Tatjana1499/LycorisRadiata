@@ -37,13 +37,9 @@ namespace KupacWebApp.Controllers
 
             if (k != null)
             {
-                // HttpContext.Session.SetInt32("userid", k.KupacId);
-                // HttpContext.Session.Set("user", JsonSerializer.SerializeToUtf8Bytes(k));
                 Dictionary<string, string> claims = new Dictionary<string, string>();
-                claims.Add(ClaimTypes.NameIdentifier, k.KorisnickoIme);
-                claims.Add(ClaimTypes.Name, k.Ime);
-                claims.Add(ClaimTypes.Email, k.Email);
-                claims.Add("UserId", k.KupacId.ToString());
+                claims.Add(ClaimTypes.Role, k.GetType().Name);
+                claims.Add(ClaimTypes.Name, k.KupacId.ToString());
 
                 HttpContext.Session.Set("Identity", JsonSerializer.SerializeToUtf8Bytes(claims));
 

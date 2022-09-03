@@ -18,7 +18,7 @@ namespace SlojPristupaPodacima.Implementacije
         }
         public void Azuriraj(Kupac entitet)
         {
-            throw new NotImplementedException();
+            context.Update(entitet);
         }
 
         public void Brisi(Kupac entitet)
@@ -44,6 +44,10 @@ namespace SlojPristupaPodacima.Implementacije
         public Kupac PretragaKorisnickoImeLozinka(string korisnickoIme, string lozinka)
         {
             return context.Kupac.SingleOrDefault(k => k.KorisnickoIme == korisnickoIme && k.Lozinka == lozinka);
+        }
+        public Kupac PretragaId(int id)
+        {
+            return context.Kupac.Single(k => k.KupacId == id);
         }
     }
 }

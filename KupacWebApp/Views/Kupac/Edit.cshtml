@@ -1,31 +1,48 @@
 ﻿@model IzmeniKupcaViewModel
+  
+<div style="position:center; text-align:center; margin-top:30px; border-style:groove; background-image: url('https://img.freepik.com/free-vector/hand-drawn-style-floral-background_79603-1541.jpg?w=1060&t=st=1662127576~exp=1662128176~hmac=38405bf29f3f7e19984e40832957f95e990ce74de7ae6ce40ca1e569a43fb4c7')">
+    <form method="post" action="/Kupac/Edit">
 
-<form method="post" action="/Kupac/Edit">
-    <div>
-        <label>Ime: </label>
-        <input type="text" asp-for="@Model.Ime" />
-    </div>
-    <div>
-        <label>Prezime: </label>
-        <input type="text" asp-for="@Model.Prezime" />
-    </div>
-    <div>
-        <label>Korisnicko ime: </label>
-        <input type="text" asp-for="@Model.KorisnickoIme" />
-    </div>
-    <div>
-        <label>Email: </label>
-        <input type="email" asp-for="@Model.Email" />
-    </div>
-    <div>
-        <label>Lozinka: </label>
-        <input type="password" asp-for="@Model.Lozinka" />
-    </div>
-    <div>
-        <label>Broj telefona: </label>
-        <input type="password" asp-for="@Model.BrojTelefona" />
-    </div>
-    <div>
-        <input type="submit" value="Sacuvaj promene" />
-    </div>
-</form>
+        <div class="form-group" style="display: inline-flex; width: 50%; margin-top: 10px; margin-left: 130px; ">
+            <label style=" position: static; margin: 10px " class="font-weight-bolder">Ime: </label>
+            <input style="position: static;margin:10px" type="text" asp-for="@Model.Ime" />
+            <span class="text-danger font-weight-bolder" style="position: relative;margin: 10px"  asp-validation-for="Ime"></span>
+        </div>
+        <div class="form-group" style="display: inline-flex; width: 50%; margin-left: 68px">
+            <label style="position: static;margin:10px" class="font-weight-bolder">Prezime: </label>
+            <input style="position: static;margin:10px" type="text" asp-for="@Model.Prezime" />
+            <span class="text-danger font-weight-bolder" style="position: relative;margin: 10px" asp-validation-for="Prezime"></span>
+        </div>
+        <div class="form-group" style="display: inline-flex; width: 50%; margin-right: 31px">
+            <label style="position: static; margin: 10px;" class="font-weight-bolder">Korisnicko ime: </label>
+            <input style="position: static;margin:10px" type="text" asp-for="@Model.KorisnickoIme" />
+            <span class="text-danger font-weight-bolder" style="position: relative;margin: 10px" asp-validation-for="KorisnickoIme"></span>
+        </div>
+        <div class="form-group" style="display: inline-flex; width: 50%;">
+            <label style="position: static;margin:10px; margin-left:65px" class="font-weight-bolder">Email: </label>
+            <input style="position: static;margin:10px" type="email" asp-for="@Model.Email" />
+            <span class="text-danger font-weight-bolder" style="position: relative;margin: 10px" asp-validation-for="Email"></span>
+        </div>
+        <div class="form-group" style="display: inline-flex; width: 50%;">
+            <label style="position: static;margin:10px" class="font-weight-bolder">Broj telefona: </label>
+            <input style="position: static;margin:10px" type="text" asp-for="@Model.BrojTelefona" />
+            <span class="text-danger font-weight-bolder" style="position: relative;margin: 10px" asp-validation-for="BrojTelefona"></span>
+        </div>
+        <div class="form-group" style=" display: inline-flex; width: 50%;">
+            <label style="position: static;margin:10px" class="font-weight-bolder">Stara lozinka: </label>
+            <input style="position: static;margin:10px" type="password" asp-for="@Model.StaraLozinka" />
+            <span class="text-danger font-weight-bolder" style="position: relative;margin: 10px" asp-validation-for="StaraLozinka"></span>
+        </div>
+        <div class="form-group" style="display: inline-flex; width: 50%;">
+            <label style="position: static;margin:10px" class="font-weight-bolder">Nova lozinka: </label>
+            <input style="position: static;margin:10px" type="password" asp-for="@Model.NovaLozinka" />
+            <span class="text-danger font-weight-bolder" style="position: relative;margin: 10px" asp-validation-for="NovaLozinka"></span>
+        </div>
+        <div class="form-group" style="display: inline-flex; width: 50%; margin-left: 48%; height: 100px ">
+            <div style="position: relative; margin:10px">
+                <input class="font-weight-bolder border-dark" style="position:static" type="submit" value="Sacuvaj promene" />
+            </div>
+            <div class="text-danger font-weight-bolder" style="position: relative; margin:10px; margin-left:60px" asp-validation-summary="ModelOnly"></div>
+        </div>
+    </form>
+</div>

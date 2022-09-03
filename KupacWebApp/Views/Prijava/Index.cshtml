@@ -3,12 +3,12 @@
         <form method="post" action="/Prijava/index" style="text-align:center; margin-top:10%;">
             <div class="form-group">
                 <label>Korisnicko ime: </label>
-                <input type="text" asp-for="@Model.KorisnickoIme" />
+                <input type="text" asp-for="@Model.KorisnickoIme" value="taca" />
                 <span asp-validation-for="KorisnickoIme"></span>
             </div>
             <div class="form-group" style="margin-left:52px">
                 <label>Lozinka: </label>
-                <input type="password" asp-for="@Model.Lozinka" />
+                <input type="password" asp-for="@Model.Lozinka" value="tacataca" />
                 <span asp-validation-for="Lozinka"></span>
             </div>
             <div class="form-group" style="display:inline-flex; width:50%; margin-left:50%; height:100px">
