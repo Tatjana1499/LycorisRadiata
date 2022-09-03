@@ -1,0 +1,40 @@
+﻿@model KreirajKupcaViewModel
+
+<form method="post" action="/Kupac/Create" style="text-align:center; margin-top:10%;">
+        <div class="form-group">
+            <label>Ime: </label>
+            <input type="text" asp-for="@Model.Ime" />
+            <span asp-validation-for="Ime"></span>
+        </div>
+    <div class="form-group">
+        <label>Prezime: </label>
+        <input type="text" asp-for="@Model.Prezime" />
+        <span asp-validation-for="Prezime"></span>
+    </div>
+    <div class="form-group">
+        <label>Korisnicko ime: </label>
+        <input type="text" asp-for="@Model.KorisnickoIme" />
+        <span asp-validation-for="KorisnickoIme"></span>
+    </div>
+    <div class="form-group">
+        <label>Email: </label>
+        <input type="email" asp-for="@Model.Email" />
+        <span asp-validation-for="Email"></span>
+    </div>
+    <div class="form-group">
+        <label>Lozinka: </label>
+        <input type="password" asp-for="@Model.Lozinka" />
+        <span asp-validation-for="Lozinka"></span>
+    </div>
+    <div class="form-group">
+        <label>Broj telefona: </label>
+        <input type="tel" asp-for="@Model.BrojTelefona" />
+        <span asp-validation-for="BrojTelefona"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Registruj se" />
+    </div>
+</form>
+<div>
+    Vec imas nalog? <a href="/Prijava/index"> Prijavi se! </a>
+</div>

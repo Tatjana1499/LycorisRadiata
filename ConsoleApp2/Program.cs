@@ -1,6 +1,7 @@
 ﻿using Domen;
 using SlojPristupaPodacima;
 using SlojPristupaPodacima.Implementacije;
+using SlojPristupaPodacima.JedinicaRada;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -177,9 +178,13 @@ namespace ConsoleApp2
             //     i++;
             // }
 
-            ICvetRepozitorijum repozitorijum = new CvetRepozitorijum(context);
-            List<Cvet> cvece = repozitorijum.Pretraga(c => c.ProizvodId == 4);
-            cvece.ForEach(Console.WriteLine);
+            //ICvetRepozitorijum repozitorijum = new CvetRepozitorijum(context);
+            //List<Cvet> cvece = repozitorijum.Pretraga(c => c.ProizvodId == 4);
+            //cvece.ForEach(Console.WriteLine);
+
+            //IJedinicaRada jedinicaRada = new JedinicaRada(context);
+            //jedinicaRada.CvetRepozitorijum.Dodaj(new Cvet { Boja = Boja.Plava, Cena = 100, Familija = Familija.Aktinidijevke, Naziv = "NOVI", Opis = "NOVI", Slika = "slika"});
+            //jedinicaRada.Sacuvaj();
 
 
         }

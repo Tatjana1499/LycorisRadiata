@@ -1,0 +1,31 @@
+﻿@model IzmeniKupcaViewModel
+
+<form method="post" action="/Kupac/Edit">
+    <div>
+        <label>Ime: </label>
+        <input type="text" asp-for="@Model.Ime" />
+    </div>
+    <div>
+        <label>Prezime: </label>
+        <input type="text" asp-for="@Model.Prezime" />
+    </div>
+    <div>
+        <label>Korisnicko ime: </label>
+        <input type="text" asp-for="@Model.KorisnickoIme" />
+    </div>
+    <div>
+        <label>Email: </label>
+        <input type="email" asp-for="@Model.Email" />
+    </div>
+    <div>
+        <label>Lozinka: </label>
+        <input type="password" asp-for="@Model.Lozinka" />
+    </div>
+    <div>
+        <label>Broj telefona: </label>
+        <input type="password" asp-for="@Model.BrojTelefona" />
+    </div>
+    <div>
+        <input type="submit" value="Sacuvaj promene" />
+    </div>
+</form>

@@ -28,5 +28,9 @@ namespace Domen
         public Boja Boja { get; set; }
         public string Slika { get; set; }
         public decimal Cena { get; set; }
+        public override string ToString()
+        {
+            return $"{Naziv}         {{Boja: {Boja}}}";
+        }
     }
 }

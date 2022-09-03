@@ -1,0 +1,25 @@
+﻿@model PrijavaViewModel
+
+        <form method="post" action="/Prijava/index" style="text-align:center; margin-top:10%;">
+            <div class="form-group">
+                <label>Korisnicko ime: </label>
+                <input type="text" asp-for="@Model.KorisnickoIme" />
+                <span asp-validation-for="KorisnickoIme"></span>
+            </div>
+            <div class="form-group" style="margin-left:52px">
+                <label>Lozinka: </label>
+                <input type="password" asp-for="@Model.Lozinka" />
+                <span asp-validation-for="Lozinka"></span>
+            </div>
+            <div class="form-group" style="display:inline-flex; width:50%; margin-left:50%; height:100px">
+                <div style="position: relative; margin:10px">
+                    <input style="position:static" type="submit" value="Prijavi se" />
+                </div>
+                <div style="position: relative; margin:10px" asp-validation-summary="ModelOnly"></div>
+            </div>
+        </form>
+
+        <div style="text-align: center; margin-right: 60%">
+                Nemas nalog? <a href="/Kupac/Create">Kreiraj ga!</a>
+        </div>
+     

@@ -1,0 +1,28 @@
+﻿@using Domen
+@model KreirajNarudzbinuViewModel
+
+
+<div class="modal fade" id="dodajNarudzbinu">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="dodajNarudzbinuLabel">Izaberite vrstu narudzbine</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>x</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="/Narudzbina/Index">
+                    <div> 
+                    <select asp-for="@Model.VrstaNarudzbine" asp-items="Html.GetEnumSelectList<VrstaNarudzbine>()"></select>
+                   </div>
+                        <div>
+                        <button type="submit" class="btn btn-primary" data-save="modal">Nastavi</button>
+                    </div>
+                </form>
+            </div>
+            
+        </div>
+    </div>
+</div>
+

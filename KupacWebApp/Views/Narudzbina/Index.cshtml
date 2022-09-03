@@ -1,0 +1,69 @@
+﻿@using Domen
+@model KreirajNarudzbinuViewModel
+
+<form method="post" action="/Narudzbina/Create">
+    @if (Model.VrstaNarudzbine == VrstaNarudzbine.Dostava)
+    {
+        <header>Tip narudzbine: Dostava</header>
+        <div>
+            <label>Adresa dostave: </label>
+            <input type="text" asp-for="@Model.Adresa" />
+        </div>
+    }
+    else
+    {
+        <header>Tip narudzbine: Licno preuzimanje</header>
+        <div>
+            <label>Adresa preuzimanja: </label>
+            <select asp-for="@Model.ProdajnoMestoId" asp-items="Model.ProdajnaMesta" class="form-control"></select>
+        </div>
+    }
+
+    @if (Model.Stavke.Count != 0)
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Redni broj</th>
+                    <th>Naziv</th>
+                    <th>Kolicina</th>
+                    <th>Cena</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Stavka item in Model.Stavke)
+                {
+                    <tr>
+                        <td>rb</td>
+                        <td>@item.Proizvod.Naziv</td>
+                        <td>@item.Kolicina</td>
+                        <td>cena</td>
+                    </tr>
+                }
+
+
+
+            </tbody>
+        </table>
+
+
+        <button type="submit">NARUCI</button>
+    }
+    else
+    {
+        <div><h4>Jos uvek nista niste narucili</h4></div>
+    }
+</form>
+<div>
+    <form asp-controller="Cvet" asp-action="Index" method="post">
+        <div>
+            <button type="button">Naruci jos cveca</button>
+        </div>
+    </form>
+    <form asp-controller="CvetniAranzman" asp-action="Index" method="post">
+        <button type="button" >Naruci jos cvetnih aranzmana</button>
+    </form>
+</div>
+
+
+  

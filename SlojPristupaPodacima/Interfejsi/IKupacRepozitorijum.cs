@@ -9,5 +9,6 @@ namespace SlojPristupaPodacima
 {
     public interface IKupacRepozitorijum  : IRepozitorijum<Kupac>
     {
+        public Kupac PretragaKorisnickoImeLozinka(string korisnickoIme, string lozinka);
     }
 }

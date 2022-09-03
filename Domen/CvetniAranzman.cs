@@ -10,7 +10,8 @@ namespace Domen
     {
         Srebrni,
         Beli,
-        Sivi
+        Sivi,
+        Nema
     }
     public enum Namena
     { 
