@@ -9,5 +9,6 @@ namespace SlojPristupaPodacima
 {
     public interface ICvetRepozitorijum : IRepozitorijum<Cvet>
     {
+        public Cvet PretragaId(int id);
     }
 }

@@ -40,7 +40,7 @@ namespace Domen
             modelBuilder.Entity<CvetniAranzman>().HasOne(ca => ca.Pakovanje).WithMany();
             modelBuilder.Entity<Narudzbina>().HasOne(n => n.ProdajnoMesto).WithMany().IsRequired(false);
 
-           
+            modelBuilder.Entity<CvetniAranzman>().HasOne(ca => ca.Kupac).WithMany();
         }
     }
 }

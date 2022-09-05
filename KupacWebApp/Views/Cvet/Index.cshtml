@@ -1,24 +1,53 @@
 ﻿@using Domen
-@model List<Cvet>
+@model CvetViewModel
 
-
-@foreach (Cvet item in Model)
-{
-    <div>
-        <div>
-            <label>Naziv: @item.Naziv</label>
-        </div>
-        <div>
-            <label>Familija: @item.Familija</label>
-        </div>
-        <div>
-            <label>Boja: @item.Boja</label>
-        </div>
-        <div>
-            <label>Cena: @item.Cena</label>
-        </div>
-        <div>
-            <a class="align-content-md-end" asp-area="" asp-action="Index" asp-controller="Narudzbina" method="post">DODAJ</a>
+<div class="modal fade" id="infoCvet">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div style="background-color:#ef9f9f" class="modal-header">
+                <h6 class="modal-title">@Model.Naziv</h6>
+                <button type="button" class="close" data-dismiss="modal"><span>x</span></button>
+            </div>
+            <div class="modal-body" style="display:inline-flex">
+                <div style="border:double; width:50%">
+                    <div style="border-bottom:double; margin-left:0;margin-right:0">
+                        <label>Familija: @Model.Familija</label>
+                    </div>
+                    <div style="border-bottom: double; margin-left: 0; margin-right: 0">
+                        <label>Boja: @Model.Boja</label>
+                    </div>
+                    <div style="border-bottom: double; margin-left: 0; margin-right: 0">
+                        <label>Cena: @Model.Cena</label>
+                    </div>
+                    <div style="margin-left: 0; margin-right: 0">
+                        <label>Opis: @Model.Opis</label>
+                    </div>
+                </div>
+                <div style="border:double; width:50%">
+                    <img class="img-fluid" src="@Model.Slika" />
+                </div>
+            </div>
         </div>
     </div>
-}
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>

@@ -1,4 +1,5 @@
 ﻿using Domen;
+using KupacWebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using SlojPristupaPodacima.JedinicaRada;
 using System;
@@ -16,15 +17,19 @@ namespace KupacWebApp.Controllers
         {
             this.jedinicaRada = jedinicaRada;
         }
-        public IActionResult Index()
+        public IActionResult Index(int id)
         {
-            List<Cvet> cvece = jedinicaRada.CvetRepozitorijum.VratiSve();
-            return View(cvece);
+            Cvet cvet = jedinicaRada.CvetRepozitorijum.PretragaId(id);
+            CvetViewModel cvetView = new CvetViewModel()
+            {
+                Boja = cvet.Boja,
+                Cena = cvet.Cena,
+                Familija = cvet.Familija,
+                Naziv = cvet.Naziv,
+                Opis = cvet.Opis,
+                Slika = cvet.Slika
+            };
+            return PartialView(cvetView);
         }
-        //[HttpGet]
-        //public IActionResult Create()
-        //{
-        //    return RedirectToAction("Index", "Narudzbina");
-        //}
     }
 }

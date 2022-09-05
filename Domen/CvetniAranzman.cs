@@ -30,6 +30,8 @@ namespace Domen
         public string Napomena { get; set; }
         public Pakovanje Pakovanje { get; set; }
         public int PakovanjeId { get; set; }
+        public Kupac Kupac { get; set; }
+        public int KupacId { get; set; }
         public override string ToString()
         {
             return $"{Naziv} {Cena}";

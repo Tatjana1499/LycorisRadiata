@@ -9,17 +9,17 @@ a.navbar-brand {
 
 /* Provide sufficient contrast against white background */
 a {
-    color: #481717; /*#0366d6;*/
+    color: crimson;
+    font-size:medium;
 }
 /*bg-white*/
 .btn-primary {
-    color: #481717;
+    color: black;
     background-color: #e38686;
-    border-color: #1861ac;
+    border-color: black;
 }
-/*color: #fff;
-    background-color: #1b6ec2;
-    border-color: #1861ac;*/
+
+
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
     color: #481717;
     background-color: #e38686;

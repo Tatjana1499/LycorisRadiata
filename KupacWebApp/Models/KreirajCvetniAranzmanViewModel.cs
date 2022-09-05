@@ -10,15 +10,30 @@ namespace KupacWebApp.Models
 {
     public class KreirajCvetniAranzmanViewModel
     {
+        [Required(ErrorMessage = "Obavezno polje.")]
+        public string Naziv { get; set; }
+        public decimal Cena { get; set; }
         public Sjaj Sjaj { get; set; }
         public Boolean Masna { get; set; }
         public Namena Namena { get; set; }
         public string Napomena { get; set; }
         public int PakovanjeId { get; set; }
         public List<SelectListItem> Pakovanja { get; set; }
-        public List<Cvet> Cvece { get; set; }
-        [Required(ErrorMessage = "Aranzman nema cvece.")]
-        public List<DekoracijaViewModel> Dekoracije { get; set; }
+        public List<CvetViewModel> Cvece { get; set; } = new List<CvetViewModel>();
+        public List<DekoracijaViewModel> Dekoracije { get; set; } = new List<DekoracijaViewModel>();
+
+        public int SelectedItem(List<SelectListItem> pakovanja)
+        {
+            foreach (SelectListItem item1 in pakovanja)
+            {
+                if (item1.Selected)
+                {
+                    return Int32.Parse(item1.Value);
+                }
+            }
+            return -1;
+        }
+
 
     }
 }

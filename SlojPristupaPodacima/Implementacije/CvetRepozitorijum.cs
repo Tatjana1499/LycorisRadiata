@@ -40,5 +40,9 @@ namespace SlojPristupaPodacima.Implementacije
         {
             return context.Cvet.ToList();
         }
+        public Cvet PretragaId(int id)
+        {
+            return context.Cvet.Single(c => c.ProizvodId == id);
+        }
     }
 }

@@ -40,5 +40,9 @@ namespace SlojPristupaPodacima.Implementacije
         {
             return context.Pakovanje.ToList();
         }
+        public Pakovanje PretragaId(int id)
+        {
+            return context.Pakovanje.Single(p => p.PakovanjeId == id);
+        }
     }
 }

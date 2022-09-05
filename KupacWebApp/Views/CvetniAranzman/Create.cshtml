@@ -2,64 +2,64 @@
 @using Domen
 
 
-<label>Odavberite cvece: :</label>
+<form onmousemove="proveriIme(document.querySelector('#nazivCvAr').value)" action="Create" method="post">
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Naziv</th>
-            <th>Boja</th>
-            <th>Cena</th>
-            <th></th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (Cvet item in Model.Cvece)
-        {
-            <tr>
-                <td>@item.Naziv</td>
-                <td>@item.Boja.ToString()</td>
-                <td>@item.Cena</td>
-                <td><a href="Cvet/Index/@item.ProizvodId">Detalji</a></td>
-                <td> <button type="button">Dodaj</button> </td>
-            </tr>
-        }
-    </tbody>
-</table>
+    <div class="form-group">
+        <label>Naziv: </label>
+        <input id="nazivCvAr" oninput="proveriIme(this.value)" asp-for="@Model.Naziv" type="text" />
+        <span class="alert-danger" asp-validation-for="Naziv"></span>
+    </div>
 
+    <div class="form-group">
+        <label>Odavberite cvece: :</label>
 
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Naziv</th>
+                    <th>Boja</th>
+                    <th>Cena</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (CvetViewModel item in Model.Cvece)
+                {
+                    <tr>
+                        <td id="naziv @item.ProizvodId">@item.Naziv</td>
+                        <td id="boja @item.ProizvodId">@item.Boja.ToString()</td>
+                        <td>@item.Cena</td>
+                        <td><button type="button" class="btn btn-primary btn-outline-dark" data-toggle="ajax-modal" data-target="#infoCvet" data-url="@Url.Action("Index","Cvet",new { id = item.ProizvodId })">Detalji</button></td>
+                        <td> <button id="btn @item.ProizvodId" value="@item.ProizvodId" class="dodajCvet btn btn-primary btn-outline-dark" type="button">Dodaj</button> </td>
+                    </tr>
+                    
+                }
+            </tbody>
+        </table>
+    </div>
 
-<label>Odabrano cvece: </label>
-<span class="alert-danger" asp-validation-for="Dekoracije"></span>
-<table class="table"  style="margin-bottom:100px">
+    <div class="form-group">
+        <label>Odabrano cvece: </label>
+        <div class="text-danger" asp-validation-summary="ModelOnly"></div>
 
-    <thead>
-        <tr>
-            <th>Naziv</th>
-            <th>Boja</th>
-            <th>Cena</th>
-            <th typeof="number">Kolicina</th>
-            <th></th>
-        </tr>
-    </thead>
+        <table class="table" style="margin-bottom:100px" id="odabraneTabela">
 
-    <tbody>
-        @foreach (DekoracijaViewModel item in Model.Dekoracije)
-        {
+            <thead>
+                <tr>
+                    <th>Naziv</th>
+                    <th>Boja</th>
+                    <th>Kolicina</th>
+                    <th></th>
+                </tr>
+            </thead>
 
-            <tr>
-                <td>@item.Cvet.Naziv</td>
-                <td>@item.Cvet.Boja.ToString()</td>
-                <td>@item.Cvet.Cena</td>
-                <td>@item.BrojCvetova</td>
-                <td> <button type="button">Ukloni</button> </td>
-            </tr>
-        }
-    </tbody>
-</table>
+            <tbody>
+            </tbody>
+            
+        </table>
+    </div>
 
-<form action="Create" method="post">
 
     <div class="form-group">
         <label>Cekiraj polje ako zelis da tvoj cvetni aranzman ima masnu: </label>
@@ -75,16 +75,52 @@
     </div>
     <div class="form-group" style="display:inline-flex">
         <label style="margin-right:10px; width:130px">Izaberi pakovanje: </label>
-        <select style="margin-right:50px; width:500px" asp-for="PakovanjeId" asp-items="@Model.Pakovanja" ></select>
-        <button style=" width:80px" type="button">Detalji</button>
+        <select style="margin-right:50px; width:500px" asp-for="PakovanjeId" asp-items="@Model.Pakovanja"></select>
+        <button type="button" class="btn btn-primary btn-outline-dark" data-toggle="ajax-modal" data-target="#infoPaketi" data-url="@Url.Action("Index","Pakovanje")">Katalog pakovanja</button>
     </div>
     <div class="form-group" style="display:inline-flex">
         <label style="margin-right:20px">Napomena (opciono polje):</label>
         <textarea asp-for="@Model.Napomena" style="width:800px; max-height:100px"></textarea>
     </div>
-    <div class="form-group">
-        <input type="submit" value="Kreiraj" />
-    </div>
 
+    <div style="text-align:center" id="ne_kreiraj"><label class="alert-danger">Ne mozete kreirati cvetni aranzman dok ne unesete ime.</label></div>
+    <div style="text-align:center">
+            <input id="kreiraj" hidden style="position:static" type="submit" value="Kreiraj" />
+            </div>
 </form>
 
+@section Scripts {
+
+    <script>
+    $(".dodajCvet").click(function () {
+
+
+        $.ajax({
+            url: "@Url.Action("dodajCvet", "CvetniAranzman")",
+            method: "get",
+            data: { cvetId: $(this).val(), Naziv: document.getElementById("naziv " + $(this).val()).innerHTML.trim(), Boja: document.getElementById("boja " + $(this).val()).innerHTML.trim(), RedniBroj: $("#odabraneTabela tbody tr").length },
+            success: function (data) {
+                $("#odabraneTabela tbody").append(data)
+            },
+            error: function (data) {
+                alert("Error");
+            }
+        })
+        document.getElementById("btn " + $(this).val()).hidden = true;
+    })
+        function deleteRow(rb) {
+            var row = btn.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+        }
+
+        function proveriIme(val) {
+            if (val != null && val.trim() != "") {
+                document.getElementById("kreiraj").hidden = false;
+                document.getElementById("ne_kreiraj").hidden = true;
+            } else {
+                document.getElementById("kreiraj").hidden = true;
+                document.getElementById("ne_kreiraj").hidden = false;
+            }
+        }
+    </script>
+}

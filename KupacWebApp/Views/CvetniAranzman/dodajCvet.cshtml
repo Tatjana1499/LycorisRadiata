@@ -1,0 +1,11 @@
+﻿@model KupacWebApp.Models.DekoracijaViewModel
+
+<tr>
+    <td>@Model.Naziv </td>
+    <td>@Model.Boja</td>
+    <td><input type="number" value="@Model.BrojCvetova" name="Dekoracije[@Model.RedniBroj].BrojCvetova" /></td>
+    <td> <button id="ukbtn @Model.CvetProizvodId" class="ukloniCvet btn btn-primary btn-outline-dark" value="@Model.RedniBroj" type="button" onclick="deleteRow(this.value)">Ukloni</button> </td>
+
+    <td><input hidden value="@Model.CvetProizvodId" name="Dekoracije[@Model.RedniBroj].CvetProizvodId" /></td>
+    <td><input hidden value="@Model.RedniBroj" name="Dekoracije[@Model.RedniBroj].RedniBroj" /></td>
+</tr>

@@ -143,9 +143,6 @@ namespace Domen.Migrations
                     b.Property<string>("Sajt")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Slika")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("ProdajnoMestoId");
 
                     b.ToTable("ProdajnoMesto");
@@ -192,6 +189,9 @@ namespace Domen.Migrations
                 {
                     b.HasBaseType("Domen.Proizvod");
 
+                    b.Property<int>("KupacId")
+                        .HasColumnType("int");
+
                     b.Property<bool>("Masna")
                         .HasColumnType("bit");
 
@@ -206,6 +206,8 @@ namespace Domen.Migrations
 
                     b.Property<int>("Sjaj")
                         .HasColumnType("int");
+
+                    b.HasIndex("KupacId");
 
                     b.HasIndex("PakovanjeId");
 
@@ -297,6 +299,12 @@ namespace Domen.Migrations
 
             modelBuilder.Entity("Domen.CvetniAranzman", b =>
                 {
+                    b.HasOne("Domen.Kupac", "Kupac")
+                        .WithMany()
+                        .HasForeignKey("KupacId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Domen.Pakovanje", "Pakovanje")
                         .WithMany()
                         .HasForeignKey("PakovanjeId")
@@ -308,6 +316,8 @@ namespace Domen.Migrations
                         .HasForeignKey("Domen.CvetniAranzman", "ProizvodId")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
+
+                    b.Navigation("Kupac");
 
                     b.Navigation("Pakovanje");
                 });

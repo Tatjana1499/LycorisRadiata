@@ -9,5 +9,6 @@ namespace SlojPristupaPodacima
 {
     public interface IPakovanjeRepozitorijum : IRepozitorijum<Pakovanje>
     {
+        public Pakovanje PretragaId(int id);
     }
 }
