@@ -1,0 +1,41 @@
+﻿@model KreirajCvetViewModel
+@using Domen
+
+<form enctype='multipart/form-data' method="post" action="/Cvet/Create" style="text-align:center; margin-top:10%;">
+    <div class="form-group">
+        <label>Naziv: </label>
+        <input type="text" asp-for="@Model.Naziv" />
+        <span asp-validation-for="Naziv"></span>
+    </div>
+    <div class="form-group">
+        <label>Familija: </label>
+        <select asp-for="@Model.Familija" asp-items="Html.GetEnumSelectList<Familija>()"></select>
+    </div>
+    <div class="form-group">
+        <label>Opis: </label>
+        <input type="text" asp-for="@Model.Opis" />
+        <span asp-validation-for="Opis"></span>
+    </div>
+    <div class="form-group">
+        <label>Boja: </label>
+        <select asp-for="@Model.Boja" asp-items="Html.GetEnumSelectList<Boja>()"></select>
+    </div>
+    <div class="form-group">
+        <label>Opis: </label>
+        <input type="text" asp-for="@Model.Opis" />
+        <span asp-validation-for="Opis"></span>
+    </div>
+    <div class="form-group">
+        <label>Cena: </label>
+        <input type="number" min="0" asp-for="@Model.Cena" />
+        <span asp-validation-for="Cena"></span>
+    </div>
+    <div class="form-group">
+        <label>Slika: </label>
+        <input accept="image/*" asp-for="@Model.SlikaFile" />
+        <span asp-validation-for="SlikaFile"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Kreiraj" />
+    </div>
+</form>

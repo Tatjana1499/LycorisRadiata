@@ -1,5 +1,144 @@
-﻿@model KreirajNarudzbinuViewModel
+﻿@using Domen
+@model KreirajNarudzbinuViewModel
 
-<h1>NARUCENO!</h1>
-<label>@Model.VrstaNarudzbine</label>
-<label>@*@Model.Adresa*@</label>
+<form method="post" action="/Narudzbina/CreateP">
+    <input hidden value="@Model.VrstaNarudzbine" asp-for="@Model.VrstaNarudzbine" />
+    @if (Model.VrstaNarudzbine == VrstaNarudzbine.Dostava)
+    {
+        @*<input hidden value="-1" asp-for="@Model.ProdajnoMestoId" />*@
+        <div onmousemove="proveriIme(document.querySelector('#adresa').value)">
+            <header style="margin-top:10px; margin:15px" class="card-header">Tip narudzbine: Dostava</header>
+            <div class="form-group" style="display:inline-flex; width:100%">
+                <div style="margin:5px" class="form-group">
+                    <label>Adresa dostave: </label>
+                    <input oninput="proveriIme(this.value)" id="adresa" type="text" asp-for="@Model.Adresa" />
+                </div>
+                <div hidden style="position: relative; width: 50%; text-align:center" id="ne_kreiraj"><label class="alert-danger">Ne možete naručiti dok ne unesete adresu.</label></div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <header style="margin-top:10px; margin:15px" class="card-header">Tip narudzbine: Lično preuzimanje</header>
+        <div style="margin:5px; display:inline-flex" class="form-group">
+            <label class="form-control">Adresa preuzimanja: </label>
+            <select style="margin-left:50px" asp-for="@Model.ProdajnoMestoId" asp-items="Model.ProdajnaMesta" class="form-control dropdown"></select>
+        </div>
+    }
+    <div style="display:inline-flex;">
+        <div style="position: relative; margin:10px" class="form-group">
+            <label>Odaberite proizvode koje želite da naručite: :</label>
+
+            <table class="table table-striped table-borderless">
+                <thead style="width:max-content; border:none" class="form-control-range">
+                    <tr>
+                        <th>Naziv</th>
+                        <th>Vrsta</th>
+                        <th>Cena</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody style="width:max-content" class="pre-scrollable form-control-range">
+                    @foreach (ProizvodViewModel item in Model.Proizvodi)
+                    {
+                        <tr>
+                            <td id="naziv @item.ProizvodId">@item.Naziv</td>
+                            @if (item.JesteCvet)
+                            {
+                                <td id="boja @item.ProizvodId">Cvet</td>
+                            }
+                            else
+                            {
+                                <td id="boja @item.ProizvodId">Cvetni aranzman</td>
+                            }
+                            <td>@item.Cena</td>
+                            <td><button type="button" class="btn btn-primary btn-outline-dark" data-toggle="ajax-modal" data-target="#infoCvet" data-url="@Url.Action("Index","Cvet",new { id = item.ProizvodId })">Detalji</button></td>
+                            <td> <button id="btn @item.ProizvodId" value="@item.ProizvodId" class="dodajPorizvod btn btn-primary btn-outline-dark" type="button">Dodaj</button> </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div style="position: relative; margin:10px" class="form-group">
+            <div class="form-inline" style="height: 10px; margin-bottom: 10px">
+                <label>Odabrani proizvodi: </label>
+                <div class="alert-danger" style="margin-left:20px;height:20px" asp-validation-summary="ModelOnly"></div>
+            </div>
+            <table class="table table-striped table-borderless" id="odabraniProizvodi">
+
+                <thead style="width:max-content; border:none" class="form-control-range">
+                    <tr>
+                        <th>Naziv</th>
+                        <th>Ukupna cena</th>
+                        <th>Kolicina</th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody style="width:max-content" class="pre-scrollable form-control-range">
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+    @if (Model.VrstaNarudzbine == VrstaNarudzbine.Dostava)
+    {
+        <div onmousemove="proveriIme(document.querySelector('#adresa').value)" style="text-align:center">
+            <input class="btn btn-primary btn-outline-dark" id="kreiraj" onclick="vratiRedove()" style="position: static; margin: 5px" type="submit" value="Naruči" />
+        </div>
+    }
+    else
+    {
+        <div style="text-align:center">
+            <input class="btn btn-primary btn-outline-dark" style="position:static" type="submit" value="Naruči" />
+        </div>
+    }
+
+</form>
+
+
+@section Scripts {
+
+    <script>
+        $(".dodajPorizvod").click(function () {
+
+
+
+        $.ajax({
+            url: "@Url.Action("DodajProizvod", "Narudzbina")",
+            method: "get",
+            data: { proizvodId: $(this).val(), Naziv: document.getElementById("naziv " + $(this).val()).innerHTML.trim(), RedniBroj: $("#odabraniProizvodi tbody tr").length },
+            success: function (data) {
+                $("#odabraniProizvodi tbody").append(data)
+            },
+            error: function (data) {
+                alert("Error");
+            }
+        })
+        document.getElementById("btn " + $(this).val()).hidden = true;
+    })
+        function vratiRedove() {
+            for (var i = 0; i < $("#odabraniProizvodi tbody tr").length; i++) {
+                document.getElementById("red " + i).style = "visibility:hidden";
+                document.getElementById("red " + i).hidden = false;
+            }
+        }
+        function proveriIme(val) {
+            if (val != null && val.trim() != "") {
+                document.getElementById("kreiraj").disabled = false;
+                document.getElementById("ne_kreiraj").hidden = true;
+            } else {
+                document.getElementById("kreiraj").disabled = true;
+                document.getElementById("ne_kreiraj").hidden = false;
+            }
+        }
+        function ukloniRed(value) {
+            document.getElementById("red " + value).hidden = true;
+            document.getElementById("kolicina " + value).value = 0;
+            var proizvodId = document.getElementById("proizvodId " + value).value;
+            document.getElementById("btn " + proizvodId).hidden = false;
+        }
+    </script>
+}

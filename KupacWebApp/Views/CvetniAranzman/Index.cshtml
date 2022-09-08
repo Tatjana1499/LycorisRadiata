@@ -1,0 +1,42 @@
+﻿@model List<CvetniAranzmanViewModel>
+    
+    <div style="max-height:600px; overflow-y:scroll">
+        @foreach (CvetniAranzmanViewModel item in Model)
+        {
+            <div class="list-group-item" style="border-style:solid; border-width:medium; border-color:brown; margin: 30px; background-image: url('https://img.freepik.com/free-vector/hand-drawn-style-floral-background_79603-1541.jpg?w=1060&t=st=1662127576~exp=1662128176~hmac=38405bf29f3f7e19984e40832957f95e990ce74de7ae6ce40ca1e569a43fb4c7')">
+                <div class="toast-header font-weight-bolder" style="background-color:#c27474">
+                    <h4 class="text-dark">Naziv: @item.Naziv</h4>
+                </div>
+                <div style="margin-top:10px">
+                    @if (item.Masna)
+                    {
+                        <label>Mašna: Da</label>
+                    }
+                    else
+                    {
+                        <label>Mašna: Ne</label>
+                    }
+                </div>
+                <div>
+                    <label>Sjaj: @item.Sjaj.ToString()</label>
+                </div>
+                <div>
+                    <label>Pakovanje: @item.Pakovanje.ToString()</label>
+                </div>
+                <div>
+                    <label>Namena: @item.Namena.ToString()</label>
+                </div>
+
+                <div class="flex-sm-wrap">
+                    <label class="flex-sm-wrap">Napomena: @item.Napomena</label>
+                </div>
+                <div>
+                    <label>Cveće: </label>
+                    @foreach (string cvet in item.Cvece)
+                    {
+                        <ul>@cvet</ul>
+                    }
+                </div>
+            </div>
+        }
+    </div>

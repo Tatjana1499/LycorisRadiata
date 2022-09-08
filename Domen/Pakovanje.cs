@@ -8,16 +8,16 @@ namespace Domen
 {
     public enum Materijal
     {
-        Plastika,
-        Drvo,
-        Karton,
-        Keramika
+        Plastika = 0,
+        Drvo = 1,
+        Karton = 2,
+        Keramika = 3
     }
     public enum Oblik
     {
-        Srce,
-        Krug,
-        Kvadrat
+        Srce = 0,
+        Krug = 1,
+        Kvadrat = 2
     }
     public class Pakovanje
     {
@@ -30,7 +30,7 @@ namespace Domen
         public string Slika { get; set; }
         public override string ToString()
         {
-            return $"{Naziv}         {{Boja: {Boja}}}";
+            return $"{Naziv}         [Boja: {Boja}]";
         }
     }
 }

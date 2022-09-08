@@ -9,5 +9,6 @@ namespace SlojPristupaPodacima
 {
     public interface IProizvodRepozitorijum : IRepozitorijum<Proizvod>
     {
+        public Proizvod PretragaId(int id);
     }
 }

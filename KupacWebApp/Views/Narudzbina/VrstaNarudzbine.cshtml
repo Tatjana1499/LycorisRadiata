@@ -1,28 +1,25 @@
 ﻿@using Domen
 @model KreirajNarudzbinuViewModel
 
-
-<div class="modal fade" id="dodajNarudzbinu">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div style="background-color:#ef9f9f" class="modal-header">
-                <h4 class="modal-title" id="dodajNarudzbinuLabel">Izaberite vrstu narudzbine</h4>
-                <button type="button" class="close" data-dismiss="modal">
-                    <span>x</span>
-                </button>
+<form method="get" action="/Narudzbina/Create">
+    <div class="modal fade" id="dodajNarudzbinu">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div style="background-color:#ef9f9f" class="modal-header">
+                    <h4 class="modal-title" id="dodajNarudzbinuLabel">Izaberite vrstu narudzbine</h4>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>x</span>
+                    </button>
+                </div>
+                <div>
+                    <div class="modal-body">
+                        <select class="dropdown-item align-items-center" style="background-color:#fccccc" asp-for="@Model.VrstaNarudzbine" asp-items="Html.GetEnumSelectList<VrstaNarudzbine>()"></select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn-outline-dark btn btn-primary" data-save="modal">Nastavi</button>
+                    </div>
+                </div>
             </div>
-            <div>
-                <form method="post" action="/Narudzbina/Index">
-                   <div class="modal-body"> 
-                    <select asp-for="@Model.VrstaNarudzbine" asp-items="Html.GetEnumSelectList<VrstaNarudzbine>()"></select>
-                   </div>
-                   <div class="modal-footer">
-                        <button  type="submit" class="btn-outline-dark btn btn-primary" data-save="modal">Nastavi</button>
-                   </div>
-                </form>
-            </div>
-            
         </div>
     </div>
-</div>
-
+</form>

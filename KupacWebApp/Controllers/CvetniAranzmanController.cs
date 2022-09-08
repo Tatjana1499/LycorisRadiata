@@ -1,5 +1,6 @@
 ﻿using Domen;
 using KupacWebApp.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using SlojPristupaPodacima.JedinicaRada;
@@ -17,7 +18,39 @@ namespace KupacWebApp.Controllers
         {
             this.jedinicaRada = jedinicaRada;
         }
+        public IActionResult Index()
+        {
+            var cvetniAranzmani = jedinicaRada.CvetniAranzmanRepozitorijum.Pretraga(c => c.KupacId == Int32.Parse(HttpContext.User.Identity.Name));
 
+            List<CvetniAranzmanViewModel> cvViews = new List<CvetniAranzmanViewModel>();
+            foreach(CvetniAranzman cv in cvetniAranzmani)
+            {
+                CvetniAranzmanViewModel cvView = new CvetniAranzmanViewModel()
+                {
+                    Masna = cv.Masna,
+                    Namena = cv.Namena,
+                    Napomena = cv.Napomena,
+                    Pakovanje = cv.Pakovanje,
+                    Sjaj = cv.Sjaj
+                };
+                cvViews.Add(cvView);
+            }
+            
+            for (int i = 0; i < cvetniAranzmani.Count; i++)
+            {
+                var proizvod = jedinicaRada.ProizvodRepozitorijum.PretragaId(cvetniAranzmani[i].ProizvodId);
+                cvViews[i].Naziv = proizvod.Naziv;
+                var dekoracije = jedinicaRada.DekoracijaRepozitorijum.Pretraga(d => d.CvetniAranzmanProizvodId == cvetniAranzmani[i].ProizvodId);
+                
+                for (int j = 0; j < dekoracije.Count; j++)
+                {
+                    cvViews[i].Cvece.Add(dekoracije[j].Cvet.ToString() + $"Količina: {dekoracije[j].BrojCvetova}]");
+                }
+               
+            }
+
+            return View(cvViews);
+        }
         public IActionResult Create()
         {
             KreirajCvetniAranzmanViewModel model = new KreirajCvetniAranzmanViewModel();
@@ -47,20 +80,32 @@ namespace KupacWebApp.Controllers
             {
                 return Create();
             }
-            if(model.Dekoracije.Count == 0)
+            List<Dekoracija> dekorcije = new List<Dekoracija>();
+            foreach (DekoracijaViewModel dekVM in model.Dekoracije)
+            {
+                if(dekVM.BrojCvetova > 0)
+                {
+                    Dekoracija dekoracija = new Dekoracija()
+                    {
+                        BrojCvetova = dekVM.BrojCvetova,
+                        CvetProizvodId = dekVM.CvetProizvodId
+                    };
+                    dekorcije.Add(dekoracija);
+                }
+            }
+            if (dekorcije.Count == 0)
             {
                 ModelState.AddModelError(string.Empty, "Prazan cvetni aranzman.");
                 return Create();
             }
-           
             decimal ukupnaCena = 0;
-            foreach(DekoracijaViewModel dvm in model.Dekoracije)
+            foreach (DekoracijaViewModel dvm in model.Dekoracije)
             {
                 Cvet cvet = jedinicaRada.CvetRepozitorijum.PretragaId(dvm.CvetProizvodId);
-                ukupnaCena += cvet.Cena*dvm.BrojCvetova;
+                ukupnaCena += cvet.Cena * dvm.BrojCvetova;
             }
             ukupnaCena += jedinicaRada.PakovanjeRepozitorijum.PretragaId(model.PakovanjeId).Cena;
-
+            
             CvetniAranzman cvAr = new CvetniAranzman()
             {
                 Masna = model.Masna,
@@ -74,32 +119,16 @@ namespace KupacWebApp.Controllers
             };
             jedinicaRada.CvetniAranzmanRepozitorijum.Dodaj(cvAr);
             jedinicaRada.Sacuvaj();
-
-            List<Dekoracija> dekorcije = new List<Dekoracija>();
-            foreach (DekoracijaViewModel dekVM in model.Dekoracije)
+            foreach (Dekoracija d in dekorcije)
             {
-                Dekoracija dekoracija = new Dekoracija()
-                {
-                    BrojCvetova = dekVM.BrojCvetova,
-                    CvetProizvodId = dekVM.CvetProizvodId,
-                    CvetniAranzmanProizvodId = cvAr.ProizvodId
-                };
-                dekorcije.Add(dekoracija);
-            }
-
-            foreach(Dekoracija d in dekorcije)
-            {
+                d.CvetniAranzmanProizvodId = cvAr.ProizvodId;
                 jedinicaRada.DekoracijaRepozitorijum.Dodaj(d);
             }
-           
             jedinicaRada.Sacuvaj();
-            return RedirectToAction("Index", "Pocetna");
+            return RedirectToAction("Index");
         }
         public IActionResult dodajCvet(int cvetId, string Naziv, string Boja, int RedniBroj)
         {
-
-
-
             DekoracijaViewModel model = new DekoracijaViewModel()
             {
                 CvetProizvodId = cvetId,

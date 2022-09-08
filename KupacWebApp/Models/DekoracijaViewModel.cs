@@ -13,7 +13,6 @@ namespace KupacWebApp.Models
         public string Boja { get; set; }
         public string Naziv { get; set; }
         public int CvetProizvodId { get; set; }
-        [Range(1,30, ErrorMessage = "Broj cvetova nije u odgovarajucem opsegu.")]
         public int BrojCvetova { get; set; } = 1;
     }
 }

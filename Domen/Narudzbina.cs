@@ -23,7 +23,7 @@ namespace Domen
         public string Adresa { get; set; }
         public StatusIsporuke StatusIsporuke { get; set; }
         public ProdajnoMesto ProdajnoMesto { get; set; }
-        public int ProdajnoMestoId { get; set; }
+        public int? ProdajnoMestoId { get; set; }
         public Kupac Kupac { get; set; }
         public int KupacId { get; set; }
         public List<Stavka> Stavke { get; set; }

@@ -14,13 +14,10 @@ namespace KupacWebApp.Models
         
         public VrstaNarudzbine VrstaNarudzbine { get; set; }
         public string Adresa { get; set; }
-       // public string StatusIsporuke { get; set; } = "Obrada";
-       // public ProdajnoMesto ProdajnoMesto { get; set; }
-        public int ProdajnoMestoId { get; set; }
-      //  public Kupac Kupac { get; set; }
+        public int? ProdajnoMestoId { get; set; }
         public int KupacId { get; set; }
-        public List<Stavka> Stavke { get; set; } = new List<Stavka>();
+        public List<StavkaViewModel> Stavke { get; set; } = new List<StavkaViewModel>();
         public List<SelectListItem> ProdajnaMesta { get; set; }
-
+        public List<ProizvodViewModel> Proizvodi { get; set; } = new List<ProizvodViewModel>();
     }
 }

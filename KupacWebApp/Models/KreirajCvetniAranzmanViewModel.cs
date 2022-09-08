@@ -21,19 +21,5 @@ namespace KupacWebApp.Models
         public List<SelectListItem> Pakovanja { get; set; }
         public List<CvetViewModel> Cvece { get; set; } = new List<CvetViewModel>();
         public List<DekoracijaViewModel> Dekoracije { get; set; } = new List<DekoracijaViewModel>();
-
-        public int SelectedItem(List<SelectListItem> pakovanja)
-        {
-            foreach (SelectListItem item1 in pakovanja)
-            {
-                if (item1.Selected)
-                {
-                    return Int32.Parse(item1.Value);
-                }
-            }
-            return -1;
-        }
-
-
     }
 }

@@ -4,19 +4,19 @@ namespace Domen
 {
     public enum Familija
     {
-        Aktinidijevke,
-        Breze,
-        Jagorcevine,
-        Ruze,
-        Usnatice
+        Aktinidijevke = 0,
+        Breze = 1,
+        Jagorcevine = 2,
+        Ruze = 3,
+        Usnatice = 3
     }
     public enum Boja 
     {
-        Crvena,
-        Bela,
-        Zuta,
-        Plava,
-        Ljubicasta
+        Crvena = 0,
+        Bela = 1,
+        Zuta = 2,
+        Plava = 3,
+        Ljubicasta = 4
     }
     public class Cvet : Proizvod
     {
@@ -27,7 +27,7 @@ namespace Domen
 
         public override string ToString()
         {
-            return $"{Naziv} {Boja} {Cena}";
+            return $"{Naziv}    [Boja: {Boja}   ";
         }
 
     }

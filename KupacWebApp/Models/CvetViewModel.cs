@@ -1,4 +1,5 @@
 ﻿using Domen;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace KupacWebApp.Models
         public string Opis { get; set; }
         public Familija Familija { get; set; }
         public string Slika { get; set; }
+        public IFormFile SlikaFile { get; set; }
         public Boja Boja { get; set; }
     }
 }

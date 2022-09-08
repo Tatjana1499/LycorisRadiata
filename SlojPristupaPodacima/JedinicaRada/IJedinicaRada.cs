@@ -14,6 +14,8 @@ namespace SlojPristupaPodacima.JedinicaRada
         public ICvetRepozitorijum CvetRepozitorijum { get; set; }
         public IProdajnoMestoRepozitorijum ProdajnoMestoRepozitorijum { get; set; }
         public IDekoracijaRepozitorijum DekoracijaRepozitorijum { get; set; }
+        public IProizvodRepozitorijum ProizvodRepozitorijum { get; set; }
+        public INarudzbinaRepozitorijum NarudzbinaRepozitorijum { get; set; }
         public void Sacuvaj();
     }
 }

@@ -22,6 +22,8 @@ namespace SlojPristupaPodacima.JedinicaRada
             CvetRepozitorijum = new CvetRepozitorijum(context);
             PakovanjeRepozitorijum = new PakovanjeRepozitorijum(context);
             DekoracijaRepozitorijum = new DekoracijaRepozitorijum(context);
+            ProizvodRepozitorijum = new ProizvodRepozitorijum(context);
+            NarudzbinaRepozitorijum = new NarudzbinaRepozitorijum(context);
         }
         public ICvetniAranzmanRepozitorijum CvetniAranzmanRepozitorijum { get; set; }
         public IKupacRepozitorijum KupacRepozitorijum { get; set; }
@@ -29,6 +31,8 @@ namespace SlojPristupaPodacima.JedinicaRada
         public ICvetRepozitorijum CvetRepozitorijum { get; set; }
         public IProdajnoMestoRepozitorijum ProdajnoMestoRepozitorijum { get; set; }
         public IDekoracijaRepozitorijum DekoracijaRepozitorijum { get; set; }
+        public IProizvodRepozitorijum ProizvodRepozitorijum { get; set; }
+        public INarudzbinaRepozitorijum NarudzbinaRepozitorijum { get; set; }
 
         public void Sacuvaj()
         {

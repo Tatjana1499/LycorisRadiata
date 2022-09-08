@@ -1,4 +1,5 @@
 ﻿using Domen;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +34,7 @@ namespace SlojPristupaPodacima.Implementacije
 
         public List<Dekoracija> Pretraga(Expression<Func<Dekoracija, bool>> uslov)
         {
-            throw new NotImplementedException();
+            return context.Dekoracija.Include(d => d.Cvet).Where(uslov).ToList();
         }
 
         public List<Dekoracija> VratiSve()

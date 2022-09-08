@@ -186,7 +186,56 @@ namespace ConsoleApp2
             //jedinicaRada.CvetRepozitorijum.Dodaj(new Cvet { Boja = Boja.Plava, Cena = 100, Familija = Familija.Aktinidijevke, Naziv = "NOVI", Opis = "NOVI", Slika = "slika"});
             //jedinicaRada.Sacuvaj();
 
-
+            //Kupac k = new Kupac()
+            //{
+            //    BrojTelefona = "098765432",
+            //    Email = "asdf@gfds.com",
+            //    Ime = "ime",
+            //    Prezime = "prezime",
+            //    Lozinka = "12345abc",
+            //    KorisnickoIme = "kor ime"
+            //};
+            //context.Kupac.Add(k);
+            //context.SaveChanges();
+            //Kupac k = context.Kupac.Single(k => k.Ime == "ime");
+            //List<Stavka> stavke = new List<Stavka>()
+            //{
+            //    new Stavka()
+            //    {
+            //        Kolicina = 1,
+            //        ProizvodId = 14
+            //    },
+            //     new Stavka()
+            //    {
+            //        Kolicina = 2,
+            //        ProizvodId = 50
+            //    },
+            //      new Stavka()
+            //    {
+            //        Kolicina = 3,
+            //        ProizvodId = 16
+            //    },
+            //       new Stavka()
+            //    {
+            //        Kolicina = 4,
+            //        ProizvodId = 15
+            //    },
+            //        new Stavka()
+            //    {
+            //        Kolicina = 5,
+            //        ProizvodId = 48
+            //    }
+            //};
+            //Narudzbina narudzbina = new Narudzbina()
+            //{
+            //    Adresa = "adresa",
+            //    Kupac =k,
+            //    StatusIsporuke = StatusIsporuke.Obrada,
+            //    VrstaNarudzbine = VrstaNarudzbine.Dostava,
+            //    Stavke = stavke
+            //};
+            //context.Narudzbina.Add(narudzbina);
+            //context.SaveChanges();
         }
     }
 }

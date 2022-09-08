@@ -1,4 +1,5 @@
 ﻿using Domen;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,16 +30,17 @@ namespace SlojPristupaPodacima.Implementacije
         public void Dodaj(CvetniAranzman entitet)
         {
             context.CvetniAranzman.Add(entitet);
+          //  var tr = context.Database.BeginTransaction();
+
         }
 
         public List<CvetniAranzman> Pretraga(Expression<Func<CvetniAranzman, bool>> uslov)
         {
-            throw new NotImplementedException();
+            return context.CvetniAranzman.Include(c => c.Pakovanje).Where(uslov).ToList();
         }
-
         public List<CvetniAranzman> VratiSve()
         {
-            throw new NotImplementedException();
+            return context.CvetniAranzman.ToList();
         }
     }
 }
