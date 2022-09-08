@@ -15,13 +15,13 @@ namespace KupacWebApp.Models
         [Required(ErrorMessage = "*")]
         public string KorisnickoIme { get; set; }
         [Required(ErrorMessage = "*")]
-        [Phone]
+        [Phone(ErrorMessage = "Unesi samo brojeve.")]
         public string BrojTelefona { get; set; }
         [Required(ErrorMessage = "*")]
-        [MinLength(7)]
+        [MinLength(7, ErrorMessage = "Minimum 7 karaktera.")]
         public string Lozinka { get; set; }
         [Required(ErrorMessage = "*")]
-        [EmailAddress]
+        [EmailAddress(ErrorMessage = "Neispravan email format.")]
         public string Email { get; set; }
 
     }

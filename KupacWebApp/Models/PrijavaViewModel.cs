@@ -11,7 +11,7 @@ namespace KupacWebApp.Models
         [Required(ErrorMessage = "*")]
         public string KorisnickoIme { get; set; }
         [Required(ErrorMessage = "*")]
-        [MinLength(7, ErrorMessage = "Minimum 7 karaktera.")]
+        [MinLength(7, ErrorMessage = "*")]
         public string Lozinka { get; set; }
     }
 }

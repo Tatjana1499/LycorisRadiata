@@ -1,26 +1,26 @@
 ﻿@model IzmeniKupcaViewModel
 
-<div style="margin-left: 25%; margin-right: 25%; width: 50%; position: center; text-align: center; margin-top: 30px; border-style: double; border-color: #761515; background-image: url('https://img.freepik.com/free-vector/hand-drawn-style-floral-background_79603-1541.jpg?w=1060&t=st=1662127576~exp=1662128176~hmac=38405bf29f3f7e19984e40832957f95e990ce74de7ae6ce40ca1e569a43fb4c7')">
+<div class="rounded-pill" style=" width: 100%; position: center; text-align: center; margin-top: 6%; border-style: double; border-color: #761515; background-repeat: repeat-x; background-image: url(../slike/pozadina1.jpg) ">
     <form>
 
-        <div class="form-group" style="border-style:double; border-color:#761515; margin-top:10px; background-color:white">
+        <div class="form-group rounded-pill" style="position:center; margin-left:25%; width:50%; border-style:double; border-color:#761515; margin-top:10px; background-color:white">
             <label class="font-weight-bolder">Ime: @Model.Ime</label>
         </div>
-        <div class="form-group" style="border-style: double; border-color: #761515; margin-top: 5px; background-color: white ">
+        <div class="form-group rounded-pill" style="position: center; margin-left: 25%; width: 50%; border-style: double; border-color: #761515; margin-top: 5px; background-color: white ">
             <label class="font-weight-bolder">Prezime: @Model.Prezime</label>
         </div>
-        <div class="form-group" style="border-style: double; border-color: #761515; margin-top: 5px; background-color: white ">
+        <div class="form-group rounded-pill" style="position: center; margin-left: 25%; width: 50%; border-style: double; border-color: #761515; margin-top: 5px; background-color: white ">
             <label class="font-weight-bolder">Korisnicko ime: @Model.KorisnickoIme</label>
         </div>
-        <div class="form-group" style="border-style: double; border-color: #761515; margin-top: 5px; background-color: white ">
+        <div class="form-group rounded-pill" style="position: center; margin-left: 25%; width: 50%; border-style: double; border-color: #761515; margin-top: 5px; background-color: white ">
             <label class="font-weight-bolder">Email: @Model.Email</label>
         </div>
-        <div class="form-group" style="border-style: double; border-color: #761515; margin-top: 5px; background-color: white ">
+        <div class="form-group rounded-pill" style="position: center; margin-left: 25%; width: 50%; border-style: double; border-color: #761515; margin-top: 5px; background-color: white ">
             <label class="font-weight-bolder">Broj telefona: @Model.BrojTelefona</label>
         </div>
-        <div style="display:inline-flex" class="btn-group">
-            <button style="margin:10px" class="btn-light" asp-controller="Kupac" asp-action="Edit">Izmeni</button>
-            <button style="margin:10px" class="btn-light" asp-action="">Obrisi</button>
+        <div style="display:inline-flex">
+            <button style="margin:10px" class="btn btn-primary btn-outline-dark" asp-controller="Kupac" asp-action="Edit">Izmeni</button>
+            <button style="margin:10px" class="btn btn-primary btn-outline-dark" asp-action="">Obrisi</button>
         </div>
     </form>
 </div>

@@ -7,84 +7,77 @@
     <div class="form-group" style="display:inline-flex; width:100%">
         <div style="position: relative; width: 50%">
             <label>Naziv: </label>
-            <input id="nazivCvAr" oninput="proveriIme(this.value)" asp-for="@Model.Naziv" type="text" />
+            <input class="rounded-pill" id="nazivCvAr" oninput="proveriIme(this.value)" asp-for="@Model.Naziv" type="text" />
         </div>
         <div hidden style="position: relative; width: 50%; text-align:center" id="ne_kreiraj"><label class="alert-danger">Ne možete kreirati cvetni aranžman dok ne unesete njegov naziv.</label></div>
     </div>
 
     <div style="display:inline-flex; width:100%">
 
-        <div style="position: relative; width: 50%" class="form-group">
-            <label>Odaberite cveće: :</label>
+        <div class="form-group">
+            <label>Odaberite cveće:</label>
 
-            <table class="table table-striped table-borderless">
-                <thead style="width:max-content; border:none" class="form-control-range">
+            <table style="table-layout: fixed; width: 490px" class="table table-borderless">
+                <thead style="border:none">
                     <tr>
                         <th>Naziv</th>
-                        <th>Boja</th>
+                        <th style="padding-left: 30px">Boja</th>
                         <th>Cena</th>
                         <th></th>
                         <th></th>
                     </tr>
                 </thead>
-                <tbody style="width:max-content" class="pre-scrollable form-control-range">
+                <tbody style="max-height:180px;width:490px; overflow-y:scroll; display:block">
                     @foreach (CvetViewModel item in Model.Cvece)
                     {
                         <tr>
-                            <td id="naziv @item.ProizvodId">@item.Naziv</td>
-                            <td id="boja @item.ProizvodId">@item.Boja.ToString()</td>
-                            <td>@item.Cena</td>
-                            <td><button type="button" class="btn btn-primary btn-outline-dark" data-toggle="ajax-modal" data-target="#infoCvet" data-url="@Url.Action("Index","Cvet",new { id = item.ProizvodId })">Detalji</button></td>
-                            <td> <button id="btn @item.ProizvodId" value="@item.ProizvodId" class="dodajCvet btn btn-primary btn-outline-dark" type="button">Dodaj</button> </td>
+                            <td style="max-width:100px; overflow-x:auto" id="naziv @item.ProizvodId">@item.Naziv</td>
+                            <td style="max-width: 100px; overflow-x: auto" id="boja @item.ProizvodId">@item.Boja.ToString()</td>
+                            <td style="max-width: 100px; overflow-x: auto">@item.Cena</td>
+                            <td style="max-width: 100px; overflow-x: auto"><button type="button" class="btn btn-primary btn-outline-dark" data-toggle="ajax-modal" data-target="#infoCvet" data-url="@Url.Action("Index","Cvet",new { id = item.ProizvodId })">Detalji</button></td>
+                            <td style="max-width: 100px; overflow-x: auto"> <button id="btn @item.ProizvodId" value="@item.ProizvodId" class="dodajCvet btn btn-primary btn-outline-dark" type="button">Dodaj</button> </td>
                         </tr>
 
                     }
                 </tbody>
             </table>
         </div>
+        <div style="padding-left:100px; width:500px" class="form-group">
+            <label>Odabrano cveće: </label>
+            <div style="display:inline-flex; margin-left:10px; height:20px;" id="greska" class="text-danger" asp-validation-summary="ModelOnly"></div>
 
-        <div style="position: relative; width: 50%" class="form-group">
-            <label>Odabrano cvece: </label>
-            <div id="greska" class="text-danger" asp-validation-summary="ModelOnly"></div>
+            <table style="table-layout: fixed; width: 430px;" class="table table-borderless" id="odabraneTabela">
 
-            <table class="table table-striped table-borderless" id="odabraneTabela">
-
-                <thead style="width:max-content; border:none" class="form-control-range">
+                <thead style="border:none">
                     <tr>
-                        <th>Naziv</th>
+                        <th style="margin-right:20px">Naziv</th>
                         <th>Boja</th>
                         <th>Kolicina</th>
                         <th></th>
                     </tr>
                 </thead>
-
-                <tbody id="dektbody" style="width:max-content" class="pre-scrollable form-control-range">
+                <tbody id="dektbody" style="max-height:180px;width:430px; overflow-y:scroll; display:block">
                 </tbody>
-
             </table>
         </div>
 
     </div>
-        <div class="form-group">
+        <div class="form-group" style="display:inline-block; margin-top:10px">
             <label>Čekiraj polje ako ukoliko da tvoj cvetni aranžman ima mašnu: </label>
             <input asp-for="@Model.Masna" type="checkbox" />
-        </div>
-        <div class="form-group">
-            <label>Izaberi sjaj: </label>
-            <select asp-for="@Model.Sjaj" asp-items="Html.GetEnumSelectList<Sjaj>()"></select>
-        </div>
-        <div class="form-group">
-            <label>Namena cvetnog aranzmana: </label>
-            <select asp-for="@Model.Namena" asp-items="Html.GetEnumSelectList<Namena>()"></select>
+            <label style="margin-left:30px">Izaberi sjaj: </label>
+            <select class="rounded-pill" asp-for="@Model.Sjaj" asp-items="Html.GetEnumSelectList<Sjaj>()"></select>
+            <label style="margin-left:30px">Namena cvetnog aranzmana: </label>
+            <select class="rounded-pill" asp-for="@Model.Namena" asp-items="Html.GetEnumSelectList<Namena>()"></select>
         </div>
         <div class="form-group" style="display:inline-flex">
             <label style="margin-right:10px; width:130px">Izaberi pakovanje: </label>
-            <select style="margin-right:50px; width:500px" asp-for="PakovanjeId" asp-items="@Model.Pakovanja"></select>
+            <select class="rounded-pill" style="text-align:center; margin-right:50px; width:500px" asp-for="PakovanjeId" asp-items="@Model.Pakovanja"></select>
             <button type="button" class="btn btn-primary btn-outline-dark" data-toggle="ajax-modal" data-target="#infoPaketi" data-url="@Url.Action("Index","Pakovanje")">Katalog pakovanja</button>
         </div>
         <div class="form-group" style="display:inline-flex">
             <label style="margin-right:20px">Napomena (opciono polje):</label>
-            <textarea asp-for="@Model.Napomena" style="width:800px; max-height:100px"></textarea>
+            <textarea class="rounded-pill" asp-for="@Model.Napomena" style="width:800px; max-height:100px"></textarea>
         </div>
 
 

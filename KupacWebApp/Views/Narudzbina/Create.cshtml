@@ -5,13 +5,12 @@
     <input hidden value="@Model.VrstaNarudzbine" asp-for="@Model.VrstaNarudzbine" />
     @if (Model.VrstaNarudzbine == VrstaNarudzbine.Dostava)
     {
-        @*<input hidden value="-1" asp-for="@Model.ProdajnoMestoId" />*@
         <div onmousemove="proveriIme(document.querySelector('#adresa').value)">
             <header style="margin-top:10px; margin:15px" class="card-header">Tip narudzbine: Dostava</header>
             <div class="form-group" style="display:inline-flex; width:100%">
                 <div style="margin:5px" class="form-group">
                     <label>Adresa dostave: </label>
-                    <input oninput="proveriIme(this.value)" id="adresa" type="text" asp-for="@Model.Adresa" />
+                    <input class="rounded-pill" oninput="proveriIme(this.value)" id="adresa" type="text" asp-for="@Model.Adresa" />
                 </div>
                 <div hidden style="position: relative; width: 50%; text-align:center" id="ne_kreiraj"><label class="alert-danger">Ne možete naručiti dok ne unesete adresu.</label></div>
             </div>
@@ -21,16 +20,17 @@
     {
         <header style="margin-top:10px; margin:15px" class="card-header">Tip narudzbine: Lično preuzimanje</header>
         <div style="margin:5px; display:inline-flex" class="form-group">
-            <label class="form-control">Adresa preuzimanja: </label>
-            <select style="margin-left:50px" asp-for="@Model.ProdajnoMestoId" asp-items="Model.ProdajnaMesta" class="form-control dropdown"></select>
+            <label  class="form-control">Adresa preuzimanja: </label>
+            <select style="margin-left:30px" asp-for="@Model.ProdajnoMestoId" asp-items="Model.ProdajnaMesta" class="form-control dropdown"></select>
+            <button style="margin-left:30px;width:120px"  data-toggle="ajax-modal" data-target="#infoProdMesta" data-url="@Url.Action("Index","ProdajnoMesto")" class="btn btn-primary btn-outline-dark" type="button">Prodajna mesta</button>
         </div>
     }
-    <div style="display:inline-flex;">
-        <div style="position: relative; margin:10px" class="form-group">
+    <div style="display:inline-flex; width:100%; margin-top:20px">
+        <div class="form-group">
             <label>Odaberite proizvode koje želite da naručite: :</label>
 
-            <table class="table table-striped table-borderless">
-                <thead style="width:max-content; border:none" class="form-control-range">
+            <table style="table-layout: fixed; width: 490px" class="table table-borderless">
+                <thead style="border:none">
                     <tr>
                         <th>Naziv</th>
                         <th>Vrsta</th>
@@ -39,45 +39,44 @@
                         <th></th>
                     </tr>
                 </thead>
-                <tbody style="width:max-content" class="pre-scrollable form-control-range">
+                <tbody style="max-height:180px;width:490px; overflow-y:scroll; display:block">
                     @foreach (ProizvodViewModel item in Model.Proizvodi)
                     {
                         <tr>
-                            <td id="naziv @item.ProizvodId">@item.Naziv</td>
+                            <td  style="max-width:100px; overflow-x:auto" id="naziv @item.ProizvodId">@item.Naziv</td>
                             @if (item.JesteCvet)
                             {
-                                <td id="boja @item.ProizvodId">Cvet</td>
+                                <td  style="max-width:100px; overflow-x:auto" id="boja @item.ProizvodId">Cvet</td>
                             }
                             else
                             {
-                                <td id="boja @item.ProizvodId">Cvetni aranzman</td>
+                                <td  style="max-width:100px; overflow-x:auto" id="boja @item.ProizvodId">Cvetni aranzman</td>
                             }
-                            <td>@item.Cena</td>
-                            <td><button type="button" class="btn btn-primary btn-outline-dark" data-toggle="ajax-modal" data-target="#infoCvet" data-url="@Url.Action("Index","Cvet",new { id = item.ProizvodId })">Detalji</button></td>
-                            <td> <button id="btn @item.ProizvodId" value="@item.ProizvodId" class="dodajPorizvod btn btn-primary btn-outline-dark" type="button">Dodaj</button> </td>
+                            <td  style="max-width:100px; overflow-x:auto">@item.Cena</td>
+                            <td  style="max-width:100px; overflow-x:auto"><button type="button" class="btn btn-primary btn-outline-dark" data-toggle="ajax-modal" data-target="#infoCvet" data-url="@Url.Action("Index","Cvet",new { id = item.ProizvodId })">Detalji</button></td>
+                            <td  style="max-width:100px; overflow-x:auto"> <button id="btn @item.ProizvodId" value="@item.ProizvodId" class="dodajPorizvod btn btn-primary btn-outline-dark" type="button">Dodaj</button> </td>
                         </tr>
                     }
                 </tbody>
             </table>
         </div>
 
-        <div style="position: relative; margin:10px" class="form-group">
+        <div style="padding-left:100px; width:450px" class="form-group">
             <div class="form-inline" style="height: 10px; margin-bottom: 10px">
                 <label>Odabrani proizvodi: </label>
                 <div class="alert-danger" style="margin-left:20px;height:20px" asp-validation-summary="ModelOnly"></div>
             </div>
-            <table class="table table-striped table-borderless" id="odabraniProizvodi">
+            <table  style="table-layout: fixed; width: 400px;" class="table table-borderless"  id="odabraniProizvodi">
 
-                <thead style="width:max-content; border:none" class="form-control-range">
+                <thead style="border:none">
                     <tr>
-                        <th>Naziv</th>
-                        <th>Ukupna cena</th>
-                        <th>Kolicina</th>
-                        <th></th>
+                        <th style="width:80px">Naziv</th>
+                        <th style="width:100px; padding-left:30px">Kolicina</th>
+                        <th style="width: 100px; padding-left: 70px"></th>
                     </tr>
                 </thead>
 
-                <tbody style="width:max-content" class="pre-scrollable form-control-range">
+                <tbody style="max-height:180px;width:430px; overflow-y:scroll; display:block">
                 </tbody>
 
             </table>
@@ -85,13 +84,13 @@
     </div>
     @if (Model.VrstaNarudzbine == VrstaNarudzbine.Dostava)
     {
-        <div onmousemove="proveriIme(document.querySelector('#adresa').value)" style="text-align:center">
+        <div onmousemove="proveriIme(document.querySelector('#adresa').value)" style="text-align:center; margin-top:50px">
             <input class="btn btn-primary btn-outline-dark" id="kreiraj" onclick="vratiRedove()" style="position: static; margin: 5px" type="submit" value="Naruči" />
         </div>
     }
     else
     {
-        <div style="text-align:center">
+        <div style="text-align: center; margin-top: 50px">
             <input class="btn btn-primary btn-outline-dark" style="position:static" type="submit" value="Naruči" />
         </div>
     }

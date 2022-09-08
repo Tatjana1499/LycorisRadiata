@@ -1,11 +1,11 @@
 ﻿@model KupacWebApp.Models.DekoracijaViewModel
 
 <tr id="red @Model.RedniBroj">
-    <td>@Model.Naziv </td>
-    <td>@Model.Boja</td>
-    <td><input id="brCvetova @Model.RedniBroj" type="number" min="0" value="@Model.BrojCvetova" name="Dekoracije[@Model.RedniBroj].BrojCvetova" /></td>
-    <td> <button id="ukbtn @Model.RedniBroj" class="ukloniCvet btn btn-primary btn-outline-dark" value="@Model.RedniBroj" type="button" onclick="ukloniRed(this.value)">Ukloni</button> </td>
+    <td style="max-width: 100px; overflow-x: auto">@Model.Naziv </td>
+    <td style="padding-left: 10px; max-width: 100px; overflow-x: auto">@Model.Boja</td>
+    <td style="padding-left: 10px; max-width: 100px; overflow-x: auto"><input class="form-control" id="brCvetova @Model.RedniBroj" type="number" min="0" value="@Model.BrojCvetova" name="Dekoracije[@Model.RedniBroj].BrojCvetova" /></td>
+    <td style="padding-left:20px; max-width: 110px;overflow-y:hidden; overflow-x: auto"> <button id="ukbtn @Model.RedniBroj" class="ukloniCvet btn btn-primary btn-outline-dark" value="@Model.RedniBroj" type="button" onclick="ukloniRed(this.value)">Ukloni</button> </td>
 
-    <td><input id="cvetId @Model.RedniBroj" hidden value="@Model.CvetProizvodId" name="Dekoracije[@Model.RedniBroj].CvetProizvodId" /></td>
-    <td><input hidden value="@Model.RedniBroj" name="Dekoracije[@Model.RedniBroj].RedniBroj" /></td>
+    <td style="display:none"><input id="cvetId @Model.RedniBroj" value="@Model.CvetProizvodId" name="Dekoracije[@Model.RedniBroj].CvetProizvodId" /></td> @*hidden*@
+    <td style="display: none "><input value="@Model.RedniBroj" name="Dekoracije[@Model.RedniBroj].RedniBroj" /></td> @*hidden*@
 </tr>

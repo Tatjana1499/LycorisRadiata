@@ -10,6 +10,5 @@ namespace KupacWebApp.Models
         public string Adresa { get; set; }
         public string RadnoVreme { get; set; }
         public string Sajt { get; set; }
-        public string Slika { get; set; }
     }
 }

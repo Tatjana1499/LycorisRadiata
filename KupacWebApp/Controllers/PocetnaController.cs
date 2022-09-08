@@ -14,6 +14,7 @@ namespace KupacWebApp.Controllers
     {
         public IActionResult Index()
         {
+
             var user = HttpContext.User;
             
             if (user is null)

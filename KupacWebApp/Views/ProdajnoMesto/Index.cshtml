@@ -1,10 +1,31 @@
 ﻿@using Domen
-@model List<ProdajnoMesto>
+@model List<ProdajnoMestoViewModel>
 
-@foreach (ProdajnoMesto item in Model)
-{
-            <label>Adresa: @item.Adresa</label>
-                <label>Radno vreme: @item.RadnoVreme</label>
-                    <label>Sajt: @item.Sajt</label>
-            
-}
+<div class="modal fade" id="infoProdMesto">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div style="background-color:#ef9f9f" class="modal-header">
+                <h6 class="modal-title">Detalji</h6>
+                <button type="button" class="close" data-dismiss="modal"><span>x</span></button>
+            </div>
+            <div class="pre-scrollable">
+                @foreach (ProdajnoMestoViewModel item in Model)
+                {
+                    <div class="modal-body" style="margin-bottom:10px;">
+                        <div class="rounded" style="width: 100%; border: double; background-color: #f6b9b9">
+                            <div class="rounded" style="border-bottom: double; margin-left: 0; margin-right: 0; text-align: center">
+                                <label class="text-break font-weight-bold" style="margin:5px">Adresa: @item.Adresa</label>
+                            </div>
+                            <div class="rounded" style="border-bottom: double; margin-left: 0; margin-right: 0; text-align: center">
+                                <label  class="text-break font-weight-bold"  style="margin:5px">RadnoVreme: @item.RadnoVreme</label>
+                            </div>
+                            <div class="rounded" style="border-bottom: double; margin-left: 0; margin-right: 0; text-align: center">
+                                <a target="_blank" class="text-break font-weight-bold"  style="margin:5px;color:cadetblue" href="@item.Sajt" >@item.Sajt</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

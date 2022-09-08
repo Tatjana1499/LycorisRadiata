@@ -9,22 +9,22 @@
                 <button type="button" class="close" data-dismiss="modal"><span>x</span></button>
             </div>
             <div class="modal-body" style="display:inline-flex">
-                <div style="border:double; width:50%">
-                    <div style="border-bottom:double; margin-left:0;margin-right:0">
+                <div class="rounded" style="border:double; width:50%">
+                    <div class="rounded" style="border-bottom:double; margin-left:0;margin-right:0">
                         <label>Familija: @Model.Familija</label>
                     </div>
-                    <div style="border-bottom: double; margin-left: 0; margin-right: 0">
+                    <div class="rounded" style="border-bottom: double; margin-left: 0; margin-right: 0">
                         <label>Boja: @Model.Boja</label>
                     </div>
-                    <div style="border-bottom: double; margin-left: 0; margin-right: 0">
+                    <div class="rounded" style="border-bottom: double; margin-left: 0; margin-right: 0">
                         <label>Cena: @Model.Cena</label>
                     </div>
-                    <div style="margin-left: 0; margin-right: 0">
+                    <div class="rounded" style="margin-left: 0; margin-right: 0">
                         <label>Opis: @Model.Opis</label>
                     </div>
                 </div>
-                <div style="border:double; width:50%">
-                    <img class="img-fluid" src="@("~/slike/"+Model.Slika)" asp-append-version="true" />
+                <div style="margin-left:8px; width:50%">
+                    <img class="img-fluid rounded" style="position:center; border: double;" src="@("~/slike/"+Model.Slika)" asp-append-version="true" />
                 </div>
             </div>
         </div>

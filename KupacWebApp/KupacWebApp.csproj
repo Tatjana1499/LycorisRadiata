@@ -11,7 +11,10 @@
 
   <ItemGroup>
     <Folder Include="Filters\" />
-    <Folder Include="wwwroot\slike\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\slike\prijava2.jpg" />
   </ItemGroup>
 
   <ItemGroup>
