@@ -27,6 +27,12 @@ namespace SlojPristupaPodacima.Implementacije
             throw new NotImplementedException();
         }
 
+        public void BrisiId(int id)
+        {
+            Narudzbina narudzbina = context.Narudzbina.Single(n => n.NarudzbinaId == id);
+            context.Narudzbina.Remove(narudzbina);
+        }
+
         public void Dodaj(Narudzbina entitet)
         {
             context.Narudzbina.Add(entitet);
@@ -43,7 +49,11 @@ namespace SlojPristupaPodacima.Implementacije
         }
         public Narudzbina PretragaId(int id)
         {
-            return context.Narudzbina.Single(c => c.NarudzbinaId == id);
+            return context.Narudzbina.Include(n => n.Kupac).Single(c => c.NarudzbinaId == id);
+        }
+        public List<Narudzbina> PretragaKupac(Expression<Func<Narudzbina, bool>> uslov)
+        {
+            return context.Narudzbina.Include(n => n.ProdajnoMesto).Include(n => n.Kupac).Where(uslov).ToList();
         }
     }
 }

@@ -1,5 +1,4 @@
 using Domen;
-using KupacWebApp.Claims;
 using KupacWebApp.Middlewares;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;

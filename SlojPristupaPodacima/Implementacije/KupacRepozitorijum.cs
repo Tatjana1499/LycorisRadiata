@@ -33,7 +33,7 @@ namespace SlojPristupaPodacima.Implementacije
 
         public List<Kupac> Pretraga(Expression<Func<Kupac, bool>> uslov)
         {
-            throw new NotImplementedException();
+            return context.Kupac.Where(uslov).ToList();
         }
 
         public List<Kupac> VratiSve()

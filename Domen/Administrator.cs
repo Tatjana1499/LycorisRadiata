@@ -8,7 +8,7 @@ namespace Domen
 {
     public class Administrator : Osoba
     {
-        public int SifraZaposlednog { get; set; }
+        public string SifraZaposlenog { get; set; }
         public DateTime DatumZaposlenja { get; set; }
     }
 }

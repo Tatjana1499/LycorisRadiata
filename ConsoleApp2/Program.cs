@@ -261,6 +261,10 @@ namespace ConsoleApp2
             //};
             //context.SaveChanges();
 
+            //List<Narudzbina> narudzbine =  context.Narudzbina.ToList();
+            //Narudzbina n = narudzbine.Single(n => n.NarudzbinaId == 11);
+            //context.Remove(n);
+            //context.SaveChanges();
 
         }
     }

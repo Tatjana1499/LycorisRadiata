@@ -104,37 +104,50 @@ namespace KupacWebApp.Controllers
             };
             jedinicaRada.NarudzbinaRepozitorijum.Dodaj(narudzbina);
             jedinicaRada.Sacuvaj();
-            return Index();
+            return RedirectToAction("Index", "Narudzbina");
         }
-        public IActionResult Edit()
+        [HttpGet]
+        public IActionResult Edit(NarudzbinaViewModel model)
         {
-            List<Narudzbina> narudzbine = jedinicaRada.NarudzbinaRepozitorijum.VratiSve();
-            List<NarudzbinaViewModel> model = new List<NarudzbinaViewModel>();
-            foreach (var item in narudzbine)
+            if(string.IsNullOrEmpty(model.Kupac) || string.IsNullOrWhiteSpace(model.Kupac))
             {
-                NarudzbinaViewModel nVM = new NarudzbinaViewModel()
-                {
-                    Adresa = item.Adresa,
-                    Kupac = item.Kupac.UserName,
-                    NarudzbinaId = item.NarudzbinaId,
-                    ProdajnoMesto = item.ProdajnoMesto?.Adresa,
-                    StatusIsporuke = item.StatusIsporuke,
-                    VrstaNarudzbine = item.VrstaNarudzbine,
-                };
-                foreach(Stavka s in item.Stavke)
-                {
-                    string stavka = jedinicaRada.ProizvodRepozitorijum.PretragaId(s.ProizvodId).Naziv;
-                    nVM.Stavke.Add(stavka);
-                }
-                model.Add(nVM);
+                return RedirectToAction("AdministratorProfil", "Pocetna");
+            }
+            var postojiKupac = jedinicaRada.KupacRepozitorijum.Pretraga(k => k.UserName.ToLower().Trim() == model.Kupac.ToLower().Trim());
+            if(postojiKupac.Count  == 0)
+            {
+                return View(null);
             }
 
-            return View(model);
+            var narudzbine = jedinicaRada.NarudzbinaRepozitorijum.PretragaKupac(n => n.Kupac.UserName.ToLower().Trim() == model.Kupac.ToLower().Trim());
+            List<NarudzbinaViewModel> narudzbineVM = new List<NarudzbinaViewModel>();
+            foreach(Narudzbina narudzbina in narudzbine)
+            {
+                NarudzbinaViewModel narudzbinaVM = new NarudzbinaViewModel()
+                {
+                    VrstaNarudzbine = narudzbina.VrstaNarudzbine,
+                    Adresa = narudzbina.Adresa,
+                    Kupac = narudzbina.Kupac.UserName,
+                    NarudzbinaId = narudzbina.NarudzbinaId,
+                    ProdajnoMesto = narudzbina.ProdajnoMesto?.Adresa,
+                    StatusIsporuke = narudzbina.StatusIsporuke,
+                };
+                foreach (Stavka s in narudzbina.Stavke)
+                {
+                    string stavka = jedinicaRada.ProizvodRepozitorijum.PretragaId(s.ProizvodId).Naziv;
+                    narudzbinaVM.Stavke.Add(stavka);
+                }
+                narudzbineVM.Add(narudzbinaVM);
+            }
+            return View(narudzbineVM);
         }
-        public IActionResult IzmeniStatus(int id)
+        [HttpPost]
+        public string IzmeniStatus(int id, int StatusIsporuke)
         {
             Narudzbina narudzbina = jedinicaRada.NarudzbinaRepozitorijum.PretragaId(id);
-            return View();
+            narudzbina.StatusIsporuke = (Domen.StatusIsporuke) StatusIsporuke;
+            jedinicaRada.Sacuvaj();
+            return narudzbina.StatusIsporuke.ToString();
         }
         public IActionResult Index()
         {
@@ -157,6 +170,16 @@ namespace KupacWebApp.Controllers
                 narudzbineVM.Add(nvm);
             }
             return View(narudzbineVM);
+        }
+        public IActionResult PretragaNarudzbina()
+        {
+            return PartialView();
+        }
+        [HttpDelete]
+        public void Izbrisi(int id)
+        {
+            jedinicaRada.NarudzbinaRepozitorijum.BrisiId(id);
+            jedinicaRada.Sacuvaj();
         }
     }
 }

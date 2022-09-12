@@ -10,7 +10,5 @@ namespace Domen
     {
         public DateTime DatumKreiranjaNaloga { get; set; }
         public int BrojNarudzbina { get; set; }
-        // public string BrojTelefona { get; set; }
-        // public string Email { get; set; }  
     }
 }

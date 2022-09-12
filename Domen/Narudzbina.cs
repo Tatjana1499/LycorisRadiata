@@ -8,13 +8,14 @@ namespace Domen
 {
     public enum VrstaNarudzbine
     {
-        Preuzimanje,
-        Dostava
+        Preuzimanje = 0,
+        Dostava = 1
     }
     public enum StatusIsporuke
     {
-        Obrada,
-        Dostavljeno
+        Obrada = 0,
+        Dostavljeno = 1,
+        Zastarelo = 2
     }
     public class Narudzbina
     {

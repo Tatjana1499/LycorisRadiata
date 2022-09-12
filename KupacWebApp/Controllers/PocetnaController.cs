@@ -30,6 +30,10 @@ namespace KupacWebApp.Controllers
             {
                 return RedirectToAction("KupacProfil", "Pocetna");
             }
+            else if (HttpContext.User.IsInRole("Administrator"))
+            {
+                return RedirectToAction("AdministratorProfil", "Pocetna");
+            }
             return View();
         }
         [Authorize(Roles = "Kupac")]
@@ -46,6 +50,24 @@ namespace KupacWebApp.Controllers
                 Prezime = currentUser.Prezime,
             };
             return View(kupac);
+        }
+        public IActionResult AdministratorProfil()
+        {
+            var userId = manager.GetUserId(HttpContext.User);
+            Administrator currentUser = (Administrator)  manager.FindByIdAsync(userId).Result;
+            
+            AdministratorViewModel administrator = new AdministratorViewModel()
+            {
+                Ime = currentUser.Ime,
+                KorisnickoIme = currentUser.UserName,
+                Email = currentUser.Email,
+                Prezime = currentUser.Prezime,
+                DatumZaposlenja = currentUser.DatumZaposlenja,
+                SifraZaposlenog = currentUser.SifraZaposlenog
+
+            };
+
+            return View(administrator);
         }
     }
 }

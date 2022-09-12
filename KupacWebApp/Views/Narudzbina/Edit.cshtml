@@ -1,45 +1,123 @@
 ﻿@model List<NarudzbinaViewModel>
 
-<div style="max-height:600px; overflow-y:scroll; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif" class="text-dark">
-    @foreach (NarudzbinaViewModel item in Model)
-    {
-        <div class="list-group-item rounded-pill" style="border-style: solid; border-width: medium; border-color: brown; margin: 30px;padding-left:150px; background-repeat: no-repeat;background-size:auto 100%;background-position-x:right; background-image: url(../slike/okvir7.jpg) ">
-            <div style="width:70%; padding-bottom:30px">
-                <div style="margin-top:10px;">
-                    <label>Kupac: @item.Kupac</label>
+@if (Model is null)
+{
+    <div class="list-group-item rounded-pill" style="border-style: solid; border-width: medium; border-color: brown; margin: 30px;padding-left:80px;margin-top:100px">
+        <h1 class="font-weight-bolder text-center font-italic">Traženi kupac ne postoji.</h1>
+        <p class="font-weight-normal text-center">(Proveri ispravnost unosa korisničkog imena)</p>
+    </div>
+}
+else if (Model.Count == 0)
+{
+    <div class="list-group-item rounded-pill" style="border-style: solid; border-width: medium; border-color: brown; margin: 30px;padding-left:80px;margin-top:100px">
+        <h1 class="font-weight-bolder text-center font-italic">Kupac nema narudžbine.</h1>
+    </div>
+}
+else
+{
+    <div style="max-height:600px; overflow-y:scroll; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif" class="text-dark">
 
-                </div>
-                <div>
-                    <label>Status isporuke: @item.StatusIsporuke</label>
-                </div>
-                <div>
-                    <label>Vrsta narudzbine: @item.VrstaNarudzbine</label>
-                </div>
-                @if (item.VrstaNarudzbine == Domen.VrstaNarudzbine.Dostava)
-                {
-                    <div>
-                        <label>Adresa: @item.Adresa</label>
+        @foreach (NarudzbinaViewModel item in Model)
+        {
+            <div id="narudzbina @item.NarudzbinaId" class="list-group-item rounded-pill" style="border-style: solid; border-width: medium; border-color: brown; margin: 30px;padding-left:150px; background-repeat: no-repeat;background-size:auto 100%;background-position-x:right; background-image: url(../slike/okvir7.jpg) ">
+
+                <div style="width:70%; padding-bottom:30px">
+                    <div style="margin-top:10px;">
+                        <label>Kupac: @item.Kupac</label>
+
                     </div>
-                }
-                else
-                {
-                    <div>
-                        <label>Adresa prodajnog mesta: @item.ProdajnoMesto</label>
+                    <div style="display:inline-flex">
+                        <label id="lbl @item.NarudzbinaId">Status isporuke: </label>
+                        <p id="p @item.NarudzbinaId">@item.StatusIsporuke</p>
                     </div>
-                }
-                <div style="display:inline-flex">
-                    Stavke: &nbsp
-                    @foreach (var stavka in item.Stavke)
+                    <div>
+                        <label>Vrsta narudzbine: @item.VrstaNarudzbine</label>
+                    </div>
+                    @if (item.VrstaNarudzbine == Domen.VrstaNarudzbine.Dostava)
                     {
-                        <label>  [@stavka] &nbsp </label>
+                        <div>
+                            <label>Adresa: @item.Adresa</label>
+                        </div>
                     }
+                    else
+                    {
+                        <div>
+                            <label>Adresa prodajnog mesta: @item.ProdajnoMesto</label>
+                        </div>
+                    }
+                    <div style="display:inline-flex">
+                        Stavke: &nbsp
+                        @foreach (var stavka in item.Stavke)
+                        {
+                            <label>  [@stavka] &nbsp </label>
+                        }
+                    </div>
+
+                    <div style="margin-top:10px">
+                        <select id="slc @item.NarudzbinaId" class="rounded-pill" style="text-align:center; margin-right:50px; width:500px" asp-items="Html.GetEnumSelectList<Domen.StatusIsporuke>()"></select> 
+
+
+                        <button value="@item.NarudzbinaId" type="button" style="margin-left:100px;" class="izmeni btn btn-primary btn-outline-dark" id="btn @item.NarudzbinaId">Izmeni status</button>
+
+                        @if (item.StatusIsporuke == Domen.StatusIsporuke.Zastarelo)
+                        {
+                            <button value="@item.NarudzbinaId" id="izb @item.NarudzbinaId" style="margin-left: 10px; display:inline " class="izbrisi btn btn-primary btn-outline-dark">Izbriši</button>
+                        }
+                        else
+                        {
+                            <button value="@item.NarudzbinaId" hidden id="izb @item.NarudzbinaId" style="margin-left: 10px; display:inline " class="izbrisi btn btn-primary btn-outline-dark">Izbriši</button>
+                        }
+
+                    </div>
                 </div>
-                <div style="margin-top:10px">
-                    
-                    <button type="button" style="margin-left:100px;" class="btn btn-primary btn-outline-dark" data-toggle="ajax-modal" data-target="#infoCvet" data-url="@Url.Action("IzmeniStatus","Narudzbina",new { id = item.NarudzbinaId })">Izmeni status</button>
-                    <button style="margin-left: 10px; display:inline " class="btn btn-primary btn-outline-dark">Izbriši</button>
-                </div>
+
             </div>
-        </div>
-    }
-</div>
+        }
+
+    </div>
+}
+
+@section Scripts {
+
+    <script>
+        $(".izmeni").click(function () {
+
+
+            var yourSelect = document.getElementById("slc " + $(this).val());
+            var id = $(this).val()
+
+        $.ajax({
+            url: "@Url.Action("IzmeniStatus", "Narudzbina")",
+            method: "post",
+            data: { id: $(this).val(), StatusIsporuke: yourSelect.options[yourSelect.selectedIndex].value },
+            success: function (data) {
+                document.getElementById("p " + id).innerHTML = " " + data
+                if (data === "Zastarelo") {
+                    document.getElementById("izb " + id).hidden = false;
+                }
+                else {
+                    document.getElementById("izb " + id).hidden = true;
+                }
+            },
+        })
+        })
+
+        $(".izbrisi").click(function () {
+
+            var id = $(this).val()
+
+        $.ajax({
+            url: "@Url.Action("Izbrisi", "Narudzbina")",
+            method: "delete",
+            data: { id: $(this).val() },
+            success: function (data) {
+                alert("Uspešno obrisana narudžbina.")
+                document.getElementById("narudzbina " + id).hidden = true;
+               
+            },
+        })
+        })
+
+
+    </script>
+}
