@@ -9,5 +9,6 @@ namespace SlojPristupaPodacima
 {
     public interface ICvetniAranzmanRepozitorijum : IRepozitorijum<CvetniAranzman>
     {
+        public CvetniAranzman PretragaId(int id);
     }
 }

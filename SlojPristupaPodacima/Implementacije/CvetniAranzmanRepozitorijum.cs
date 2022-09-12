@@ -36,11 +36,15 @@ namespace SlojPristupaPodacima.Implementacije
 
         public List<CvetniAranzman> Pretraga(Expression<Func<CvetniAranzman, bool>> uslov)
         {
-            return context.CvetniAranzman.Include(c => c.Pakovanje).Where(uslov).ToList();
+            return context.CvetniAranzman.Include(c => c.Pakovanje).Include(c => c.Dekoracije).Where(uslov).ToList();
         }
         public List<CvetniAranzman> VratiSve()
         {
             return context.CvetniAranzman.ToList();
+        }
+        public CvetniAranzman PretragaId(int id)
+        {
+            return context.CvetniAranzman.Include(c => c.Pakovanje).Include(c => c.Dekoracije).Single(c => c.ProizvodId == id);
         }
     }
 }

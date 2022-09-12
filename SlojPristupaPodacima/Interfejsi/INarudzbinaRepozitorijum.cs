@@ -9,5 +9,6 @@ namespace SlojPristupaPodacima
 {
     public interface INarudzbinaRepozitorijum : IRepozitorijum<Narudzbina>
     {
+        public Narudzbina PretragaId(int id);
     }
 }

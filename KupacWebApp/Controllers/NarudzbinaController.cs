@@ -1,5 +1,6 @@
 ﻿using Domen;
 using KupacWebApp.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using SlojPristupaPodacima.JedinicaRada;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace KupacWebApp.Controllers
 {
+    [Authorize]
     public class NarudzbinaController : Controller
     {
         private readonly IJedinicaRada jedinicaRada;
@@ -47,8 +49,20 @@ namespace KupacWebApp.Controllers
                     Naziv = proizvod.Naziv,
                     Cena = proizvod.Cena
                 };
-                if(proizvod.GetType() == typeof(Cvet)) proizvodView.JesteCvet = true;
-                proizvodiView.Add(proizvodView);
+
+                if (proizvod.GetType() == typeof(Cvet))
+                {
+                    proizvodView.JesteCvet = true;
+                    proizvodiView.Add(proizvodView);
+                }
+                else
+                {
+                    CvetniAranzman cvAr = jedinicaRada.CvetniAranzmanRepozitorijum.PretragaId(proizvod.ProizvodId);
+                    if(cvAr.KupacId == Int32.Parse(HttpContext.User.Claims.ElementAt(0).Value))
+                    {
+                        proizvodiView.Add(proizvodView);
+                    }
+                }
             }
             kreirajNarudzbinu.Proizvodi = proizvodiView;
             kreirajNarudzbinu.ProdajnaMesta = prodajnaMesta.Select(p => new SelectListItem(p.Adresa, p.ProdajnoMestoId.ToString())).ToList();
@@ -83,15 +97,66 @@ namespace KupacWebApp.Controllers
             {
                 Adresa = model.Adresa,
                 ProdajnoMestoId = model.ProdajnoMestoId,
-                KupacId = Int32.Parse(HttpContext.User.Identity.Name),
+                KupacId = Int32.Parse(HttpContext.User.Claims.ElementAt(0).Value),
                 StatusIsporuke = StatusIsporuke.Obrada,
                 Stavke = stavke,
                 VrstaNarudzbine = model.VrstaNarudzbine
             };
             jedinicaRada.NarudzbinaRepozitorijum.Dodaj(narudzbina);
             jedinicaRada.Sacuvaj();
+            return Index();
+        }
+        public IActionResult Edit()
+        {
+            List<Narudzbina> narudzbine = jedinicaRada.NarudzbinaRepozitorijum.VratiSve();
+            List<NarudzbinaViewModel> model = new List<NarudzbinaViewModel>();
+            foreach (var item in narudzbine)
+            {
+                NarudzbinaViewModel nVM = new NarudzbinaViewModel()
+                {
+                    Adresa = item.Adresa,
+                    Kupac = item.Kupac.UserName,
+                    NarudzbinaId = item.NarudzbinaId,
+                    ProdajnoMesto = item.ProdajnoMesto?.Adresa,
+                    StatusIsporuke = item.StatusIsporuke,
+                    VrstaNarudzbine = item.VrstaNarudzbine,
+                };
+                foreach(Stavka s in item.Stavke)
+                {
+                    string stavka = jedinicaRada.ProizvodRepozitorijum.PretragaId(s.ProizvodId).Naziv;
+                    nVM.Stavke.Add(stavka);
+                }
+                model.Add(nVM);
+            }
 
-            return View("Index");
+            return View(model);
+        }
+        public IActionResult IzmeniStatus(int id)
+        {
+            Narudzbina narudzbina = jedinicaRada.NarudzbinaRepozitorijum.PretragaId(id);
+            return View();
+        }
+        public IActionResult Index()
+        {
+            List<Narudzbina> narudzbine = jedinicaRada.NarudzbinaRepozitorijum.Pretraga(n => n.KupacId == Int32.Parse(HttpContext.User.Claims.ElementAt(0).Value));
+            List<NarudzbinaViewModel> narudzbineVM = new List<NarudzbinaViewModel>();
+            foreach(Narudzbina narudzbina in narudzbine)
+            {
+                NarudzbinaViewModel nvm = new NarudzbinaViewModel()
+                {
+                    Adresa = narudzbina.Adresa,
+                    ProdajnoMesto = narudzbina.ProdajnoMesto?.Adresa,
+                    StatusIsporuke = narudzbina.StatusIsporuke,
+                    VrstaNarudzbine = narudzbina.VrstaNarudzbine,
+                };
+                foreach(Stavka s in narudzbina.Stavke)
+                {
+                    string stavka = jedinicaRada.ProizvodRepozitorijum.PretragaId(s.ProizvodId).Naziv + "   [Količina: " + s.Kolicina + "]";
+                    nvm.Stavke.Add(stavka);
+                };
+                narudzbineVM.Add(nvm);
+            }
+            return View(narudzbineVM);
         }
     }
 }

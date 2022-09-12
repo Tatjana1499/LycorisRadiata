@@ -23,7 +23,6 @@ C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\KupacWebApp\obj\Debug\net5
 C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\KupacWebApp\obj\Debug\net5.0\KupacWebApp.TagHelpers.input.cache
 C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\KupacWebApp\obj\Debug\net5.0\KupacWebApp.TagHelpers.output.cache
 C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\KupacWebApp\obj\Debug\net5.0\KupacWebApp.RazorCoreGenerate.cache
-C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\KupacWebApp\obj\Debug\net5.0\Razor\Views\Prijava\Index.cshtml.g.cs
 C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\KupacWebApp\obj\Debug\net5.0\Razor\Views\Shared\Error.cshtml.g.cs
 C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\KupacWebApp\obj\Debug\net5.0\Razor\Views\Shared\_Layout.cshtml.g.cs
 C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\KupacWebApp\obj\Debug\net5.0\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
@@ -72,9 +71,6 @@ C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\KupacWebApp\bin\Debug\net5
 C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\KupacWebApp\bin\Debug\net5.0\SlojPristupaPodacima.dll
 C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\KupacWebApp\bin\Debug\net5.0\SlojPristupaPodacima.pdb
 C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\KupacWebApp\obj\Debug\net5.0\Razor\Views\Pocetna\Index.cshtml.g.cs
-C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\KupacWebApp\obj\Debug\net5.0\Razor\Views\Kupac\Create.cshtml.g.cs
-C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\KupacWebApp\obj\Debug\net5.0\Razor\Views\Kupac\Edit.cshtml.g.cs
-C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\KupacWebApp\obj\Debug\net5.0\Razor\Views\Kupac\Index.cshtml.g.cs
 C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\KupacWebApp\obj\Debug\net5.0\Razor\Views\ProdajnoMesto\Index.cshtml.g.cs
 C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\KupacWebApp\obj\Debug\net5.0\Razor\Views\Cvet\Index.cshtml.g.cs
 C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\KupacWebApp\obj\Debug\net5.0\Razor\Views\Narudzbina\VrstaNarudzbine.cshtml.g.cs
@@ -161,3 +157,14 @@ C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\KupacWebApp\obj\Debug\net5
 C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\KupacWebApp\obj\Debug\net5.0\Razor\Views\CvetniAranzman\Index.cshtml.g.cs
 C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\KupacWebApp\obj\Debug\net5.0\Razor\Views\Narudzbina\DodajProizvod.cshtml.g.cs
 C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\KupacWebApp\obj\Debug\net5.0\Razor\Views\Cvet\Create.cshtml.g.cs
+C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\KupacWebApp\obj\Debug\net5.0\Razor\Views\CvetniAranzman\ModalCvetniAranzman.cshtml.g.cs
+C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\KupacWebApp\obj\Debug\net5.0\Razor\Views\Narudzbina\Edit.cshtml.g.cs
+C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\KupacWebApp\bin\Debug\net5.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\KupacWebApp\bin\Debug\net5.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\KupacWebApp\bin\Debug\net5.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\KupacWebApp\bin\Debug\net5.0\Microsoft.Extensions.Identity.Core.dll
+C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\KupacWebApp\bin\Debug\net5.0\Microsoft.Extensions.Identity.Stores.dll
+C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\KupacWebApp\obj\Debug\net5.0\Razor\Views\Autentifikacija\Prijava.cshtml.g.cs
+C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\KupacWebApp\obj\Debug\net5.0\Razor\Views\Autentifikacija\Registracija.cshtml.g.cs
+C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\KupacWebApp\obj\Debug\net5.0\Razor\Views\Pocetna\KupacProfil.cshtml.g.cs
+C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\KupacWebApp\obj\Debug\net5.0\Razor\Views\Autentifikacija\Edit.cshtml.g.cs

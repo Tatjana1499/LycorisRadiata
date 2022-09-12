@@ -8,46 +8,68 @@
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
-    <header style="color:#721e1e">
-        <nav style=" font-style: oblique; color:#721e1e" class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light  border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Pocetna" asp-action="Index">LycorisRadiata</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+    
+        <header style="color:#721e1e">
+            <nav style=" font-style: oblique; color:#721e1e" class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light  border-bottom box-shadow mb-3">
+
+                <div class="container">
+                    <a class="navbar-brand" asp-area="" asp-controller="Pocetna" asp-action="Index">LycorisRadiata</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    @if (User.IsInRole("Kupac"))
+                    {
+                        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                            <ul class="navbar-nav flex-grow-1">
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="CvetniAranzman" asp-action="Create">Kreiraj cvetni aranzman</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="CvetniAranzman" asp-action="Index">Vaši cvetni aranžmani</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Narudzbina" asp-action="Index">Tvoje narudzbine</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Autentifikacija" asp-action="Odjava">Odjavi se</a>
+                                </li>
+                                <li class="nav-item">
+                                    <button style="position: relative; margin-left: 80px" type="button" class="btn btn-primary btn-outline-dark" data-toggle="ajax-modal" data-target="#dodajNarudzbinu" data-url="@Url.Action("VrstaNarudzbine", "Narudzbina")">Naruci</button>
+                                </li>
+                            </ul>
+                        </div>
+                    }
+                    else if (User.IsInRole("Administrator"))
+                    {
+
+                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Cvet" asp-action="Create">Kreiraj cvet</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Narudzbina" asp-action="Edit">Izmeni narudžbinu</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Autentifikacija" asp-action="Odjava">Odjavi se</a>
+                            </li>
+                        </ul>
+                    </div>
+            }
+            else
+            {
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Kupac" asp-action="Index">Profil</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="CvetniAranzman" asp-action="Create">Kreiraj cvetni aranzman</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Cvet" asp-action="Create">Kreiraj cvet</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="CvetniAranzman" asp-action="Index">Vaši cvetni aranžmani</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="ProdajnoMesto" asp-action="Index">Prodajna mesta</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="ProdajnoMesto" asp-action="Index">Tvoje narudzbine</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Prijava" asp-action="Index">Odjavi se</a>
-                        </li>
-                        <li class="nav-item">
-                            <button style="position: relative; margin-left: 80px" type="button" class="btn btn-primary btn-outline-dark" data-toggle="ajax-modal" data-target="#dodajNarudzbinu" data-url="@Url.Action("VrstaNarudzbine","Narudzbina")">Naruci</button>
+                        <li class="nav-item" style="margin-left:800px">
+                            <a class="nav-link btn btn-primary btn-outline-dark font-weight-bolder" asp-area="" asp-controller="Autentifikacija" asp-action="Prijava">Prijavi se</a>
                         </li>
                     </ul>
                 </div>
-            </div>
-        </nav>
-    </header>
+            }
+                </div>
+            </nav>
+        </header>
     <div class="container">
         <main role="main" class="pb-3">
             <div class="align-items-end" id="PlaceHolderHere"></div>

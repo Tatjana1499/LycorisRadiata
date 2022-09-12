@@ -236,6 +236,32 @@ namespace ConsoleApp2
             //};
             //context.Narudzbina.Add(narudzbina);
             //context.SaveChanges();
+
+            //try
+            //{
+            //    Kupac ku = context.Kupac.Single(k => k.OsobaId == 1);
+            //    context.Kupac.Remove(ku);
+            //    context.SaveChanges();
+            //}
+            //catch
+            //{
+            //    Console.WriteLine("GRESKA.");
+            //}
+
+
+            //Administrator adm = context.Administrator.Single(a => a.OsobaId == 2);
+            //context.Administrator.Remove(adm);
+            //context.SaveChanges();
+
+
+            //List<Kupac> kupacs =  context.Kupac.ToList();
+            //foreach(Kupac k in kupacs)
+            //{
+            //    context.Kupac.Remove(k);
+            //};
+            //context.SaveChanges();
+
+
         }
     }
 }

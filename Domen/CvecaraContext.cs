@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Domen
 {
-    public class CvecaraContext : DbContext
+    public class CvecaraContext : IdentityDbContext<Osoba, IdentityRole<int>, int>
     {
         public DbSet<Cvet> Cvet { get; set; }
         public DbSet<CvetniAranzman> CvetniAranzman { get; set; }
@@ -18,6 +20,8 @@ namespace Domen
         public DbSet<Proizvod> Proizvod { get; set; }
         public DbSet<Stavka> Stavka { get; set; }
         public DbSet<Dekoracija> Dekoracija { get; set; }
+        public DbSet<Osoba> Osoba { get; set; }
+        public DbSet<Administrator> Administrator { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB; Database=LycorisRadiata; Trusted_Connection=True;");
@@ -29,18 +33,23 @@ namespace Domen
             modelBuilder.Entity<Narudzbina>().HasOne(n => n.Kupac).WithMany().OnDelete(DeleteBehavior.NoAction);
             modelBuilder.Entity<Dekoracija>().HasKey(d => new { d.CvetProizvodId, d.CvetniAranzmanProizvodId });
             modelBuilder.Entity<Dekoracija>().HasOne(d => d.Cvet).WithMany().HasForeignKey(d => d.CvetProizvodId).OnDelete(DeleteBehavior.NoAction);
-            modelBuilder.Entity<Dekoracija>().HasOne(d => d.CvetniAranzman).WithMany().HasForeignKey(d => d.CvetniAranzmanProizvodId).OnDelete(DeleteBehavior.NoAction);
+            modelBuilder.Entity<Dekoracija>().HasOne(d => d.CvetniAranzman).WithMany(cv => cv.Dekoracije).HasForeignKey(d => d.CvetniAranzmanProizvodId).OnDelete(DeleteBehavior.NoAction);
             
 
             modelBuilder.Entity<Cvet>().HasBaseType<Proizvod>().ToTable("Cvet");
             modelBuilder.Entity<CvetniAranzman>().HasBaseType<Proizvod>().ToTable("CvetniAranzman");
 
+            modelBuilder.Entity<Kupac>().HasBaseType<Osoba>().ToTable("Kupac");
+            modelBuilder.Entity<Administrator>().HasBaseType<Osoba>().ToTable("Administrator");
+
             modelBuilder.Entity<Narudzbina>().OwnsMany(n => n.Stavke).WithOwner(s => s.Narudzbina);
 
-            modelBuilder.Entity<CvetniAranzman>().HasOne(ca => ca.Pakovanje).WithMany();
-            modelBuilder.Entity<Narudzbina>().HasOne(n => n.ProdajnoMesto).WithMany().IsRequired(false);
+            modelBuilder.Entity<CvetniAranzman>().HasOne(ca => ca.Pakovanje).WithMany().OnDelete(DeleteBehavior.NoAction);
+            modelBuilder.Entity<Narudzbina>().HasOne(n => n.ProdajnoMesto).WithMany().IsRequired(false).OnDelete(DeleteBehavior.NoAction);
+            modelBuilder.Entity<CvetniAranzman>().HasOne(ca => ca.Kupac).WithMany().OnDelete(DeleteBehavior.NoAction);
 
-            modelBuilder.Entity<CvetniAranzman>().HasOne(ca => ca.Kupac).WithMany();
+            base.OnModelCreating(modelBuilder);
+
         }
     }
 }

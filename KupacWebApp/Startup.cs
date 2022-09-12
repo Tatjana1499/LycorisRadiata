@@ -1,8 +1,11 @@
 using Domen;
+using KupacWebApp.Claims;
 using KupacWebApp.Middlewares;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -29,7 +32,18 @@ namespace KupacWebApp
             services.AddControllersWithViews();
             services.AddScoped<IJedinicaRada, JedinicaRada>();
             services.AddDbContext<CvecaraContext>();
-            services.AddSession();
+            services.AddIdentity<Osoba, IdentityRole<int>>().AddEntityFrameworkStores<CvecaraContext>();
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
+            
+          //  services.AddScoped<IUserClaimsPrincipalFactory<Osoba>, MyUserClaimsPrincipalFactory>();
+
+            services.ConfigureApplicationCookie(options => {
+                options.LoginPath = "/Autentifikacija/Prijava";
+                options.AccessDeniedPath = "/Pocetna/Index";
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+                options.SlidingExpiration = true;
+                
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,15 +63,14 @@ namespace KupacWebApp
             app.UseStaticFiles();
             
             app.UseRouting();
-            app.UseSession();
-            app.UseKreirajKorisnikaMiddleware();
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Prijava}/{action=Index}/{id?}");
+                    pattern: "{controller=Pocetna}/{action=Index}/{id?}");
             });
         }
     }

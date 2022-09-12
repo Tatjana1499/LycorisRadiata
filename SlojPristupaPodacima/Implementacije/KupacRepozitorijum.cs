@@ -43,11 +43,11 @@ namespace SlojPristupaPodacima.Implementacije
 
         public Kupac PretragaKorisnickoImeLozinka(string korisnickoIme, string lozinka)
         {
-            return context.Kupac.SingleOrDefault(k => k.KorisnickoIme == korisnickoIme && k.Lozinka == lozinka);
+            return context.Kupac.SingleOrDefault(k => k.UserName == korisnickoIme && k.PasswordHash == lozinka);
         }
         public Kupac PretragaId(int id)
         {
-            return context.Kupac.Single(k => k.KupacId == id);
+            return context.Kupac.Single(k => k.Id == id);
         }
     }
 }

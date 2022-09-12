@@ -1,5 +1,6 @@
 ﻿using Domen;
 using KupacWebApp.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SlojPristupaPodacima.JedinicaRada;
 using System;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace KupacWebApp.Controllers
 {
+    [Authorize]
     public class ProdajnoMestoController : Controller
     {
         private readonly IJedinicaRada jedinicaRada;

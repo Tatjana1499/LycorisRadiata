@@ -32,6 +32,7 @@ namespace Domen
         public int PakovanjeId { get; set; }
         public Kupac Kupac { get; set; }
         public int KupacId { get; set; }
+        public List<Dekoracija> Dekoracije { get; set; }
         public override string ToString()
         {
             return $"{Naziv} {Cena}";

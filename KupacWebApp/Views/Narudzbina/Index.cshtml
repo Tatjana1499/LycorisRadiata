@@ -1,1 +1,49 @@
-﻿<h1>LISTA NARUDZBINA</h1>
+﻿@model List<NarudzbinaViewModel>
+
+@if (Model.Count == 0)
+{
+    <div class="list-group-item rounded-pill" style="border-style: solid; border-width: medium; border-color: brown; margin: 30px; padding-left: 100px; margin-top: 100px">
+        <h1 class="font-weight-bolder text-center font-italic" >Još uvek ništa niste naručili</h1>
+        </div>
+        }
+        else
+        {
+        <div style="max-height:600px; overflow-y:scroll">
+            @foreach (NarudzbinaViewModel item in Model)
+            {
+                <div class="list-group-item rounded-pill" style="border-style: solid; border-width: medium; border-color: brown; margin: 30px;padding-left:150px; background-repeat: no-repeat;background-size:auto 100%;background-position-x:right; background-image: url(../slike/okvir7.jpg) ">
+                    @if (item.VrstaNarudzbine == Domen.VrstaNarudzbine.Dostava)
+                    {
+                        <div class="toast-header font-weight-bolder rounded-pill" style="width:55%; background-color:#c27474; margin-top:30px">
+                            <h4 style="text-align: center;" class="text-dark">Tip narudžbine: Dostava</h4>
+                        </div>
+                        <div style="width: 70%; margin-top: 10px">
+                            <label>Adresa: @item.Adresa</label>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="toast-header font-weight-bolder rounded-pill" style="width:55%; background-color:#c27474; margin-top:30px">
+                            <h4 style="text-align: center;" class="text-dark">Tip narudžbine: Lično preuzimanje</h4>
+                        </div>
+                        <div style="width: 70%; margin-top: 10px">
+                            <label>Adresa preuzimanja: @item.ProdajnoMesto</label>
+                        </div>
+                    }
+
+                    <div style="width:70%; padding-bottom:30px">
+                        <div style="margin-top:10px">
+                            <label>Status narudžbine: @item.StatusIsporuke</label>
+                        </div>
+                        <div>
+                            <label>Stavke: </label>
+                            @foreach (string stavka in item.Stavke)
+                            {
+                                <ul>@stavka</ul>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        }

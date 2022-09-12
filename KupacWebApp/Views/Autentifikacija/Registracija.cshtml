@@ -1,0 +1,52 @@
+﻿@model RegistracijaViewModel
+
+<div class="rounded-pill" style="position: center; text-align: center; margin-top: 30px; border-style: groove; background-repeat: repeat-x; background-image: url(../slike/pozadina1.jpg) ">
+    <form method="post" action="/Autentifikacija/Registracija">
+        <div>
+            <div class="form-group" style="display: inline-flex; width: 50%; margin-top: 10px; margin-left: 130px; ">
+                <label style=" position: static; margin: 10px " class="font-weight-bolder">Ime: </label>
+                <input class="rounded-pill text-center" style="position: static;margin:10px" type="text" asp-for="@Model.Ime" />
+                <span class="text-danger font-weight-bolder" style="font-size: larger; position: relative;margin: 10px" asp-validation-for="@Model.Ime"></span>
+            </div>
+            <div class="form-group" style="display: inline-flex; width: 50%; margin-left: 68px">
+                <label style="position: static;margin:10px" class="font-weight-bolder">Prezime: </label>
+                <input class="rounded-pill text-center" style="position: static;margin:10px" type="text" asp-for="@Model.Prezime" />
+                <span class="text-danger font-weight-bolder" style="font-size: larger; position: relative; margin: 10px" asp-validation-for="@Model.Prezime"></span>
+            </div>
+            <div class="form-group" style="display: inline-flex; width: 50%; margin-right: 31px">
+                <label style="position: static; margin: 10px;" class="font-weight-bolder">Korisničko ime: </label>
+                <input class="rounded-pill text-center" style="position: static;margin:10px" type="text" asp-for="@Model.KorisnickoIme" />
+                <span class="text-danger font-weight-bolder" style="font-size: larger; position: relative; margin: 10px" asp-validation-for="@Model.KorisnickoIme"></span>
+            </div>
+            <div class="form-group" style="display: inline-flex; width: 50%;">
+                <label style="position: static;margin:10px; margin-left:65px" class="font-weight-bolder">Email: </label>
+                <input class="rounded-pill text-center" style="position: static;margin:10px" type="email" asp-for="@Model.Email" />
+                <span class="text-danger font-weight-bolder" style="font-size: larger; position: relative; margin: 10px" asp-validation-for="@Model.Email"></span>
+            </div>
+            <div class="form-group" style="display: inline-flex; width: 50%;">
+                <label style="position: static;margin:10px" class="font-weight-bolder">Broj telefona: </label>
+                <input class="rounded-pill text-center" style="position: static;margin:10px" type="text" asp-for="@Model.BrojTelefona" />
+                <span class="text-danger font-weight-bolder" style="font-size: larger; position: relative; margin: 10px" asp-validation-for="@Model.BrojTelefona"></span>
+            </div>
+            <div class="form-group" style=" display: inline-flex; width: 50%;">
+                <label style="position: static;margin:10px; margin-left:50px" class="font-weight-bolder">Lozinka: </label>
+                <input class="rounded-pill text-center" style="position: static;margin:10px" type="password" asp-for="@Model.Lozinka" />
+                <span class="text-danger font-weight-bolder" style="font-size: larger; position: relative; margin: 10px " asp-validation-for="@Model.Lozinka"></span>
+            </div>
+            <div class="form-group" style=" display: inline-flex; width: 50%;">
+                <label style="position: static;margin:10px; margin-left:-3px" class="font-weight-bolder">Ponovi lozinku: </label>
+                <input class="rounded-pill text-center" style="position: static;margin:10px" type="password" asp-for="@Model.LozinkaProvera" />
+                <span class="text-danger font-weight-bolder" style="font-size: larger; position: relative; margin: 10px" asp-validation-for="@Model.LozinkaProvera"></span>
+            </div>
+        </div>
+        <div class="form-group" style="display: inline-flex; width: 50%; margin-left: 48%; height: 100px ">
+            <div style="position: relative; margin:10px">
+                <input class="btn btn-primary btn-outline-dark" style="position:static" type="submit" value="Registruj se" />
+            </div>
+            <div class="text-danger font-weight-bolder" style="position: relative; margin-top:-30px; margin-left:0px; width:200px" asp-validation-summary="ModelOnly"></div>
+        </div>
+        <div class="font-weight-bolder" style="margin-right:50px;margin-bottom:10px;">
+            Vec imas nalog? <a href="/Autentifikacija/Prijava"> Prijavi se! </a>
+        </div>
+    </form>
+</div>

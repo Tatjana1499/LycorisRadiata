@@ -1,4 +1,5 @@
 ﻿using Domen;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,17 +30,20 @@ namespace SlojPristupaPodacima.Implementacije
         public void Dodaj(Narudzbina entitet)
         {
             context.Narudzbina.Add(entitet);
-            //context.Narudzbina.
         }
 
         public List<Narudzbina> Pretraga(Expression<Func<Narudzbina, bool>> uslov)
         {
-            throw new NotImplementedException();
+            return context.Narudzbina.Include(n => n.ProdajnoMesto).Where(uslov).ToList();
         }
 
         public List<Narudzbina> VratiSve()
         {
-            throw new NotImplementedException();
+            return context.Narudzbina.Include(n => n.Kupac).Include(n => n.ProdajnoMesto).ToList();
+        }
+        public Narudzbina PretragaId(int id)
+        {
+            return context.Narudzbina.Single(c => c.NarudzbinaId == id);
         }
     }
 }

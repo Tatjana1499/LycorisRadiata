@@ -21,8 +21,8 @@
         <header style="margin-top:10px; margin:15px" class="card-header">Tip narudzbine: Lično preuzimanje</header>
         <div style="margin:5px; display:inline-flex" class="form-group">
             <label  class="form-control">Adresa preuzimanja: </label>
-            <select style="margin-left:30px" asp-for="@Model.ProdajnoMestoId" asp-items="Model.ProdajnaMesta" class="form-control dropdown"></select>
-            <button style="margin-left:30px;width:120px"  data-toggle="ajax-modal" data-target="#infoProdMesta" data-url="@Url.Action("Index","ProdajnoMesto")" class="btn btn-primary btn-outline-dark" type="button">Prodajna mesta</button>
+            <select style="margin-left:10px" asp-for="@Model.ProdajnoMestoId" asp-items="Model.ProdajnaMesta" class="form-control dropdown"></select>
+            <button style="margin-left:20px;width:90px"  data-toggle="ajax-modal" data-target="#infoProdMesta" data-url="@Url.Action("Index","ProdajnoMesto")" class="btn btn-primary btn-outline-dark" type="button">Prodajna mesta</button>
         </div>
     }
     <div style="display:inline-flex; width:100%; margin-top:20px">
@@ -42,20 +42,28 @@
                 <tbody style="max-height:180px;width:490px; overflow-y:scroll; display:block">
                     @foreach (ProizvodViewModel item in Model.Proizvodi)
                     {
-                        <tr>
-                            <td  style="max-width:100px; overflow-x:auto" id="naziv @item.ProizvodId">@item.Naziv</td>
-                            @if (item.JesteCvet)
-                            {
-                                <td  style="max-width:100px; overflow-x:auto" id="boja @item.ProizvodId">Cvet</td>
-                            }
-                            else
-                            {
-                                <td  style="max-width:100px; overflow-x:auto" id="boja @item.ProizvodId">Cvetni aranzman</td>
-                            }
-                            <td  style="max-width:100px; overflow-x:auto">@item.Cena</td>
-                            <td  style="max-width:100px; overflow-x:auto"><button type="button" class="btn btn-primary btn-outline-dark" data-toggle="ajax-modal" data-target="#infoCvet" data-url="@Url.Action("Index","Cvet",new { id = item.ProizvodId })">Detalji</button></td>
-                            <td  style="max-width:100px; overflow-x:auto"> <button id="btn @item.ProizvodId" value="@item.ProizvodId" class="dodajPorizvod btn btn-primary btn-outline-dark" type="button">Dodaj</button> </td>
-                        </tr>
+                    <tr>
+                        <td style="max-width:100px; overflow-x:auto" id="naziv @item.ProizvodId">@item.Naziv</td>
+                        @if (item.JesteCvet)
+                        {
+                            <td style="max-width:100px; overflow-x:auto" id="boja @item.ProizvodId">Cvet</td>
+                        }
+                        else
+                        {
+                            <td style="max-width:100px; overflow-x:auto" id="boja @item.ProizvodId">Cvetni aranzman</td>
+                        }
+                        <td style="max-width:100px; overflow-x:auto">@item.Cena</td>
+                        @if (item.JesteCvet)
+                        {
+                            <td style="max-width:100px; overflow-x:auto"><button type="button" class="btn btn-primary btn-outline-dark" data-toggle="ajax-modal" data-target="#infoCvet" data-url="@Url.Action("Index","Cvet",new { id = item.ProizvodId })">Detalji</button></td>
+                        }
+                        else
+                        {
+                            <td style="max-width:100px; overflow-x:auto"><button type="button" class="btn btn-primary btn-outline-dark" data-toggle="ajax-modal" data-target="#infoCvet" data-url="@Url.Action("ModalCvetniAranzman","CvetniAranzman",new { id = item.ProizvodId })">Detalji</button></td>
+                        }
+
+                        <td style="max-width:100px; overflow-x:auto"> <button id="btn @item.ProizvodId" value="@item.ProizvodId" class="dodajPorizvod btn btn-primary btn-outline-dark" type="button">Dodaj</button> </td>
+                    </tr>
                     }
                 </tbody>
             </table>

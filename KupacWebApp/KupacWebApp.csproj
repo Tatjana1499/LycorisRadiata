@@ -10,10 +10,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Filters\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="wwwroot\slike\prijava2.jpg" />
   </ItemGroup>
 

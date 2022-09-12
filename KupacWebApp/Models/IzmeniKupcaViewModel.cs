@@ -13,14 +13,14 @@ namespace KupacWebApp.Models
         [Required(ErrorMessage = "*")]
         public string Prezime { get; set; }
         [Required(ErrorMessage = "*")]
-        [Phone(ErrorMessage = "Unesi samo brojeve.")]
+        [Phone(ErrorMessage = "Samo brojevi")]
         public string BrojTelefona { get; set; }
         [Required(ErrorMessage = "*")]
-        [EmailAddress]
+        [EmailAddress(ErrorMessage = "*")]
         public string Email { get; set; }
-        [MinLength(7,ErrorMessage = "Minimum 7 karaktera.")]
+        [MinLength(7,ErrorMessage = "Minimum 7 karaktera")]
         public string StaraLozinka { get; set; }
-        [MinLength(7, ErrorMessage = "Minimum 7 karaktera.")]
+        [MinLength(7, ErrorMessage = "Minimum 7 karaktera")]
         public string NovaLozinka { get; set; }
         [Required(ErrorMessage = "*")]
         public string KorisnickoIme { get; set; }

@@ -1,0 +1,45 @@
+﻿@model List<NarudzbinaViewModel>
+
+<div style="max-height:600px; overflow-y:scroll; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif" class="text-dark">
+    @foreach (NarudzbinaViewModel item in Model)
+    {
+        <div class="list-group-item rounded-pill" style="border-style: solid; border-width: medium; border-color: brown; margin: 30px;padding-left:150px; background-repeat: no-repeat;background-size:auto 100%;background-position-x:right; background-image: url(../slike/okvir7.jpg) ">
+            <div style="width:70%; padding-bottom:30px">
+                <div style="margin-top:10px;">
+                    <label>Kupac: @item.Kupac</label>
+
+                </div>
+                <div>
+                    <label>Status isporuke: @item.StatusIsporuke</label>
+                </div>
+                <div>
+                    <label>Vrsta narudzbine: @item.VrstaNarudzbine</label>
+                </div>
+                @if (item.VrstaNarudzbine == Domen.VrstaNarudzbine.Dostava)
+                {
+                    <div>
+                        <label>Adresa: @item.Adresa</label>
+                    </div>
+                }
+                else
+                {
+                    <div>
+                        <label>Adresa prodajnog mesta: @item.ProdajnoMesto</label>
+                    </div>
+                }
+                <div style="display:inline-flex">
+                    Stavke: &nbsp
+                    @foreach (var stavka in item.Stavke)
+                    {
+                        <label>  [@stavka] &nbsp </label>
+                    }
+                </div>
+                <div style="margin-top:10px">
+                    
+                    <button type="button" style="margin-left:100px;" class="btn btn-primary btn-outline-dark" data-toggle="ajax-modal" data-target="#infoCvet" data-url="@Url.Action("IzmeniStatus","Narudzbina",new { id = item.NarudzbinaId })">Izmeni status</button>
+                    <button style="margin-left: 10px; display:inline " class="btn btn-primary btn-outline-dark">Izbriši</button>
+                </div>
+            </div>
+        </div>
+    }
+</div>

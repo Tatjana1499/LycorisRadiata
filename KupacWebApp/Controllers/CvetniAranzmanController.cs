@@ -1,5 +1,6 @@
 ﻿using Domen;
 using KupacWebApp.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -10,6 +11,7 @@ using System.Linq;
 
 namespace KupacWebApp.Controllers
 {
+    [Authorize(Roles = "Kupac")]
     public class CvetniAranzmanController : Controller
     {
         private readonly IJedinicaRada jedinicaRada;
@@ -20,7 +22,7 @@ namespace KupacWebApp.Controllers
         }
         public IActionResult Index()
         {
-            var cvetniAranzmani = jedinicaRada.CvetniAranzmanRepozitorijum.Pretraga(c => c.KupacId == Int32.Parse(HttpContext.User.Identity.Name));
+            List<CvetniAranzman> cvetniAranzmani = jedinicaRada.CvetniAranzmanRepozitorijum.Pretraga(c => c.KupacId == Int32.Parse(HttpContext.User.Claims.ElementAt(0).Value));
 
             List<CvetniAranzmanViewModel> cvViews = new List<CvetniAranzmanViewModel>();
             foreach(CvetniAranzman cv in cvetniAranzmani)
@@ -31,24 +33,19 @@ namespace KupacWebApp.Controllers
                     Namena = cv.Namena,
                     Napomena = cv.Napomena,
                     Pakovanje = cv.Pakovanje,
-                    Sjaj = cv.Sjaj
+                    Sjaj = cv.Sjaj,
+                    Naziv = cv.Naziv
                 };
+
+                List<Cvet> cvetovi = new List<Cvet>();
+                foreach(Dekoracija dekoracija in cv.Dekoracije)
+                {
+                    Cvet cvet = (jedinicaRada.DekoracijaRepozitorijum.Pretraga(d => d.CvetProizvodId == dekoracija.CvetProizvodId && dekoracija.CvetniAranzmanProizvodId == d.CvetniAranzmanProizvodId)).First().Cvet;
+                    cvView.Cvece.Add(cvet.ToString() + $"Količina: {dekoracija.BrojCvetova}");
+                }
+
                 cvViews.Add(cvView);
             }
-            
-            for (int i = 0; i < cvetniAranzmani.Count; i++)
-            {
-                var proizvod = jedinicaRada.ProizvodRepozitorijum.PretragaId(cvetniAranzmani[i].ProizvodId);
-                cvViews[i].Naziv = proizvod.Naziv;
-                var dekoracije = jedinicaRada.DekoracijaRepozitorijum.Pretraga(d => d.CvetniAranzmanProizvodId == cvetniAranzmani[i].ProizvodId);
-                
-                for (int j = 0; j < dekoracije.Count; j++)
-                {
-                    cvViews[i].Cvece.Add(dekoracije[j].Cvet.ToString() + $"Količina: {dekoracije[j].BrojCvetova}]");
-                }
-               
-            }
-
             return View(cvViews);
         }
         public IActionResult Create()
@@ -76,6 +73,7 @@ namespace KupacWebApp.Controllers
         [HttpPost]
         public IActionResult Create(KreirajCvetniAranzmanViewModel model)
         {
+            
             if (!ModelState.IsValid)
             {
                 return Create();
@@ -105,7 +103,7 @@ namespace KupacWebApp.Controllers
                 ukupnaCena += cvet.Cena * dvm.BrojCvetova;
             }
             ukupnaCena += jedinicaRada.PakovanjeRepozitorijum.PretragaId(model.PakovanjeId).Cena;
-            
+
             CvetniAranzman cvAr = new CvetniAranzman()
             {
                 Masna = model.Masna,
@@ -115,15 +113,11 @@ namespace KupacWebApp.Controllers
                 PakovanjeId = model.PakovanjeId,
                 Sjaj = model.Sjaj,
                 Cena = ukupnaCena,
-                KupacId = Int32.Parse(HttpContext.User.Identity.Name)
-            };
+                Dekoracije = dekorcije,
+                KupacId = Int32.Parse(HttpContext.User.Claims.ElementAt(0).Value)
+        };
+            
             jedinicaRada.CvetniAranzmanRepozitorijum.Dodaj(cvAr);
-            jedinicaRada.Sacuvaj();
-            foreach (Dekoracija d in dekorcije)
-            {
-                d.CvetniAranzmanProizvodId = cvAr.ProizvodId;
-                jedinicaRada.DekoracijaRepozitorijum.Dodaj(d);
-            }
             jedinicaRada.Sacuvaj();
             return RedirectToAction("Index");
         }
@@ -137,6 +131,27 @@ namespace KupacWebApp.Controllers
                 RedniBroj = RedniBroj
             };
 
+            return PartialView(model);
+        }
+        public IActionResult ModalCvetniAranzman(int id)
+        {
+            CvetniAranzman cvetniAranzman = jedinicaRada.CvetniAranzmanRepozitorijum.PretragaId(id);
+            CvetniAranzmanViewModel model = new CvetniAranzmanViewModel()
+            {
+                Masna = cvetniAranzman.Masna,
+                Namena = cvetniAranzman.Namena,
+                Napomena = cvetniAranzman.Napomena,
+                Naziv = cvetniAranzman.Naziv,
+                Pakovanje = cvetniAranzman.Pakovanje,
+                Sjaj = cvetniAranzman.Sjaj,
+            };
+
+            List<Cvet> cvetovi = new List<Cvet>();
+            foreach(Dekoracija dekoracija in cvetniAranzman.Dekoracije)
+            {
+                Cvet cvet = (jedinicaRada.DekoracijaRepozitorijum.Pretraga(d => d.CvetProizvodId == dekoracija.CvetProizvodId && dekoracija.CvetniAranzmanProizvodId == d.CvetniAranzmanProizvodId)).First().Cvet;
+                model.Cvece.Add(cvet.ToString() + $"Količina: {dekoracija.BrojCvetova}");
+            }
             return PartialView(model);
         }
     }

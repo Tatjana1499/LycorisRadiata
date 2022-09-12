@@ -7,22 +7,45 @@ using Microsoft.AspNetCore.Http;
 using System.Text.Json;
 using Domen;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
+using KupacWebApp.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace KupacWebApp.Controllers
 {
+  
     public class PocetnaController : Controller
     {
+        private readonly UserManager<Osoba> manager;
+
+        public PocetnaController(UserManager<Osoba> manager)
+        {
+            this.manager = manager;
+        }
+
+        [AllowAnonymous]
         public IActionResult Index()
         {
-
-            var user = HttpContext.User;
-            
-            if (user is null)
+            if (HttpContext.User.IsInRole("Kupac"))
             {
-                return RedirectToAction("Index", "Prijava");
+                return RedirectToAction("KupacProfil", "Pocetna");
             }
-
             return View();
+        }
+        [Authorize(Roles = "Kupac")]
+        public IActionResult KupacProfil()
+        {
+            var userId = manager.GetUserId(HttpContext.User);
+            Osoba currentUser = manager.FindByIdAsync(userId).Result;
+            IzmeniKupcaViewModel kupac = new IzmeniKupcaViewModel()
+            {
+                Ime = currentUser.Ime,
+                Email = currentUser.Email,
+                KorisnickoIme = currentUser.UserName,
+                BrojTelefona = currentUser.PhoneNumber,
+                Prezime = currentUser.Prezime,
+            };
+            return View(kupac);
         }
     }
 }
