@@ -61,6 +61,11 @@ namespace KupacWebApp.Controllers
             {
                 return View();
             }
+            if(registacija.KorisnickoIme.Contains(" "))
+            {
+                ModelState.AddModelError(string.Empty, "Korisničko ime ne može da sadrži razmak");
+                return View();
+            }
 
             Kupac kupac = new Kupac()
             {
@@ -120,6 +125,11 @@ namespace KupacWebApp.Controllers
                 ModelState.AddModelError(string.Empty, "Greska pri popunjavanju lozinki.");
                 return Edit();
             }
+            if (model.KorisnickoIme.Contains(" "))
+            {
+                ModelState.AddModelError(string.Empty, "Korisničko ime ne može da sadrži razmak");
+                return View();
+            }
             if (!ModelState.IsValid)
             {
                 return Edit();
@@ -155,10 +165,9 @@ namespace KupacWebApp.Controllers
             }
             var rezultat = await manager.UpdateAsync(currentUser);
             
-            // await manager.AddToRoleAsync(currentUser, "Kupac");
             if (!rezultat.Succeeded)
             {
-                ModelState.AddModelError(string.Empty, "Nepoznata greska");
+                ModelState.AddModelError(string.Empty, "Korisničko ime već postoji");
                 return View();
             }
 

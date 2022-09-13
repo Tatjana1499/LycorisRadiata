@@ -19,9 +19,9 @@
     else
     {
         <header style="margin-top:10px; margin:15px" class="card-header">Tip narudzbine: Lično preuzimanje</header>
-        <div style="margin:5px; display:inline-flex" class="form-group">
-            <label  class="form-control">Adresa preuzimanja: </label>
-            <select style="margin-left:10px" asp-for="@Model.ProdajnoMestoId" asp-items="Model.ProdajnaMesta" class="form-control dropdown"></select>
+        <div style="margin:5px; display:inline-flex; width:100%" class="form-group">
+            <label style="width:200px"  class="form-control">Adresa preuzimanja: </label>
+            <select style="margin-left: 10px; width: 200px" asp-for="@Model.ProdajnoMestoId" asp-items="Model.ProdajnaMesta" class="form-control dropdown"></select>
             <button style="margin-left:20px;width:90px"  data-toggle="ajax-modal" data-target="#infoProdMesta" data-url="@Url.Action("Index","ProdajnoMesto")" class="btn btn-primary btn-outline-dark" type="button">Prodajna mesta</button>
         </div>
     }

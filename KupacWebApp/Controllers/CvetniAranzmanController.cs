@@ -78,6 +78,15 @@ namespace KupacWebApp.Controllers
             {
                 return Create();
             }
+            try
+            {
+                jedinicaRada.PakovanjeRepozitorijum.PretragaId(model.PakovanjeId);
+            }
+            catch
+            {
+                ModelState.AddModelError(string.Empty, "Prazno pakovanje.");
+                return Create();
+            }
             List<Dekoracija> dekorcije = new List<Dekoracija>();
             foreach (DekoracijaViewModel dekVM in model.Dekoracije)
             {

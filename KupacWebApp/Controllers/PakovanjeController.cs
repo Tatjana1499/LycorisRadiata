@@ -81,7 +81,7 @@ namespace KupacWebApp.Controllers
             };
             jedinicaRada.PakovanjeRepozitorijum.Dodaj(pakovanje);
             jedinicaRada.Sacuvaj();
-            return View();
+            return RedirectToAction("AdministratorProfil", "Pocetna");
         }
     }
 }

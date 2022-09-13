@@ -80,6 +80,11 @@ namespace KupacWebApp.Controllers
             {
                 return Create(model);
             }
+            if(model.VrstaNarudzbine == Domen.VrstaNarudzbine.Preuzimanje && model.ProdajnoMestoId == null)
+            {
+                ModelState.AddModelError(string.Empty, "Prazna adresa.");
+                return Create(model);
+            }
             List<Stavka> stavke = new List<Stavka>();
             foreach (StavkaViewModel stVM in model.Stavke)
             {
