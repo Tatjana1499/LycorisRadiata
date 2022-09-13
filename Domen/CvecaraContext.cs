@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,10 @@ namespace Domen
 {
     public class CvecaraContext : IdentityDbContext<Osoba, IdentityRole<int>, int>
     {
+        public CvecaraContext([NotNull] DbContextOptions options) : base(options)
+        {
+        }
+
         public DbSet<Cvet> Cvet { get; set; }
         public DbSet<CvetniAranzman> CvetniAranzman { get; set; }
         public DbSet<Kupac> Kupac { get; set; }
@@ -24,7 +29,7 @@ namespace Domen
         public DbSet<Administrator> Administrator { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB; Database=LycorisRadiata; Trusted_Connection=True;");
+          //  optionsBuilder.UseSqlServer(@"");
             optionsBuilder.LogTo(Console.WriteLine);
             optionsBuilder.EnableSensitiveDataLogging(true);
         }

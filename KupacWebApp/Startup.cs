@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -30,7 +31,7 @@ namespace KupacWebApp
         {
             services.AddControllersWithViews();
             services.AddScoped<IJedinicaRada, JedinicaRada>();
-            services.AddDbContext<CvecaraContext>();
+            services.AddDbContext<CvecaraContext>(options => { options.UseSqlServer(Configuration.GetConnectionString("baza")); });
             services.AddIdentity<Osoba, IdentityRole<int>>().AddEntityFrameworkStores<CvecaraContext>();
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
             
