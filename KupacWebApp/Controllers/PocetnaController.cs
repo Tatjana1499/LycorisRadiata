@@ -34,7 +34,15 @@ namespace KupacWebApp.Controllers
             {
                 return RedirectToAction("AdministratorProfil", "Pocetna");
             }
-            return View();
+            PocetnaViewModel model = new PocetnaViewModel()
+            {
+                Motiv = System.IO.File.ReadAllText("../KupacWebApp/wwwroot/text/motiv.txt"),
+                Istorijat = System.IO.File.ReadAllText("../KupacWebApp/wwwroot/text/istorijat.txt"),
+                KupciRekli = System.IO.File.ReadAllText("../KupacWebApp/wwwroot/text/iskustva.txt"),
+                Kontakt = System.IO.File.ReadAllLines("../KupacWebApp/wwwroot/text/kontakt.txt")
+        };
+            
+            return View(model);
         }
         [Authorize(Roles = "Kupac")]
         public IActionResult KupacProfil()
@@ -51,6 +59,7 @@ namespace KupacWebApp.Controllers
             };
             return View(kupac);
         }
+        [Authorize(Roles = "Administrator")]
         public IActionResult AdministratorProfil()
         {
             var userId = manager.GetUserId(HttpContext.User);

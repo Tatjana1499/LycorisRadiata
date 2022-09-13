@@ -55,6 +55,10 @@ namespace KupacWebApp.Controllers
         [Authorize(Roles = "Administrator")]
         public IActionResult Create(PakovanjeViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return Create();
+            }
 
             string wwwRootPath = webHost.WebRootPath;
             string fileName = Path.GetFileNameWithoutExtension(model.SlikaFile.FileName);

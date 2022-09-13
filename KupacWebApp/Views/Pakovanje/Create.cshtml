@@ -1,35 +1,46 @@
 ﻿@model PakovanjeViewModel
 @using Domen
 
-<form enctype='multipart/form-data' method="post" action="/Pakovanje/Create" style="text-align:center; margin-top:10%;">
-    <div class="form-group">
-        <label>Naziv: </label>
-        <input type="text" asp-for="@Model.Naziv" />
-        <span asp-validation-for="Naziv"></span>
-    </div>
-    <div class="form-group">
-        <label>Materijal: </label>
-        <select asp-for="@Model.Materijal" asp-items="Html.GetEnumSelectList<Materijal>()"></select>
-    </div>
-    <div class="form-group">
-        <label>Oblik: </label>
-        <select asp-for="@Model.Oblik" asp-items="Html.GetEnumSelectList<Oblik>()"></select>
-    </div>
-    <div class="form-group">
-        <label>Boja: </label>
-        <select asp-for="@Model.Boja" asp-items="Html.GetEnumSelectList<Boja>()"></select>
-    </div>
-    <div class="form-group">
-        <label>Cena: </label>
-        <input type="number" min="0" asp-for="@Model.Cena" />
-        <span asp-validation-for="Cena"></span>
-    </div>
-    <div class="form-group">
-        <label>Slika: </label>
-        <input accept="image/*" asp-for="@Model.SlikaFile" />
-        <span asp-validation-for="SlikaFile"></span>
-    </div>
-    <div class="form-group">
-        <input type="submit" value="Kreiraj" />
-    </div>
-</form>
+<div class="rounded-pill" style="position: center; text-align: center; margin-top: 30px; border-style: groove; background-repeat: repeat-x; background-image: url(../slike/pozadina1.jpg) ">
+    <form enctype='multipart/form-data' method="post" action="/Pakovanje/Create" style="text-align:center;">
+        <div>
+            <div class="form-group" style="display: inline-flex; width: 50%; margin-top: 10px; margin-left: 90px; ">
+                <label style=" position: static; margin: 10px " class="font-weight-bolder">Naziv: </label>
+                <input class="rounded-pill text-center" style="position: static;margin:10px" type="text" asp-for="@Model.Naziv" />
+                <span class="text-danger font-weight-bolder" style="font-size: larger; position: relative;margin: 10px" asp-validation-for="Naziv"></span>
+            </div>
+            <div class="form-group" style="display: normal; width: 47%; margin-left: 170px">
+                <label style="position: static;margin:10px" class="font-weight-bolder">Materijal: </label>
+                <select class="rounded-pill text-center" style="position: static;margin:10px" asp-for="@Model.Materijal" asp-items="Html.GetEnumSelectList<Materijal>()"></select>
+                <span class="text-danger font-weight-bolder" style="font-size: larger; position: relative; margin: 10px" asp-validation-for="@Model.Materijal"></span>
+            </div>
+            <div class="form-group" style="display: normal; width: 40%; margin-left: 190px">
+                <label style="position: static; margin: 10px;" class="font-weight-bolder">Oblik: </label>
+                <select class="rounded-pill text-center" style="position: static;margin:10px" asp-for="@Model.Oblik" asp-items="Html.GetEnumSelectList<Oblik>()"></select>
+                <span class="text-danger font-weight-bolder" style="font-size: larger; position: relative; margin: 10px" asp-validation-for="@Model.Oblik"></span>
+            </div>
+
+            <div class="form-group" style="display: inline-flex; width: 50%;">
+                <label style="position: static;margin:10px; margin-left:55px" class="font-weight-bolder">Boja: </label>
+                <select class="rounded-pill text-center" style="position: static;margin:10px" asp-for="@Model.Boja" asp-items="Html.GetEnumSelectList<Boja>()"></select>
+                <span class="text-danger font-weight-bolder" style="font-size: larger; position: relative; margin: 10px" asp-validation-for="@Model.Boja"></span>
+            </div>
+            <div class="form-group" style="display: inline-flex; width: 50%;margin-left:80px">
+                <label style="margin-left:100px; position: static;margin:10px" class="font-weight-bolder">Cena: </label>
+                <input class="rounded-pill text-center" style="position: static;margin:10px" type="number" min="0" asp-for="@Model.Cena" />
+                <span class="text-danger font-weight-bolder" style="font-size: larger; position: relative; margin: 10px" asp-validation-for="@Model.Cena"></span>
+            </div>
+            <div class="form-group" style=" display: inline-flex; width: 50%;">
+                <label style="position: static;margin:10px; margin-left:50px" class="font-weight-bolder">Slika: </label>
+                <input accept="image/*" class="alert-warning text-center" style="position: static;margin:10px" asp-for="@Model.SlikaFile" />
+                <span class="text-danger font-weight-bolder" style="font-size: larger; position: relative; margin: 10px " asp-validation-for="@Model.SlikaFile"></span>
+            </div>
+        </div>
+        <div class="form-group" style="display: inline-flex; width: 50%; margin-left: 48%; height: 100px ">
+            <div style="position: relative; margin:10px">
+                <input class="btn btn-primary btn-outline-dark" style="position:static" type="submit" value="Kreiraj" />
+            </div>
+            <div class="text-danger font-weight-bolder" style="position: relative; margin-top:-30px; margin-left:0px; width:200px" asp-validation-summary="ModelOnly"></div>
+        </div>
+    </form>
+</div>

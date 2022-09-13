@@ -1,10 +1,39 @@
-﻿<div class="card" style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; font-style: italic;">
-    <div style="font-size:large; text-align:center; background-color:#e27e7e; ">
-        O nama
+﻿@model PocetnaViewModel
+
+<div style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; font-style: italic; position: center; text-align: center; margin-top: 30px;">
+    <div class="rounded-pill" style="font-size:large; background-color:#e27e7e; border-style:double;border-width:5px;border-color:dimgray">
+        Motiv
     </div>
-    <div class="card-body" style="font-size:medium; background-image: url('https://img.freepik.com/free-vector/hand-drawn-style-floral-background_79603-1541.jpg?w=1060&t=st=1662127576~exp=1662128176~hmac=38405bf29f3f7e19984e40832957f95e990ce74de7ae6ce40ca1e569a43fb4c7')">
-        Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
-        Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
-        The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.
+    <div class="rounded" style="font-size: medium; border-style: groove; background-repeat: repeat-x; background-image: url(../slike/pocetna2.jpg) ">
+        @Model.Motiv
+    </div>
+</div>
+<div style=" display: inline-flex;">
+    <div style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; font-style: italic; position: center; text-align: center; margin-top: 30px; margin-right: 20px; width: 50% ">
+        <div class="rounded-pill" style="font-size:large; background-color:#e27e7e; border-style:double;border-width:5px;border-color:dimgray">
+            Kupci su o nama rekli
+        </div>
+        <div class="rounded" style="font-size: medium; border-style: groove; background-repeat: repeat-x; background-image: url(../slike/okvir6.jpg) ">
+            @Model.KupciRekli
+        </div>
+    </div>
+    <div style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; font-style: italic; position: center; text-align: center; margin-top: 30px;margin-left:20px; width:50%">
+        <div class="rounded-pill" style="font-size:large; background-color:#e27e7e; border-style:double;border-width:5px;border-color:dimgray">
+            Istorijat
+        </div>
+        <div class="rounded" style="font-size: medium; border-style: groove; background-repeat: repeat-x; background-image: url(../slike/okvir6.jpg) ">
+            @Model.Istorijat
+        </div>
+    </div>
+</div>
+<div style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; font-style: italic; position: center; text-align: center; margin-top: 30px;">
+    <div class="rounded-circle" style="font-size:medium; background-color:#e27e7e; border-style:double;border-width:5px;border-color:dimgray">
+        Kontakt
+    </div>
+    <div class="rounded">
+        <pre class="font-weight-bold" style="overflow-y: hidden; height: 80px; font-size: initial; border-style: groove; background-repeat: repeat-x; background-image: url(../slike/pocetna2.jpg) ">
+@Model.Kontakt[0]                                      @Model.Kontakt[1]
+<a target="_blank" href="https://www.instagram.com/vencanjakazablanka/"><i class="fa-brands fa-square-instagram fa-2xl fa-beat" style="--fa-beat-scale: 1.5;"></i></a>      <a target="_blank" href="https://www.facebook.com/CvecaraKazablanka"> <i class="fa-brands fa-facebook fa-2xl fa-beat" style="--fa-beat-scale: 1.5;"></i></a>
+        </pre>
     </div>
 </div>

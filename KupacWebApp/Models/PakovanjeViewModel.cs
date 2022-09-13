@@ -21,7 +21,6 @@ namespace KupacWebApp.Models
         public Boja Boja { get; set; }
         [Required(ErrorMessage = "*")]
         public decimal Cena { get; set; }
-        [Required(ErrorMessage = "*")]
         public string Slika { get; set; }
         [Required(ErrorMessage = "*")]
         public IFormFile SlikaFile { get; set; }

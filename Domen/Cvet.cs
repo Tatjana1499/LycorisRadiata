@@ -27,7 +27,7 @@ namespace Domen
 
         public override string ToString()
         {
-            return $"{Naziv}    [Boja: {Boja}   ";
+            return $"{Naziv}    [ Boja: {Boja},   ";
         }
 
     }

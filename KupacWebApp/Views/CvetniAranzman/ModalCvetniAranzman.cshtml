@@ -7,8 +7,8 @@
                 <h6 class="modal-title">@Model.Naziv</h6>
                 <button type="button" class="close" data-dismiss="modal"><span>x</span></button>
             </div>
-                <div class="rounded" style="border:double; width:100%">
-                    <div class="rounded" style="border-bottom:double; margin-left:0;margin-right:0">
+                <div class="rounded" style="border: double; border-width: 5px; background-repeat: repeat-x; background-image: url(../slike/pocetna1.jpg); width: 100%; padding: 10px; text-align: center">
+                    <div class="rounded font-weight-bolder" style="border-bottom:double; margin-left:0;margin-right:0">
                         @if (Model.Masna)
                         {
                             <label>Mašna: Da</label>
@@ -18,19 +18,19 @@
                             <label>Mašna: Ne</label>
                         }
                     </div>
-                    <div class="rounded" style="border-bottom: double; margin-left: 0; margin-right: 0">
+                    <div class="rounded font-weight-bolder" style="border-bottom: double; margin-left: 0; margin-right: 0">
                         <label>Sjaj: @Model.Sjaj.ToString()</label>
                     </div>
-                    <div class="rounded" style="border-bottom: double; margin-left: 0; margin-right: 0">
+                    <div class="rounded font-weight-bolder" style="border-bottom: double; margin-left: 0; margin-right: 0">
                         <label>Pakovanje: @Model.Pakovanje.ToString()</label>
                     </div>
-                    <div class="rounded" style="border-bottom: double; margin-left: 0; margin-right: 0">
-                        <label>Napomena: @Model.Napomena</label>
+                    <div class="rounded font-weight-bolder" style="border-bottom: double; margin-left: 0; margin-right: 0">
+                        <label style="text-align:center">Napomena: @Model.Napomena</label>
                     </div>
-                    <div class="rounded" style="border-bottom: double; margin-left: 0; margin-right: 0">
-                        <label> Namena: @Model.Namena.ToString()</label>
+                    <div class="rounded font-weight-bolder" style="border-bottom: double; margin-left: 0; margin-right: 0">
+                        <label style="text-align:center"> Namena: @Model.Namena.ToString()</label>
                     </div>
-                    <div class="rounded" style="border-bottom: double; margin-left: 0; margin-right: 0">
+                    <div class="rounded font-weight-bolder" style="border-bottom: double; margin-left: 0; margin-right: 0">
                         <label>Cveće: </label>
                         @foreach (string cvet in Model.Cvece)
                         {

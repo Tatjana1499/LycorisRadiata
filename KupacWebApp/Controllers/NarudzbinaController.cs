@@ -1,6 +1,7 @@
 ﻿using Domen;
 using KupacWebApp.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using SlojPristupaPodacima.JedinicaRada;
@@ -15,10 +16,12 @@ namespace KupacWebApp.Controllers
     public class NarudzbinaController : Controller
     {
         private readonly IJedinicaRada jedinicaRada;
+        private readonly UserManager<Osoba> manager;
 
-        public NarudzbinaController(IJedinicaRada jedinicaRada)
+        public NarudzbinaController(IJedinicaRada jedinicaRada, UserManager<Osoba> manager)
         {
             this.jedinicaRada = jedinicaRada;
+            this.manager = manager;
         }
         public IActionResult VrstaNarudzbine()
         {
@@ -35,6 +38,7 @@ namespace KupacWebApp.Controllers
 
             return PartialView(model);
         }
+        [Authorize(Roles = "Kupac")]
         [HttpGet]
         public IActionResult Create(KreirajNarudzbinuViewModel kreirajNarudzbinu)
         {
@@ -68,6 +72,7 @@ namespace KupacWebApp.Controllers
             kreirajNarudzbinu.ProdajnaMesta = prodajnaMesta.Select(p => new SelectListItem(p.Adresa, p.ProdajnoMestoId.ToString())).ToList();
             return View("Create", kreirajNarudzbinu);
         }
+        [Authorize(Roles = "Kupac")]
         [HttpPost]
         public IActionResult CreateP(KreirajNarudzbinuViewModel model)
         {
@@ -102,10 +107,12 @@ namespace KupacWebApp.Controllers
                 Stavke = stavke,
                 VrstaNarudzbine = model.VrstaNarudzbine
             };
+            jedinicaRada.KupacRepozitorijum.PretragaId(narudzbina.KupacId).BrojNarudzbina++;
             jedinicaRada.NarudzbinaRepozitorijum.Dodaj(narudzbina);
             jedinicaRada.Sacuvaj();
             return RedirectToAction("Index", "Narudzbina");
         }
+        [Authorize(Roles = "Administrator")]
         [HttpGet]
         public IActionResult Edit(NarudzbinaViewModel model)
         {
@@ -141,6 +148,7 @@ namespace KupacWebApp.Controllers
             }
             return View(narudzbineVM);
         }
+        [Authorize(Roles = "Administrator")]
         [HttpPost]
         public string IzmeniStatus(int id, int StatusIsporuke)
         {
@@ -171,10 +179,12 @@ namespace KupacWebApp.Controllers
             }
             return View(narudzbineVM);
         }
+        [Authorize(Roles = "Administrator")]
         public IActionResult PretragaNarudzbina()
         {
             return PartialView();
         }
+        [Authorize(Roles = "Administrator")]
         [HttpDelete]
         public void Izbrisi(int id)
         {

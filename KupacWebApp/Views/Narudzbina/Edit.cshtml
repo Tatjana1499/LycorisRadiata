@@ -45,7 +45,7 @@ else
                             <label>Adresa prodajnog mesta: @item.ProdajnoMesto</label>
                         </div>
                     }
-                    <div style="display:inline-flex">
+                    <div style="display:block">
                         Stavke: &nbsp
                         @foreach (var stavka in item.Stavke)
                         {
@@ -53,11 +53,11 @@ else
                         }
                     </div>
 
-                    <div style="margin-top:10px">
-                        <select id="slc @item.NarudzbinaId" class="rounded-pill" style="text-align:center; margin-right:50px; width:500px" asp-items="Html.GetEnumSelectList<Domen.StatusIsporuke>()"></select> 
+                    <div style="margin-top:10px; display:inline-flex">
+                        <select id="slc @item.NarudzbinaId" class="rounded-pill form-control" style="text-align:center; margin-right:10px; width:300px" asp-items="Html.GetEnumSelectList<Domen.StatusIsporuke>()"></select> 
 
 
-                        <button value="@item.NarudzbinaId" type="button" style="margin-left:100px;" class="izmeni btn btn-primary btn-outline-dark" id="btn @item.NarudzbinaId">Izmeni status</button>
+                        <button value="@item.NarudzbinaId" type="button" style="margin-left:10px;" class="izmeni btn btn-primary btn-outline-dark" id="btn @item.NarudzbinaId">Izmeni status</button>
 
                         @if (item.StatusIsporuke == Domen.StatusIsporuke.Zastarelo)
                         {

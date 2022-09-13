@@ -41,7 +41,7 @@ namespace KupacWebApp.Controllers
                 foreach(Dekoracija dekoracija in cv.Dekoracije)
                 {
                     Cvet cvet = (jedinicaRada.DekoracijaRepozitorijum.Pretraga(d => d.CvetProizvodId == dekoracija.CvetProizvodId && dekoracija.CvetniAranzmanProizvodId == d.CvetniAranzmanProizvodId)).First().Cvet;
-                    cvView.Cvece.Add(cvet.ToString() + $"Količina: {dekoracija.BrojCvetova}");
+                    cvView.Cvece.Add(cvet.ToString() + $"Količina: {dekoracija.BrojCvetova} ]");
                 }
 
                 cvViews.Add(cvView);
@@ -150,7 +150,7 @@ namespace KupacWebApp.Controllers
             foreach(Dekoracija dekoracija in cvetniAranzman.Dekoracije)
             {
                 Cvet cvet = (jedinicaRada.DekoracijaRepozitorijum.Pretraga(d => d.CvetProizvodId == dekoracija.CvetProizvodId && dekoracija.CvetniAranzmanProizvodId == d.CvetniAranzmanProizvodId)).First().Cvet;
-                model.Cvece.Add(cvet.ToString() + $"Količina: {dekoracija.BrojCvetova}");
+                model.Cvece.Add(cvet.ToString() + $"Količina: {dekoracija.BrojCvetova} ]");
             }
             return PartialView(model);
         }

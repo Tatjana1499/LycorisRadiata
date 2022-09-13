@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace KupacWebApp.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Kupac")]
     public class ProdajnoMestoController : Controller
     {
         private readonly IJedinicaRada jedinicaRada;
