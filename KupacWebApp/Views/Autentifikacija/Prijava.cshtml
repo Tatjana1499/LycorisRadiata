@@ -4,12 +4,12 @@
     <form method="post" action="/Autentifikacija/Prijava" style="text-align: start; margin-top: 10%">
         <div class="form-group">
             <label style="color:black;font-size:medium">Korisnicko ime: </label>
-            <input class="rounded-pill text-center" type="text" asp-for="@Model.KorisnickoIme" value="taca" />
+            <input class="rounded-pill text-center" type="text" asp-for="@Model.KorisnickoIme" value="pera" /> @*taca*@
             <span style="color: red; font-size: xx-large; position: fixed " asp-validation-for="KorisnickoIme"></span>
         </div>
         <div class="form-group" style="margin-left:52px">
             <label style="color:black;font-size:medium">Lozinka: </label>
-            <input class="rounded-pill text-center" type="password" asp-for="@Model.Lozinka" value="Taca123!" />
+            <input class="rounded-pill text-center" type="password" asp-for="@Model.Lozinka" value="Pera123!" /> @*Taca123!*@
             <span style="color: red; font-size: xx-large; position:fixed" asp-validation-for="Lozinka"></span>
         </div>
         <div class="form-group" style="display:inline-flex; width:50%; margin-left:10%; height:100px">

@@ -10,18 +10,18 @@ namespace KupacWebApp.Models
 {
     public class KreirajCvetViewModel
     {
-        [Required]
+        [Required(ErrorMessage ="*")]
         public string Naziv { get; set; }
-        [Required]
+        [Required(ErrorMessage = "*")]
         public decimal Cena { get; set; }
-        [Required]
+        [Required(ErrorMessage = "*")]
         public string Opis { get; set; }
-        [Required]
+        [Required(ErrorMessage = "*")]
         public Familija Familija { get; set; }
-        [Required]
         public string Slika { get; set; }
+        [Required(ErrorMessage = "*")]
         public IFormFile SlikaFile { get; set; }
-        [Required]
+        [Required(ErrorMessage = "*")]
         public Boja Boja { get; set; }
     }
 }

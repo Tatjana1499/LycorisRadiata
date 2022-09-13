@@ -1,0 +1,35 @@
+﻿@model PakovanjeViewModel
+@using Domen
+
+<form enctype='multipart/form-data' method="post" action="/Pakovanje/Create" style="text-align:center; margin-top:10%;">
+    <div class="form-group">
+        <label>Naziv: </label>
+        <input type="text" asp-for="@Model.Naziv" />
+        <span asp-validation-for="Naziv"></span>
+    </div>
+    <div class="form-group">
+        <label>Materijal: </label>
+        <select asp-for="@Model.Materijal" asp-items="Html.GetEnumSelectList<Materijal>()"></select>
+    </div>
+    <div class="form-group">
+        <label>Oblik: </label>
+        <select asp-for="@Model.Oblik" asp-items="Html.GetEnumSelectList<Oblik>()"></select>
+    </div>
+    <div class="form-group">
+        <label>Boja: </label>
+        <select asp-for="@Model.Boja" asp-items="Html.GetEnumSelectList<Boja>()"></select>
+    </div>
+    <div class="form-group">
+        <label>Cena: </label>
+        <input type="number" min="0" asp-for="@Model.Cena" />
+        <span asp-validation-for="Cena"></span>
+    </div>
+    <div class="form-group">
+        <label>Slika: </label>
+        <input accept="image/*" asp-for="@Model.SlikaFile" />
+        <span asp-validation-for="SlikaFile"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Kreiraj" />
+    </div>
+</form>

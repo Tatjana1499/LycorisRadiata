@@ -28,7 +28,7 @@ namespace SlojPristupaPodacima.Implementacije
 
         public void Dodaj(Pakovanje entitet)
         {
-            throw new NotImplementedException();
+            context.Add(entitet);
         }
 
         public List<Pakovanje> Pretraga(Expression<Func<Pakovanje, bool>> uslov)

@@ -18,6 +18,10 @@
         <div class="form-group rounded-pill" style="position: center; margin-left: 25%; width: 50%; border-style: double; border-color: #761515; margin-top: 5px; background-color: white ">
             <label class="font-weight-bolder">Datum zaposlenja: @Model.DatumZaposlenja</label>
         </div>
-        <button type="button" style="margin:10px" class="btn btn-primary btn-outline-dark" data-toggle="ajax-modal" data-target="#pretraziNarudzbine" data-url="@Url.Action("PretragaNarudzbina", "Narudzbina")">Pretraga narudžbina</button>
+        <div style="display:inline">
+            <button type="button" style="margin:10px" class="btn btn-primary btn-outline-dark" data-toggle="ajax-modal" data-target="#pretraziNarudzbine" data-url="@Url.Action("PretragaNarudzbina", "Narudzbina")">Pretraga narudžbina</button>
+            <button asp-action="Create" asp-controller="Cvet" type="submit" style="margin:10px" class="btn btn-primary btn-outline-dark">Kreiraj cvet</button>
+            <button  asp-action="Create" asp-controller="Pakovanje"  type="submit" style="margin:10px" class="btn btn-primary btn-outline-dark">Kreiraj pakovanje</button>
+        </div>
     </form>
 </div>

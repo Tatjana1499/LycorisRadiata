@@ -50,6 +50,10 @@ namespace KupacWebApp.Controllers
         [Authorize(Roles ="Administrator")]
         public IActionResult Create(CvetViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return Create();
+            }
 
             string wwwRootPath = webHost.WebRootPath;
             string fileName = Path.GetFileNameWithoutExtension(model.SlikaFile.FileName);
@@ -68,12 +72,11 @@ namespace KupacWebApp.Controllers
                 Naziv = model.Naziv,
                 Cena = model.Cena,
                 Familija = model.Familija,
-                //////////////////!!!!!!!!!!!!!!!!!!!!!!
                 Slika = model.Slika
             };
             jedinicaRada.CvetRepozitorijum.Dodaj(cvet);
             jedinicaRada.Sacuvaj();
-            return View();
+            return RedirectToAction("AdministratorProfil", "Pocetna");
         }
     }
 }

@@ -11,29 +11,28 @@
             <div class="pre-scrollable">
                 @foreach (PakovanjeViewModel item in Model)
                 {
-                <div class="modal-body" style="margin-bottom:10px; display:inline-flex;">
-                    <div class="rounded" style="width: 50%; border: double;">
-                        <div class="rounded" style="border-bottom:double; margin-left: 0; margin-right: 0">
-                            <label>Naziv: @item.Naziv</label>
+                    <div class="modal-body" style="margin-bottom:10px; display:inline-flex;">
+                        <div class="rounded" style="width: 50%; border: double;">
+                            <div class="rounded" style="border-bottom:double; margin-left: 0; margin-right: 0">
+                                <label>Naziv: @item.Naziv</label>
+                            </div>
+                            <div class="rounded" style="border-bottom:double; margin-left:0;margin-right:0">
+                                <label>Materijal: @item.Materijal</label>
+                            </div>
+                            <div class="rounded" style="border-bottom: double; margin-left: 0; margin-right: 0">
+                                <label>Boja: @item.Boja</label>
+                            </div>
+                            <div class="rounded" style="border-bottom: double; margin-left: 0; margin-right: 0">
+                                <label>Oblik: @item.Oblik</label>
+                            </div>
+                            <div class="rounded" style="margin-left: 0; margin-right: 0">
+                                <label>Cena: @item.Cena</label>
+                            </div>
                         </div>
-                        <div class="rounded" style="border-bottom:double; margin-left:0;margin-right:0">
-                            <label>Materijal: @item.Materijal</label>
-                        </div>
-                        <div class="rounded" style="border-bottom: double; margin-left: 0; margin-right: 0">
-                            <label>Boja: @item.Boja</label>
-                        </div>
-                        <div class="rounded" style="border-bottom: double; margin-left: 0; margin-right: 0">
-                            <label>Oblik: @item.Oblik</label>
-                        </div>
-                        <div class="rounded" style="margin-left: 0; margin-right: 0">
-                            <label>Cena: @item.Cena</label>
+                        <div style="margin-left:8px; width:50%">
+                            <img class="img-fluid rounded" style="position: center; border: double;" src="@("~/slike/"+ item.Slika)"  asp-append-version="true" />
                         </div>
                     </div>
-                    <div style="margin-left:8px; width:50%">
-                        <img class="img-fluid rounded" style="position: center; border: double;" src="@item.Slika" />
-                    </div>
-                </div>
-                   
                 }
             </div>
         </div>

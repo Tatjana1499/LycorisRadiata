@@ -170,3 +170,4 @@ C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\KupacWebApp\obj\Debug\net5
 C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\KupacWebApp\obj\Debug\net5.0\Razor\Views\Autentifikacija\Edit.cshtml.g.cs
 C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\KupacWebApp\obj\Debug\net5.0\Razor\Views\Narudzbina\PretragaNarudzbina.cshtml.g.cs
 C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\KupacWebApp\obj\Debug\net5.0\Razor\Views\Pocetna\AdministratorProfil.cshtml.g.cs
+C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\KupacWebApp\obj\Debug\net5.0\Razor\Views\Pakovanje\Create.cshtml.g.cs
