@@ -42,7 +42,11 @@ namespace SlojPristupaPodacima.Implementacije
         }
         public Osoba PretragaKorisnickoImeLozinka(string korisnickoIme, string lozinka)
         {
-            return context.Osoba.SingleOrDefault(o => o.UserName == korisnickoIme &&  o.PasswordHash == lozinka);
+            try
+            {
+                return context.Osoba.SingleOrDefault(o => o.UserName == korisnickoIme && o.PasswordHash == lozinka);
+            }
+            catch { throw new Exception(); }
         }
     }
 }

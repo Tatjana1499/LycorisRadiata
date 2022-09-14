@@ -111,10 +111,8 @@ else
             method: "delete",
             data: { id: $(this).val() },
             success: function (data) {
-                alert("Uspešno obrisana narudžbina.")
                 document.getElementById("narudzbina " + id).hidden = true;
-               
-            },
+            }
         })
         })
 

@@ -27,7 +27,17 @@ namespace KupacWebApp.Controllers
         [Authorize(Roles = "Kupac")]
         public IActionResult Index(int id)
         {
-            Cvet cvet = jedinicaRada.CvetRepozitorijum.PretragaId(id);
+            Cvet cvet = new Cvet();
+            try
+            {
+                cvet = jedinicaRada.CvetRepozitorijum.PretragaId(id);
+            }
+            catch
+            {
+                ModelState.AddModelError(string.Empty, "Došlo je do greške.");
+                return RedirectToAction("Create", "CvetniAranzman");
+            }
+            
             CvetViewModel cvetView = new CvetViewModel()
             {
                 Boja = cvet.Boja,
@@ -74,8 +84,16 @@ namespace KupacWebApp.Controllers
                 Familija = model.Familija,
                 Slika = model.Slika
             };
-            jedinicaRada.CvetRepozitorijum.Dodaj(cvet);
-            jedinicaRada.Sacuvaj();
+            try
+            {
+                jedinicaRada.CvetRepozitorijum.Dodaj(cvet);
+                jedinicaRada.Sacuvaj();
+            }
+            catch
+            {
+                return RedirectToAction("Greska", "Autentifikacija");
+            }
+            
             return RedirectToAction("AdministratorProfil", "Pocetna");
         }
     }

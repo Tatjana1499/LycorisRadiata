@@ -38,11 +38,23 @@ namespace SlojPristupaPodacima.Implementacije
 
         public List<Pakovanje> VratiSve()
         {
-            return context.Pakovanje.ToList();
+            try
+            {
+                return context.Pakovanje.ToList();
+
+            }
+            catch
+            {
+                throw new Exception();
+            }
         }
         public Pakovanje PretragaId(int id)
         {
-            return context.Pakovanje.Single(p => p.PakovanjeId == id);
+            try
+            {
+                return context.Pakovanje.Single(p => p.PakovanjeId == id);
+            }
+            catch { throw new Exception(); }
         }
     }
 }

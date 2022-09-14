@@ -26,7 +26,15 @@ namespace KupacWebApp.Controllers
         [Authorize(Roles = "Kupac")]
         public IActionResult Index()
         {
-            List<Pakovanje> pakovanja = jedinicaRada.PakovanjeRepozitorijum.VratiSve();
+            List<Pakovanje> pakovanja = new List<Pakovanje>();
+            try
+            {
+                pakovanja = jedinicaRada.PakovanjeRepozitorijum.VratiSve();
+            }
+            catch
+            {
+                return RedirectToAction("Greska", "Autentifikacija");
+            }
             List<PakovanjeViewModel> pakovanjeViews = new List<PakovanjeViewModel>();
             foreach(Pakovanje p in pakovanja)
             {
@@ -79,8 +87,16 @@ namespace KupacWebApp.Controllers
                 Oblik = model.Oblik,
                 Slika = model.Slika
             };
-            jedinicaRada.PakovanjeRepozitorijum.Dodaj(pakovanje);
-            jedinicaRada.Sacuvaj();
+            try
+            {
+                jedinicaRada.PakovanjeRepozitorijum.Dodaj(pakovanje);
+                jedinicaRada.Sacuvaj();
+            }
+            catch
+            {
+                return RedirectToAction("Greska", "Autentifikacija");
+            }
+            
             return RedirectToAction("AdministratorProfil", "Pocetna");
         }
     }

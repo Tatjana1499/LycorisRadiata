@@ -38,7 +38,11 @@ namespace SlojPristupaPodacima.Implementacije
 
         public List<ProdajnoMesto> VratiSve()
         {
-            return context.ProdajnoMesto.ToList();
+            try
+            {
+                return context.ProdajnoMesto.ToList();
+            }
+            catch { throw new Exception(); }
         }
     }
 }

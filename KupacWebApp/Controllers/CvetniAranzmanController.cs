@@ -22,7 +22,16 @@ namespace KupacWebApp.Controllers
         }
         public IActionResult Index()
         {
-            List<CvetniAranzman> cvetniAranzmani = jedinicaRada.CvetniAranzmanRepozitorijum.Pretraga(c => c.KupacId == Int32.Parse(HttpContext.User.Claims.ElementAt(0).Value));
+            List<CvetniAranzman> cvetniAranzmani = new List<CvetniAranzman>();
+            try
+            {
+                cvetniAranzmani = jedinicaRada.CvetniAranzmanRepozitorijum.Pretraga(c => c.KupacId == Int32.Parse(HttpContext.User.Claims.ElementAt(0).Value));
+            }
+            catch
+            {
+                return RedirectToAction("Greska", "Autentifikacija");
+            }
+            
 
             List<CvetniAranzmanViewModel> cvViews = new List<CvetniAranzmanViewModel>();
             foreach(CvetniAranzman cv in cvetniAranzmani)
@@ -40,7 +49,16 @@ namespace KupacWebApp.Controllers
                 List<Cvet> cvetovi = new List<Cvet>();
                 foreach(Dekoracija dekoracija in cv.Dekoracije)
                 {
-                    Cvet cvet = (jedinicaRada.DekoracijaRepozitorijum.Pretraga(d => d.CvetProizvodId == dekoracija.CvetProizvodId && dekoracija.CvetniAranzmanProizvodId == d.CvetniAranzmanProizvodId)).First().Cvet;
+                    Cvet cvet = new Cvet();
+                    try
+                    {
+                        cvet = (jedinicaRada.DekoracijaRepozitorijum.Pretraga(d => d.CvetProizvodId == dekoracija.CvetProizvodId && dekoracija.CvetniAranzmanProizvodId == d.CvetniAranzmanProizvodId)).First().Cvet;
+                    }
+                    catch
+                    {
+                        return RedirectToAction("Greska", "Autentifikacija");
+                    }
+                    
                     cvView.Cvece.Add(cvet.ToString() + $"Količina: {dekoracija.BrojCvetova} ]");
                 }
 
@@ -51,9 +69,19 @@ namespace KupacWebApp.Controllers
         public IActionResult Create()
         {
             KreirajCvetniAranzmanViewModel model = new KreirajCvetniAranzmanViewModel();
-            var pakovanja = jedinicaRada.PakovanjeRepozitorijum.VratiSve();
-            model.Pakovanja = pakovanja.Select(p => new SelectListItem(p.ToString(), p.PakovanjeId.ToString())).ToList();
-            List<Cvet> cvece = jedinicaRada.CvetRepozitorijum.VratiSve();
+            List<Cvet> cvece = new List<Cvet>();
+            try
+            {
+                model = new KreirajCvetniAranzmanViewModel();
+                var pakovanja = jedinicaRada.PakovanjeRepozitorijum.VratiSve();
+                model.Pakovanja = pakovanja.Select(p => new SelectListItem(p.ToString(), p.PakovanjeId.ToString())).ToList();
+                cvece = jedinicaRada.CvetRepozitorijum.VratiSve();
+            }
+            catch
+            {
+                return RedirectToAction("Greska", "Autentifikacija");
+            }
+            
             foreach(Cvet c in cvece)
             {
                 CvetViewModel cvm = new CvetViewModel()
@@ -108,10 +136,27 @@ namespace KupacWebApp.Controllers
             decimal ukupnaCena = 0;
             foreach (DekoracijaViewModel dvm in model.Dekoracije)
             {
-                Cvet cvet = jedinicaRada.CvetRepozitorijum.PretragaId(dvm.CvetProizvodId);
-                ukupnaCena += cvet.Cena * dvm.BrojCvetova;
+                Cvet cvet = new Cvet();
+                try
+                {
+                    cvet = jedinicaRada.CvetRepozitorijum.PretragaId(dvm.CvetProizvodId);
+                    ukupnaCena += cvet.Cena * dvm.BrojCvetova;
+                }
+                catch
+                {
+                    return RedirectToAction("Greska", "Autentifikacija");
+                }
+                
             }
-            ukupnaCena += jedinicaRada.PakovanjeRepozitorijum.PretragaId(model.PakovanjeId).Cena;
+            try
+            {
+                ukupnaCena += jedinicaRada.PakovanjeRepozitorijum.PretragaId(model.PakovanjeId).Cena;
+            }
+            catch
+            {
+                return RedirectToAction("Greska", "Autentifikacija");
+            }
+            
 
             CvetniAranzman cvAr = new CvetniAranzman()
             {
@@ -125,9 +170,16 @@ namespace KupacWebApp.Controllers
                 Dekoracije = dekorcije,
                 KupacId = Int32.Parse(HttpContext.User.Claims.ElementAt(0).Value)
         };
+            try
+            {
+                jedinicaRada.CvetniAranzmanRepozitorijum.Dodaj(cvAr);
+                jedinicaRada.Sacuvaj();
+            }
+            catch
+            {
+                return RedirectToAction("Greska", "Autentifikacija");
+            }
             
-            jedinicaRada.CvetniAranzmanRepozitorijum.Dodaj(cvAr);
-            jedinicaRada.Sacuvaj();
             return RedirectToAction("Index");
         }
         public IActionResult dodajCvet(int cvetId, string Naziv, string Boja, int RedniBroj)
@@ -144,7 +196,16 @@ namespace KupacWebApp.Controllers
         }
         public IActionResult ModalCvetniAranzman(int id)
         {
-            CvetniAranzman cvetniAranzman = jedinicaRada.CvetniAranzmanRepozitorijum.PretragaId(id);
+            CvetniAranzman cvetniAranzman = new CvetniAranzman();
+            try
+            {
+                cvetniAranzman = jedinicaRada.CvetniAranzmanRepozitorijum.PretragaId(id);
+            }
+            catch
+            {
+                return RedirectToAction("Greska", "Autentifikacija");
+            }
+           
             CvetniAranzmanViewModel model = new CvetniAranzmanViewModel()
             {
                 Masna = cvetniAranzman.Masna,
@@ -158,7 +219,15 @@ namespace KupacWebApp.Controllers
             List<Cvet> cvetovi = new List<Cvet>();
             foreach(Dekoracija dekoracija in cvetniAranzman.Dekoracije)
             {
-                Cvet cvet = (jedinicaRada.DekoracijaRepozitorijum.Pretraga(d => d.CvetProizvodId == dekoracija.CvetProizvodId && dekoracija.CvetniAranzmanProizvodId == d.CvetniAranzmanProizvodId)).First().Cvet;
+                Cvet cvet = new Cvet();
+                try
+                {
+                    cvet = (jedinicaRada.DekoracijaRepozitorijum.Pretraga(d => d.CvetProizvodId == dekoracija.CvetProizvodId && dekoracija.CvetniAranzmanProizvodId == d.CvetniAranzmanProizvodId)).First().Cvet;
+                }
+                catch
+                {
+                    return RedirectToAction("Greska", "Autentifikacija");
+                }
                 model.Cvece.Add(cvet.ToString() + $"Količina: {dekoracija.BrojCvetova} ]");
             }
             return PartialView(model);

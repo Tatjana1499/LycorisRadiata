@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Http;
 using System.Text.Json;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
+using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
+using Microsoft.AspNetCore.Authorization;
 
 namespace KupacWebApp.Controllers
 {
@@ -19,6 +21,8 @@ namespace KupacWebApp.Controllers
         private readonly IJedinicaRada jedinicaRada;
         private readonly UserManager<Osoba> manager;
         private readonly SignInManager<Osoba> signIn;
+
+        public object SingInResult { get; private set; }
 
         public AutentifikacijaController(IJedinicaRada jedinicaRada, UserManager<Osoba> manager, SignInManager<Osoba> signIn)
         {
@@ -38,7 +42,16 @@ namespace KupacWebApp.Controllers
             {
                 return View();
             }
-            var rezultat = await signIn.PasswordSignInAsync(prijava.KorisnickoIme, prijava.Lozinka, false, false);
+            SignInResult rezultat = new SignInResult();
+            try
+            {
+                rezultat = await signIn.PasswordSignInAsync(prijava.KorisnickoIme, prijava.Lozinka, false, false);
+            }
+            catch
+            {
+                ModelState.AddModelError(string.Empty, "Desila se greška.");
+                return View();
+            }
             
             if (rezultat.Succeeded)
             {
@@ -77,8 +90,17 @@ namespace KupacWebApp.Controllers
                 BrojNarudzbina = 0,
                 DatumKreiranjaNaloga = DateTime.Now
             };
+            IdentityResult rezultat = new IdentityResult();
+            try
+            {
+                rezultat = await manager.CreateAsync(kupac, registacija.Lozinka);
+            }
+            catch
+            {
+                ModelState.AddModelError(string.Empty, "Desila se greška.");
+                return View();
+            }
             
-            var rezultat = await manager.CreateAsync(kupac, registacija.Lozinka);
            
             if (rezultat.Errors.Any(e => e.Code.Contains("UserName")))
             {
@@ -96,23 +118,38 @@ namespace KupacWebApp.Controllers
             }
             catch
             {
-                ModelState.AddModelError(string.Empty, "Greška u bazi");
+                ModelState.AddModelError(string.Empty, "Desila se greška.");
                 return View();
             }
            
             return RedirectToAction("Prijava", "Autentifikacija");
         }
-        public async Task<IActionResult> Odjava(PrijavaViewModel prijava)
+        [Authorize]
+        public async Task<IActionResult> Odjava()
         {
             await signIn.SignOutAsync();
             return RedirectToAction("Index", "Pocetna");
         }
+        [Authorize]
+        public async Task<IActionResult> Greska()
+        {
+            await signIn.SignOutAsync();
+            return PartialView();
+        }
         [HttpGet]
+        [Authorize(Roles ="Kupac")]
         public IActionResult Edit()
         {
-
-            var userId = manager.GetUserId(HttpContext.User);
-            Osoba currentUser = manager.FindByIdAsync(userId).Result;
+            Osoba currentUser = new Osoba();
+            try
+            {
+                var userId = manager.GetUserId(HttpContext.User);
+                currentUser = manager.FindByIdAsync(userId).Result;
+            }
+            catch
+            {
+                return RedirectToAction("Greska", "Autentifikacija");
+            }
 
             IzmeniKupcaViewModel model = new IzmeniKupcaViewModel()
             {
@@ -126,6 +163,7 @@ namespace KupacWebApp.Controllers
             return View(model);
         }
         [HttpPost]
+        [Authorize(Roles = "Kupac")]
         public async Task<IActionResult> Edit(IzmeniKupcaViewModel model)
         {
 
@@ -143,9 +181,17 @@ namespace KupacWebApp.Controllers
             {
                 return Edit();
             }
-
-            var userId = manager.GetUserId(HttpContext.User);
-            Osoba currentUser = manager.FindByIdAsync(userId).Result;
+            Osoba currentUser = new Osoba();
+            try
+            {
+                var userId = manager.GetUserId(HttpContext.User);
+                currentUser = manager.FindByIdAsync(userId).Result;
+            }
+            catch
+            {
+                return RedirectToAction("Greska", "Autentifikacija");
+            }
+            
 
             currentUser.Email = model.Email;
             currentUser.Ime = model.Ime;
@@ -172,7 +218,15 @@ namespace KupacWebApp.Controllers
                     return View();
                 }
             }
-            var rezultat = await manager.UpdateAsync(currentUser);
+            IdentityResult rezultat = new IdentityResult();
+            try
+            {
+                rezultat = await manager.UpdateAsync(currentUser);
+            }
+            catch
+            {
+                return RedirectToAction("Greska", "Autentifikacija");
+            }
             
             if (!rezultat.Succeeded)
             {

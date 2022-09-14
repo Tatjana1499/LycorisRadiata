@@ -29,12 +29,20 @@ namespace SlojPristupaPodacima.Implementacije
 
         public void Dodaj(Dekoracija entitet)
         {
-            context.Dekoracija.Add(entitet);
+            try
+            {
+                context.Dekoracija.Add(entitet);
+            }
+            catch { throw new Exception(); }
         }
 
         public List<Dekoracija> Pretraga(Expression<Func<Dekoracija, bool>> uslov)
         {
-            return context.Dekoracija.Include(d => d.Cvet).Where(uslov).ToList();
+            try
+            {
+                return context.Dekoracija.Include(d => d.Cvet).Where(uslov).ToList();
+            }
+            catch { throw new Exception(); }
         }
 
         public List<Dekoracija> VratiSve()

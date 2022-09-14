@@ -21,7 +21,15 @@ namespace KupacWebApp.Controllers
         }
         public IActionResult Index()
         {
-            List<ProdajnoMesto> prodajnaMesta =  jedinicaRada.ProdajnoMestoRepozitorijum.VratiSve();
+            List<ProdajnoMesto> prodajnaMesta = new List<ProdajnoMesto>();
+            try
+            {
+                prodajnaMesta = jedinicaRada.ProdajnoMestoRepozitorijum.VratiSve();
+            }
+            catch
+            {
+                return RedirectToAction("Greska", "Autentifikacija");
+            }
             List<ProdajnoMestoViewModel> prodMestaVM = new List<ProdajnoMestoViewModel>();
             foreach(ProdajnoMesto prm in prodajnaMesta)
             {

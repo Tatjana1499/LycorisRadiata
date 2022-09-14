@@ -29,31 +29,63 @@ namespace SlojPristupaPodacima.Implementacije
 
         public void BrisiId(int id)
         {
-            Narudzbina narudzbina = context.Narudzbina.Single(n => n.NarudzbinaId == id);
-            context.Narudzbina.Remove(narudzbina);
+            try
+            {
+                Narudzbina narudzbina = context.Narudzbina.Single(n => n.NarudzbinaId == id);
+                context.Narudzbina.Remove(narudzbina);
+            }
+            catch
+            {
+                throw new Exception();
+            }
+
         }
 
         public void Dodaj(Narudzbina entitet)
         {
-            context.Narudzbina.Add(entitet);
-        }
+            try 
+            { 
+                context.Narudzbina.Add(entitet);
+            }
+            catch
+            {
+                throw new Exception();
+            }
+
+}
 
         public List<Narudzbina> Pretraga(Expression<Func<Narudzbina, bool>> uslov)
         {
-            return context.Narudzbina.Include(n => n.ProdajnoMesto).Where(uslov).ToList();
+            try
+            {
+                return context.Narudzbina.Include(n => n.ProdajnoMesto).Where(uslov).ToList();
+            }
+            catch { throw new Exception(); }
         }
 
         public List<Narudzbina> VratiSve()
         {
-            return context.Narudzbina.Include(n => n.Kupac).Include(n => n.ProdajnoMesto).ToList();
+            try
+            {
+                return context.Narudzbina.Include(n => n.Kupac).Include(n => n.ProdajnoMesto).ToList();
+            }
+            catch { throw new Exception(); }
         }
         public Narudzbina PretragaId(int id)
         {
-            return context.Narudzbina.Include(n => n.Kupac).Single(c => c.NarudzbinaId == id);
+            try
+            {
+                return context.Narudzbina.Include(n => n.Kupac).Single(c => c.NarudzbinaId == id);
+            }
+            catch { throw new Exception(); }
         }
         public List<Narudzbina> PretragaKupac(Expression<Func<Narudzbina, bool>> uslov)
         {
-            return context.Narudzbina.Include(n => n.ProdajnoMesto).Include(n => n.Kupac).Where(uslov).ToList();
+            try
+            {
+                return context.Narudzbina.Include(n => n.ProdajnoMesto).Include(n => n.Kupac).Where(uslov).ToList();
+            }
+            catch { throw new Exception(); }
         }
     }
 }

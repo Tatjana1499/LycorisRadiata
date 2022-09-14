@@ -18,31 +18,51 @@ namespace SlojPristupaPodacima.Implementacije
         }
         public void Azuriraj(Cvet entitet)
         {
-            context.Entry(entitet).State = EntityState.Modified;
+           
         }
 
         public void Brisi(Cvet entitet)
         {
-            context.Remove(entitet);
+            try
+            {
+                context.Remove(entitet);
+            }
+            catch { throw new Exception(); }
         }
 
         public void Dodaj(Cvet entitet)
         {
-            context.Add(entitet);
+            try
+            {
+                context.Add(entitet);
+            }
+            catch { throw new Exception(); }
         }
 
         public List<Cvet> Pretraga(Expression<Func<Cvet, bool>> uslov)
         {
-            return context.Cvet.Where(uslov).ToList();
+            try
+            {
+                return context.Cvet.Where(uslov).ToList();
+            }
+            catch { throw new Exception(); }
         }
 
         public List<Cvet> VratiSve()
         {
-            return context.Cvet.ToList();
+            try
+            {
+                return context.Cvet.ToList();
+            }
+            catch { throw new Exception(); }
         }
         public Cvet PretragaId(int id)
         {
-            return context.Cvet.Single(c => c.ProizvodId == id);
+            try
+            {
+                return context.Cvet.Single(c => c.ProizvodId == id);
+            }
+            catch { throw new Exception(); }
         }
     }
 }

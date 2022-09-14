@@ -29,22 +29,48 @@ namespace SlojPristupaPodacima.Implementacije
 
         public void Dodaj(CvetniAranzman entitet)
         {
-            context.CvetniAranzman.Add(entitet);
-          //  var tr = context.Database.BeginTransaction();
-
+            try
+            {
+                context.CvetniAranzman.Add(entitet);
+            }
+            catch
+            {
+                throw new Exception();
+            }
         }
 
         public List<CvetniAranzman> Pretraga(Expression<Func<CvetniAranzman, bool>> uslov)
         {
-            return context.CvetniAranzman.Include(c => c.Pakovanje).Include(c => c.Dekoracije).Where(uslov).ToList();
+            try
+            {
+                return context.CvetniAranzman.Include(c => c.Pakovanje).Include(c => c.Dekoracije).Where(uslov).ToList();
+            }
+            catch
+            {
+                throw new Exception();
+            }
         }
         public List<CvetniAranzman> VratiSve()
         {
-            return context.CvetniAranzman.ToList();
+            try
+            {
+                return context.CvetniAranzman.ToList();
+            }
+            catch
+            {
+                throw new Exception();
+            }
         }
         public CvetniAranzman PretragaId(int id)
         {
-            return context.CvetniAranzman.Include(c => c.Pakovanje).Include(c => c.Dekoracije).Single(c => c.ProizvodId == id);
+            try
+            {
+                return context.CvetniAranzman.Include(c => c.Pakovanje).Include(c => c.Dekoracije).Single(c => c.ProizvodId == id);
+            }
+            catch 
+            {
+                throw new Exception();
+            }
         }
     }
 }

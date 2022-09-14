@@ -37,12 +37,20 @@ namespace SlojPristupaPodacima.Implementacije
         }
         public Proizvod PretragaId(int id)
         {
-            return context.Proizvod.Single(p => p.ProizvodId == id);
+            try
+            {
+                return context.Proizvod.Single(p => p.ProizvodId == id);
+            }
+            catch { throw new Exception(); }
         }
 
         public List<Proizvod> VratiSve()
         {
-            return context.Proizvod.ToList();
+            try
+            {
+                return context.Proizvod.ToList();
+            }
+            catch { throw new Exception(); }
         }
     }
 }

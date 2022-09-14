@@ -18,7 +18,11 @@ namespace SlojPristupaPodacima.Implementacije
         }
         public void Azuriraj(Kupac entitet)
         {
-            context.Update(entitet);
+            try
+            {
+                context.Update(entitet);
+            }
+            catch { throw new Exception(); }
         }
 
         public void Brisi(Kupac entitet)
@@ -28,12 +32,20 @@ namespace SlojPristupaPodacima.Implementacije
 
         public void Dodaj(Kupac entitet)
         {
-            context.Kupac.Add(entitet);
+            try
+            {
+                context.Kupac.Add(entitet);
+            }
+            catch { throw new Exception(); }
         }
 
         public List<Kupac> Pretraga(Expression<Func<Kupac, bool>> uslov)
         {
-            return context.Kupac.Where(uslov).ToList();
+            try
+            {
+                return context.Kupac.Where(uslov).ToList();
+            }
+            catch {  throw new Exception(); }
         }
 
         public List<Kupac> VratiSve()
@@ -43,11 +55,19 @@ namespace SlojPristupaPodacima.Implementacije
 
         public Kupac PretragaKorisnickoImeLozinka(string korisnickoIme, string lozinka)
         {
-            return context.Kupac.SingleOrDefault(k => k.UserName == korisnickoIme && k.PasswordHash == lozinka);
+            try
+            {
+                return context.Kupac.SingleOrDefault(k => k.UserName == korisnickoIme && k.PasswordHash == lozinka);
+            }
+            catch { throw new Exception(); }
         }
         public Kupac PretragaId(int id)
         {
-            return context.Kupac.Single(k => k.Id == id);
+            try
+            {
+                return context.Kupac.Single(k => k.Id == id);
+            }
+            catch { throw new Exception(); }
         }
     }
 }

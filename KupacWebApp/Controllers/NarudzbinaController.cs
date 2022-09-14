@@ -8,7 +8,6 @@ using SlojPristupaPodacima.JedinicaRada;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace KupacWebApp.Controllers
 {
@@ -42,8 +41,18 @@ namespace KupacWebApp.Controllers
         [HttpGet]
         public IActionResult Create(KreirajNarudzbinuViewModel kreirajNarudzbinu)
         {
-            List<Proizvod> proizvodi = jedinicaRada.ProizvodRepozitorijum.VratiSve();
-            var prodajnaMesta = jedinicaRada.ProdajnoMestoRepozitorijum.VratiSve().ToList();
+            List<Proizvod> proizvodi = new List<Proizvod>();
+            List<ProdajnoMesto> prodajnaMesta = new List<ProdajnoMesto>();
+            try
+            {
+                proizvodi = jedinicaRada.ProizvodRepozitorijum.VratiSve();
+                prodajnaMesta = jedinicaRada.ProdajnoMestoRepozitorijum.VratiSve().ToList();
+            }
+            catch
+            {
+                return RedirectToAction("Greska", "Autentifikacija");
+            }
+            
             List<ProizvodViewModel> proizvodiView = new List<ProizvodViewModel>();
             foreach(Proizvod proizvod in proizvodi)
             {
@@ -61,7 +70,16 @@ namespace KupacWebApp.Controllers
                 }
                 else
                 {
-                    CvetniAranzman cvAr = jedinicaRada.CvetniAranzmanRepozitorijum.PretragaId(proizvod.ProizvodId);
+                    CvetniAranzman cvAr = new CvetniAranzman();
+                    try
+                    {
+                        cvAr = jedinicaRada.CvetniAranzmanRepozitorijum.PretragaId(proizvod.ProizvodId);
+                    }
+                    catch
+                    {
+                        return RedirectToAction("Greska", "Autentifikacija");
+                    }
+                    
                     if(cvAr.KupacId == Int32.Parse(HttpContext.User.Claims.ElementAt(0).Value))
                     {
                         proizvodiView.Add(proizvodView);
@@ -112,9 +130,17 @@ namespace KupacWebApp.Controllers
                 Stavke = stavke,
                 VrstaNarudzbine = model.VrstaNarudzbine
             };
-            jedinicaRada.KupacRepozitorijum.PretragaId(narudzbina.KupacId).BrojNarudzbina++;
-            jedinicaRada.NarudzbinaRepozitorijum.Dodaj(narudzbina);
-            jedinicaRada.Sacuvaj();
+            try
+            {
+                jedinicaRada.KupacRepozitorijum.PretragaId(narudzbina.KupacId).BrojNarudzbina++;
+                jedinicaRada.NarudzbinaRepozitorijum.Dodaj(narudzbina);
+                jedinicaRada.Sacuvaj();
+            }
+            catch
+            {
+                return RedirectToAction("Greska", "Autentifikacija");
+            }
+           
             return RedirectToAction("Index", "Narudzbina");
         }
         [Authorize(Roles = "Administrator")]
@@ -125,13 +151,30 @@ namespace KupacWebApp.Controllers
             {
                 return RedirectToAction("AdministratorProfil", "Pocetna");
             }
-            var postojiKupac = jedinicaRada.KupacRepozitorijum.Pretraga(k => k.UserName.ToLower().Trim() == model.Kupac.ToLower().Trim());
-            if(postojiKupac.Count  == 0)
+            List<Kupac> postojiKupac = new List<Kupac>();
+            try
+            {
+                postojiKupac = jedinicaRada.KupacRepozitorijum.Pretraga(k => k.UserName.ToLower().Trim() == model.Kupac.ToLower().Trim());
+
+            }
+            catch
+            {
+                return RedirectToAction("Greska", "Autentifikacija");
+            }
+            if (postojiKupac.Count  == 0)
             {
                 return View(null);
             }
-
-            var narudzbine = jedinicaRada.NarudzbinaRepozitorijum.PretragaKupac(n => n.Kupac.UserName.ToLower().Trim() == model.Kupac.ToLower().Trim());
+            List<Narudzbina> narudzbine = new List<Narudzbina>();
+            try
+            {
+                narudzbine = jedinicaRada.NarudzbinaRepozitorijum.PretragaKupac(n => n.Kupac.UserName.ToLower().Trim() == model.Kupac.ToLower().Trim());
+            }
+            catch
+            {
+                return RedirectToAction("Greska", "Autentifikacija");
+            }
+            
             List<NarudzbinaViewModel> narudzbineVM = new List<NarudzbinaViewModel>();
             foreach(Narudzbina narudzbina in narudzbine)
             {
@@ -146,8 +189,16 @@ namespace KupacWebApp.Controllers
                 };
                 foreach (Stavka s in narudzbina.Stavke)
                 {
-                    string stavka = jedinicaRada.ProizvodRepozitorijum.PretragaId(s.ProizvodId).Naziv;
-                    narudzbinaVM.Stavke.Add(stavka);
+                    try
+                    {
+                        string stavka = jedinicaRada.ProizvodRepozitorijum.PretragaId(s.ProizvodId).Naziv;
+                        narudzbinaVM.Stavke.Add(stavka);
+                    }
+                    catch
+                    {
+                        return RedirectToAction("Greska", "Autentifikacija");
+                    }
+                   
                 }
                 narudzbineVM.Add(narudzbinaVM);
             }
@@ -157,14 +208,32 @@ namespace KupacWebApp.Controllers
         [HttpPost]
         public string IzmeniStatus(int id, int StatusIsporuke)
         {
-            Narudzbina narudzbina = jedinicaRada.NarudzbinaRepozitorijum.PretragaId(id);
-            narudzbina.StatusIsporuke = (Domen.StatusIsporuke) StatusIsporuke;
-            jedinicaRada.Sacuvaj();
+            Narudzbina narudzbina = new Narudzbina();
+            try
+            {
+                narudzbina = jedinicaRada.NarudzbinaRepozitorijum.PretragaId(id);
+                narudzbina.StatusIsporuke = (Domen.StatusIsporuke)StatusIsporuke;
+                jedinicaRada.Sacuvaj();
+            }
+            catch
+            {
+                return "Desila se greška.";
+            }
+           
             return narudzbina.StatusIsporuke.ToString();
         }
         public IActionResult Index()
         {
-            List<Narudzbina> narudzbine = jedinicaRada.NarudzbinaRepozitorijum.Pretraga(n => n.KupacId == Int32.Parse(HttpContext.User.Claims.ElementAt(0).Value));
+            List<Narudzbina> narudzbine = new List<Narudzbina>();
+            try
+            {
+                narudzbine = jedinicaRada.NarudzbinaRepozitorijum.Pretraga(n => n.KupacId == Int32.Parse(HttpContext.User.Claims.ElementAt(0).Value));
+            }
+            catch
+            {
+                return RedirectToAction("Greska", "Autentifikacija");
+            }
+            
             List<NarudzbinaViewModel> narudzbineVM = new List<NarudzbinaViewModel>();
             foreach(Narudzbina narudzbina in narudzbine)
             {
@@ -177,8 +246,15 @@ namespace KupacWebApp.Controllers
                 };
                 foreach(Stavka s in narudzbina.Stavke)
                 {
-                    string stavka = jedinicaRada.ProizvodRepozitorijum.PretragaId(s.ProizvodId).Naziv + "   [Količina: " + s.Kolicina + "]";
-                    nvm.Stavke.Add(stavka);
+                    try
+                    {
+                        string stavka = jedinicaRada.ProizvodRepozitorijum.PretragaId(s.ProizvodId).Naziv + "   [Količina: " + s.Kolicina + "]";
+                        nvm.Stavke.Add(stavka);
+                    }
+                    catch
+                    {
+                        return RedirectToAction("Greska", "Autentifikacija");
+                    }
                 };
                 narudzbineVM.Add(nvm);
             }
@@ -193,8 +269,15 @@ namespace KupacWebApp.Controllers
         [HttpDelete]
         public void Izbrisi(int id)
         {
-            jedinicaRada.NarudzbinaRepozitorijum.BrisiId(id);
-            jedinicaRada.Sacuvaj();
+            try
+            {
+                jedinicaRada.NarudzbinaRepozitorijum.BrisiId(id);
+                jedinicaRada.Sacuvaj();
+            }
+            catch
+            {
+            }
+            
         }
     }
 }

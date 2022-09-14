@@ -34,21 +34,28 @@ namespace KupacWebApp.Controllers
             {
                 return RedirectToAction("AdministratorProfil", "Pocetna");
             }
-            PocetnaViewModel model = new PocetnaViewModel()
-            {
-                Motiv = System.IO.File.ReadAllText("../KupacWebApp/wwwroot/text/motiv.txt"),
-                Istorijat = System.IO.File.ReadAllText("../KupacWebApp/wwwroot/text/istorijat.txt"),
-                KupciRekli = System.IO.File.ReadAllText("../KupacWebApp/wwwroot/text/iskustva.txt"),
-                Kontakt = System.IO.File.ReadAllLines("../KupacWebApp/wwwroot/text/kontakt.txt")
-        };
-            
+            PocetnaViewModel model = new PocetnaViewModel();
+           
+                model.Motiv = System.IO.File.ReadAllText("../KupacWebApp/wwwroot/text/motiv.txt");
+                model.Istorijat = System.IO.File.ReadAllText("../KupacWebApp/wwwroot/text/istorijat.txt");
+                model.KupciRekli = System.IO.File.ReadAllText("../KupacWebApp/wwwroot/text/iskustva.txt");
+                model.Kontakt = System.IO.File.ReadAllLines("../KupacWebApp/wwwroot/text/kontakt.txt");
             return View(model);
         }
         [Authorize(Roles = "Kupac")]
         public IActionResult KupacProfil()
         {
-            var userId = manager.GetUserId(HttpContext.User);
-            Osoba currentUser = manager.FindByIdAsync(userId).Result;
+            Osoba currentUser = new Osoba();
+            try
+            {
+                var userId = manager.GetUserId(HttpContext.User);
+                currentUser = manager.FindByIdAsync(userId).Result;
+            }
+            catch
+            {
+                return RedirectToAction("Greska", "Autentifikacija");
+            }
+            
             IzmeniKupcaViewModel kupac = new IzmeniKupcaViewModel()
             {
                 Ime = currentUser.Ime,
@@ -62,21 +69,29 @@ namespace KupacWebApp.Controllers
         [Authorize(Roles = "Administrator")]
         public IActionResult AdministratorProfil()
         {
-            var userId = manager.GetUserId(HttpContext.User);
-            Administrator currentUser = (Administrator)  manager.FindByIdAsync(userId).Result;
-            
-            AdministratorViewModel administrator = new AdministratorViewModel()
+            Administrator currentUser = new Administrator();
+            try
             {
-                Ime = currentUser.Ime,
-                KorisnickoIme = currentUser.UserName,
-                Email = currentUser.Email,
-                Prezime = currentUser.Prezime,
-                DatumZaposlenja = currentUser.DatumZaposlenja,
-                SifraZaposlenog = currentUser.SifraZaposlenog
+                var userId = manager.GetUserId(HttpContext.User);
+                currentUser = (Administrator)manager.FindByIdAsync(userId).Result;
+            }
+            catch
+            {
+                return RedirectToAction("Greska", "Autentifikacija");
+            }
+               
+                AdministratorViewModel administrator = new AdministratorViewModel()
+                {
+                    Ime = currentUser.Ime,
+                    KorisnickoIme = currentUser.UserName,
+                    Email = currentUser.Email,
+                    Prezime = currentUser.Prezime,
+                    DatumZaposlenja = currentUser.DatumZaposlenja,
+                    SifraZaposlenog = currentUser.SifraZaposlenog
+                };
 
-            };
-
-            return View(administrator);
+                return View(administrator);
         }
+      
     }
 }
