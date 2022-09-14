@@ -35,8 +35,7 @@ namespace KupacWebApp
             services.AddIdentity<Osoba, IdentityRole<int>>().AddEntityFrameworkStores<CvecaraContext>();
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
             
-          //  services.AddScoped<IUserClaimsPrincipalFactory<Osoba>, MyUserClaimsPrincipalFactory>();
-
+         
             services.ConfigureApplicationCookie(options => {
                 options.LoginPath = "/Autentifikacija/Prijava";
                 options.AccessDeniedPath = "/Pocetna/Index";

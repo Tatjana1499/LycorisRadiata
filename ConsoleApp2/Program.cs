@@ -12,7 +12,7 @@ namespace ConsoleApp2
     {
         static void Main(string[] args)
         {
-            using CvecaraContext context = new CvecaraContext();
+           // using CvecaraContext context = new CvecaraContext();
 
             //Kupac k = new Kupac
             //{

@@ -87,10 +87,19 @@ namespace KupacWebApp.Controllers
             }
             if (!rezultat.Succeeded)
             {
-                ModelState.AddModelError(string.Empty, "Lozinka mora da sadrži makar jedno veliko i jedno malo slovo, broj i karakter koji nije alfanumerički.");
+                ModelState.AddModelError(string.Empty, "Lozinka mora da sadrži makar jedno veliko i jedno malo slovo, broj i karakter koji nije alfanumerički");
                 return View();
             }
-            await manager.AddToRoleAsync(kupac, "Kupac");
+            try
+            {
+                await manager.AddToRoleAsync(kupac, "Kupac");
+            }
+            catch
+            {
+                ModelState.AddModelError(string.Empty, "Greška u bazi");
+                return View();
+            }
+           
             return RedirectToAction("Prijava", "Autentifikacija");
         }
         public async Task<IActionResult> Odjava(PrijavaViewModel prijava)
@@ -122,7 +131,7 @@ namespace KupacWebApp.Controllers
 
             if ((model.StaraLozinka is null && model.NovaLozinka is not null) || (model.StaraLozinka is not null && model.NovaLozinka is null))
             {
-                ModelState.AddModelError(string.Empty, "Greska pri popunjavanju lozinki.");
+                ModelState.AddModelError(string.Empty, "Greska pri popunjavanju lozinki");
                 return Edit();
             }
             if (model.KorisnickoIme.Contains(" "))
