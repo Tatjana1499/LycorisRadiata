@@ -118,6 +118,7 @@ namespace KupacWebApp.Controllers
             }
             catch
             {
+                await manager.DeleteAsync(kupac);
                 ModelState.AddModelError(string.Empty, "Desila se greška.");
                 return View();
             }
