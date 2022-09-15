@@ -29,6 +29,7 @@ else
                     <div style="display:inline-flex">
                         <label id="lbl @item.NarudzbinaId">Status isporuke: </label>
                         <p id="p @item.NarudzbinaId">@item.StatusIsporuke</p>
+                        
                     </div>
                     <div>
                         <label>Vrsta narudzbine: @item.VrstaNarudzbine</label>
@@ -91,11 +92,15 @@ else
             method: "post",
             data: { id: $(this).val(), StatusIsporuke: yourSelect.options[yourSelect.selectedIndex].value },
             success: function (data) {
-                document.getElementById("p " + id).innerHTML = " " + data
-                if (data === "Zastarelo") {
+                if (data === "greska") {
+                    alert("Desila se greška");
+                }
+                else if (data === "Zastarelo") {
+                    document.getElementById("p " + id).innerHTML = " " + data;
                     document.getElementById("izb " + id).hidden = false;
                 }
                 else {
+                    document.getElementById("p " + id).innerHTML = " " + data
                     document.getElementById("izb " + id).hidden = true;
                 }
             },
@@ -111,7 +116,14 @@ else
             method: "delete",
             data: { id: $(this).val() },
             success: function (data) {
-                document.getElementById("narudzbina " + id).hidden = true;
+                if (data === "greska") {
+                    alert("Desila se greška.");
+                    document.getElementById("narudzbina " + id).hidden = false;
+                }
+                else {
+                    alert("Uspesno obrisana narudžbina.");
+                    document.getElementById("narudzbina " + id).hidden = true;
+                }
             }
         })
         })

@@ -60,6 +60,7 @@ namespace KupacWebApp.Controllers
         [Authorize(Roles ="Administrator")]
         public IActionResult Create(CvetViewModel model)
         {
+           
             if (!ModelState.IsValid)
             {
                 return Create();

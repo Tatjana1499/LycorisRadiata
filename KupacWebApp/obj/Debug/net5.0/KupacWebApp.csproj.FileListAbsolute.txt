@@ -172,10 +172,3 @@ C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\KupacWebApp\obj\Debug\net5
 C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\KupacWebApp\obj\Debug\net5.0\Razor\Views\Pocetna\AdministratorProfil.cshtml.g.cs
 C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\KupacWebApp\obj\Debug\net5.0\Razor\Views\Pakovanje\Create.cshtml.g.cs
 C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\KupacWebApp\obj\Debug\net5.0\Razor\Views\Autentifikacija\Greska.cshtml.g.cs
-C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\KupacWebApp\bin\Debug\net5.0\System.Web.Mvc.dll
-C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\KupacWebApp\bin\Debug\net5.0\System.Web.Razor.dll
-C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\KupacWebApp\bin\Debug\net5.0\System.Web.Helpers.dll
-C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\KupacWebApp\bin\Debug\net5.0\System.Web.WebPages.Deployment.dll
-C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\KupacWebApp\bin\Debug\net5.0\System.Web.WebPages.Razor.dll
-C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\KupacWebApp\bin\Debug\net5.0\System.Web.WebPages.dll
-C:\Users\Tatjana Bailovic\source\repos\LycorisRadiata\KupacWebApp\bin\Debug\net5.0\Microsoft.Web.Infrastructure.dll

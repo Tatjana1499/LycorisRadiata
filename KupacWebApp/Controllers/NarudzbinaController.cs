@@ -217,7 +217,7 @@ namespace KupacWebApp.Controllers
             }
             catch
             {
-                return "Desila se greška.";
+                return "greska";
             }
            
             return narudzbina.StatusIsporuke.ToString();
@@ -267,15 +267,17 @@ namespace KupacWebApp.Controllers
         }
         [Authorize(Roles = "Administrator")]
         [HttpDelete]
-        public void Izbrisi(int id)
+        public string Izbrisi(int id)
         {
             try
             {
                 jedinicaRada.NarudzbinaRepozitorijum.BrisiId(id);
                 jedinicaRada.Sacuvaj();
+                return "uspesno";
             }
             catch
             {
+                return "greska";
             }
             
         }
