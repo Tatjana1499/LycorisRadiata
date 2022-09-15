@@ -173,14 +173,14 @@ namespace KupacWebApp.Controllers
                 ModelState.AddModelError(string.Empty, "Greska pri popunjavanju lozinki");
                 return Edit();
             }
+            if (!ModelState.IsValid)
+            {
+                return Edit();
+            }
             if (model.KorisnickoIme.Contains(" "))
             {
                 ModelState.AddModelError(string.Empty, "Korisničko ime ne može da sadrži razmak");
                 return View();
-            }
-            if (!ModelState.IsValid)
-            {
-                return Edit();
             }
             Osoba currentUser = new Osoba();
             try
