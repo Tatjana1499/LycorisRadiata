@@ -34,8 +34,7 @@ namespace KupacWebApp.Controllers
             }
             catch
             {
-                ModelState.AddModelError(string.Empty, "Došlo je do greške.");
-                return RedirectToAction("Create", "CvetniAranzman");
+                return RedirectToAction("Greska", "Autentifikacija");
             }
             
             CvetViewModel cvetView = new CvetViewModel()
